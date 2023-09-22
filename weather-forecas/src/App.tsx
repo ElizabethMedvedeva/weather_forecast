@@ -1,10 +1,10 @@
-import './App.css';
-import { Daily } from './components/dayliTemp';
+import "./App.css";
+import { ForecastData } from "./components/dayliTemp";
 
 function App() {
   return (
     <div className="App">
-      <Daily/>
+      <ForecastData />
     </div>
   );
 }

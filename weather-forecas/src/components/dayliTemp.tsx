@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+// interface;
 
 const ToWeatherModel = (APIobj: any) => {
-  console.log(APIobj, "from func");
   const weatherModel: any = [];
   const daily = APIobj.daily;
+
   for (let i = 0; i < daily.time.length; i++) {
     const day = {
-      date: daily.time[i],
+      date: new Date(daily.time[i]),
       temperatureMax: daily.temperature_2m_max[i],
       temperatureMin: daily.temperature_2m_min[i],
       uvIndexMax: daily.uv_index_max[i],
@@ -14,14 +15,24 @@ const ToWeatherModel = (APIobj: any) => {
     };
     weatherModel.push(day);
   }
+  // console.log(weatherModel[0].getDay(), "tEST 1");
   return weatherModel;
-  
 };
-export const Daily = () => {
-  const [weather, setWeather] = useState<any[]>([]);
+
+export const ForecastData = () => {
+  const [weather, setWeather] = useState<any[any]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const weekDay = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   useEffect(() => {
     setIsLoading(true);
@@ -37,10 +48,6 @@ export const Daily = () => {
         setIsLoading(false);
       });
   }, []);
-
-  console.log(weather, "weather");
-
-
 
   return (
     <div style={{ display: "flex" }}>
@@ -67,8 +74,8 @@ export const Daily = () => {
                 margin: "10px",
               }}
             >
-              <p>date: {item.day}</p>
-              <p>date: {item.date}</p>
+              <p>weekDay: {weekDay[item.date.getDay()]}</p>
+              <p>date: {item.date.getDate()}</p>
               <p>Max temperature: {item.temperatureMax}</p>
               <p>Min temperature: {item.temperatureMin}</p>
               <p>UV Index Max: {item.uvIndexMax}</p>

@@ -1,5 +1,3 @@
 export const Day = () => {
-    return(
-        <div></div>
-    )
-} 
+  return <div></div>;
+};
