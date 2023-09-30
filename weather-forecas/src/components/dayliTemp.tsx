@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
-// interface;
+
+
+interface weatherDay {
+  date: Date;
+  temperatureMax: number;
+  temperatureMin: number;
+  uvIndexMax: number;
+  weathercode: number;
+}
+
+type daysForecast = Array<weatherDay>;
 
 const ToWeatherModel = (APIobj: any) => {
-  const weatherModel: any = [];
+  const weatherModel: daysForecast = [];
   const daily = APIobj.daily;
 
   for (let i = 0; i < daily.time.length; i++) {
-    const day = {
+    const day: weatherDay = {
       date: new Date(daily.time[i]),
       temperatureMax: daily.temperature_2m_max[i],
       temperatureMin: daily.temperature_2m_min[i],
@@ -37,7 +47,7 @@ export const ForecastData = () => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max"
+      "https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow"
     )
       .then((response) => response.json())
       .then((json) => setWeather(ToWeatherModel(json)))
