@@ -65,8 +65,6 @@ const fillHightlightsData = (serverResponse: any) => {
   object.pressure = serverResponse.hourly.surface_pressure[0];
   object.temperature = serverResponse.hourly.temperature_2m[0];
   object.windSpeed = serverResponse.hourly.windspeed_10m[0];
-  console.log(object);
-  console.log(serverResponse);
 
   return object;
 };

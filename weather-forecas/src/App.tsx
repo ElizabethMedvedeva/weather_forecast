@@ -1,5 +1,6 @@
 import "./App.css";
 import { ForecastData } from "./components/dailyTemp";
+import { HourlyForecast } from "./components/hourlyForecast";
 import { TodaysHightlights } from "./components/todaysHighlights";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <ForecastData />
       <TodaysHightlights/>
+      <HourlyForecast/>
     </div>
   );
 }
