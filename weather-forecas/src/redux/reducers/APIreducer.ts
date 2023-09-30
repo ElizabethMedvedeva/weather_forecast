@@ -27,12 +27,58 @@ const ToWeatherModel = (APIobj: any) => {
   return weatherModel;
 };
 
+export interface ITodayHighlight {
+  sunrise?: Date;
+  sunset?: Date;
+  sunsetTime?: string;
+  sunriseTime?: string;
+  uvIndex?: number;
+  humidity?: number;
+  pressure?: number;
+  windSpeed?: number;
+  temperature?: number;
+}
+const fillHightlightsData = (serverResponse: any) => {
+  const formatHours = (hours: number) => {
+    if (hours > 9) {
+      return `${hours}`;
+    }
+    return `0${hours}`;
+  };
+  const formatMinutes = (minutes: number) => {
+    if (minutes > 9) {
+      return `${minutes}`;
+    }
+    return `0${minutes}`;
+  };
+  const object: ITodayHighlight = {};
+  object.sunrise = new Date(serverResponse.daily.sunrise[0]);
+  object.sunset = new Date(serverResponse.daily.sunset[0]);
+  object.uvIndex = serverResponse.daily.uv_index_max[0];
+  object.sunriseTime = `${formatHours(
+    object.sunrise.getHours()
+  )}:${formatMinutes(object.sunrise.getMinutes())}`;
+  object.sunsetTime = `${formatHours(object.sunset.getHours())}:${formatMinutes(
+    object.sunset.getMinutes()
+  )}`;
+  object.humidity = serverResponse.hourly.relativehumidity_2m[0];
+  object.pressure = serverResponse.hourly.surface_pressure[0];
+  object.temperature = serverResponse.hourly.temperature_2m[0];
+  object.windSpeed = serverResponse.hourly.windspeed_10m[0];
+  console.log(object);
+  console.log(serverResponse);
+
+  return object;
+};
+
 type APIInitialState = {
   dailyForecast: daysForecast;
+  todaysHightLights: ITodayHighlight;
 };
 
 const initialState: APIInitialState = {
   dailyForecast: [],
+  todaysHightLights: {},
 };
 
 export const APISlice = createSlice({
@@ -42,9 +88,12 @@ export const APISlice = createSlice({
     setDailyForecast: (state, action: PayloadAction<any>) => {
       state.dailyForecast = ToWeatherModel(action.payload);
     },
+    setTodaysHightLights: (state, action: PayloadAction<any>) => {
+      state.todaysHightLights = fillHightlightsData(action.payload);
+    },
   },
 });
 
-export const { setDailyForecast } = APISlice.actions;
+export const { setDailyForecast, setTodaysHightLights } = APISlice.actions;
 
 export const daysForecastReducer = APISlice.reducer;
