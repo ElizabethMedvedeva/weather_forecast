@@ -1,5 +1,5 @@
 import "./App.css";
-import { ForecastData } from "./components/dayliTemp";
+import { ForecastData } from "./components/dailyTemp";
 
 function App() {
   return (
