@@ -1,38 +1,17 @@
 import { useEffect, useState } from "react";
-
-
-interface weatherDay {
-  date: Date;
-  temperatureMax: number;
-  temperatureMin: number;
-  uvIndexMax: number;
-  weathercode: number;
-}
-
-type daysForecast = Array<weatherDay>;
-
-const ToWeatherModel = (APIobj: any) => {
-  const weatherModel: daysForecast = [];
-  const daily = APIobj.daily;
-
-  for (let i = 0; i < daily.time.length; i++) {
-    const day: weatherDay = {
-      date: new Date(daily.time[i]),
-      temperatureMax: daily.temperature_2m_max[i],
-      temperatureMin: daily.temperature_2m_min[i],
-      uvIndexMax: daily.uv_index_max[i],
-      weathercode: daily.weathercode[i],
-    };
-    weatherModel.push(day);
-  }
-  // console.log(weatherModel[0].getDay(), "tEST 1");
-  return weatherModel;
-};
+import { useDispatch, useSelector } from "react-redux";
+import { daysForecast, setDailyForecast } from "../redux/reducers/APIreducer";
+import { StoreType } from "../redux/store";
 
 export const ForecastData = () => {
-  const [weather, setWeather] = useState<any[any]>([]);
+  const weather: daysForecast = useSelector(
+    (state: StoreType) => state.daysForecastReducer.dailyForecast
+  );
+
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const weekDay = [
     "Sunday",
@@ -50,7 +29,7 @@ export const ForecastData = () => {
       "https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow"
     )
       .then((response) => response.json())
-      .then((json) => setWeather(ToWeatherModel(json)))
+      .then((json) => dispatch(setDailyForecast(json)))
       .catch((error) => {
         setError(error.message);
       })

@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { APISlice } from "../reducers/APIreducer"
+import { daysForecastReducer } from "../reducers/APIreducer";
 
-export const store = configureStore({
-    reducer: APISlice.reducer
+export const reduxStore = configureStore({
+    reducer: {daysForecastReducer, }
 })
+
+export type StoreType = ReturnType<typeof reduxStore.getState>;
