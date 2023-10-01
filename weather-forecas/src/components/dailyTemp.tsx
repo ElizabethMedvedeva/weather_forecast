@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { daysForecast, setDailyForecast } from "../redux/reducers/APIreducer";
+import { daysForecast, fetchForecastData, setDailyForecast } from "../redux/reducers/APIreducer";
 import { StoreType } from "../redux/store";
 
 export const ForecastData = () => {
@@ -23,20 +23,24 @@ export const ForecastData = () => {
     "Saturday",
   ];
 
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   fetch(
+  //     "https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow"
+  //   )
+  //     .then((response) => response.json())
+  //     .then((json) => dispatch(setDailyForecast(json)))
+  //     .catch((error) => {
+  //       setError(error.message);
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    setIsLoading(true);
-    fetch(
-      "https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow"
-    )
-      .then((response) => response.json())
-      .then((json) => dispatch(setDailyForecast(json)))
-      .catch((error) => {
-        setError(error.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    dispatch(fetchForecastData(setDailyForecast(json)))
+  }, [])
 
   return (
     <div style={{ display: "flex" }}>

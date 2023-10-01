@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface weatherDay {
   date: Date;
@@ -72,12 +72,28 @@ const fillHightlightsData = (serverResponse: any) => {
 type APIInitialState = {
   dailyForecast: daysForecast;
   todaysHightLights: ITodayHighlight;
+  loading: boolean,
+  error: string | null | unknown,
 };
 
 const initialState: APIInitialState = {
   dailyForecast: [],
   todaysHightLights: {},
+  loading: false,
+  error: null,
 };
+
+export const fetchForecastData = createAsyncThunk(
+"forecastData", async(_, {dispatch}) => {
+  try{
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow")
+    .then((response) => response.json())
+    .then((response) => dispatch(setDailyForecast(response)));
+  } catch (error) {
+    console.log(error);
+  }
+}
+)
 
 export const APISlice = createSlice({
   name: "apis",
@@ -90,6 +106,18 @@ export const APISlice = createSlice({
       state.todaysHightLights = fillHightlightsData(action.payload);
     },
   },
+  extraReducers: (builder) => 
+  builder
+  .addCase(fetchForecastData.pending, (state) = {
+    state.loading = true;
+    state.error = null;
+  })
+  .addCase(fetchForecastData.fulfilled, (state, action) = {
+    state.loading = false;
+  })
+  .addCase(fetchForecastData.rejected, (state, action) = {}),
+  state.loading = false;
+  state.error = action.payload;
 });
 
 export const { setDailyForecast, setTodaysHightLights } = APISlice.actions;

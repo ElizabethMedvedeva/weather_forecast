@@ -47,6 +47,8 @@ const FillHourlyForecast = (serverResponse: any) => {
 
 export const HourlyForecast = () => {
   const [hourlyForecast, setHourlyForecast] = useState<HourlyForecastArray>([]);
+  const [filtredHourlyForecast, setFiltredHourlyForecast] =
+    useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,17 +68,23 @@ export const HourlyForecast = () => {
   }, []);
 
   const updateFiveRelevant = () => {
+    console.log("gerre", hourlyForecast);
     const currentTime = new Date();
     for (let i = 0; i < hourlyForecast.length; i++) {
       if (currentTime <= hourlyForecast[i].date) {
-        setHourlyForecast(hourlyForecast.slice(i));
+        i -= 1;
+        if (hourlyForecast.length - i < 5) {
+          i = hourlyForecast.length - 5;
+        }
+        setHourlyForecast(hourlyForecast.slice(i, i + 5));
         break;
       }
     }
   };
-  
-  updateFiveRelevant();
-
+  if (!filtredHourlyForecast && hourlyForecast.length > 0) {
+    updateFiveRelevant();
+    setFiltredHourlyForecast(true);
+  }
 
   return (
     <div>
@@ -85,10 +93,10 @@ export const HourlyForecast = () => {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        hourlyForecast.map((item) => (
-          <div>
+        hourlyForecast.map((item, index) => (
+          <div key={index}>
             <h1>Hourly forecast</h1>
-            <div key={item.weathercode}>
+            <div>
               <p>time: {item.time}</p>
               <p>weathercode: {item.weathercode}</p>
               <p>temperature: {item.temperature}</p>
