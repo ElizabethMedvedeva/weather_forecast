@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface weatherDay {
   date: Date;
@@ -38,19 +38,20 @@ export interface ITodayHighlight {
   windSpeed?: number;
   temperature?: number;
 }
+
+const formatHours = (hours: number) => {
+  if (hours > 9) {
+    return `${hours}`;
+  }
+  return `0${hours}`;
+};
+const formatMinutes = (minutes: number) => {
+  if (minutes > 9) {
+    return `${minutes}`;
+  }
+  return `0${minutes}`;
+};
 const fillHightlightsData = (serverResponse: any) => {
-  const formatHours = (hours: number) => {
-    if (hours > 9) {
-      return `${hours}`;
-    }
-    return `0${hours}`;
-  };
-  const formatMinutes = (minutes: number) => {
-    if (minutes > 9) {
-      return `${minutes}`;
-    }
-    return `0${minutes}`;
-  };
   const object: ITodayHighlight = {};
   object.sunrise = new Date(serverResponse.daily.sunrise[0]);
   object.sunset = new Date(serverResponse.daily.sunset[0]);
@@ -80,18 +81,6 @@ export interface HourInterface {
 export type HourlyForecastArray = Array<HourInterface>;
 
 const FillHourlyForecast = (serverResponse: any) => {
-  const formatHours = (hours: number) => {
-    if (hours > 9) {
-      return `${hours}`;
-    }
-    return `0${hours}`;
-  };
-  const formatMinutes = (minutes: number) => {
-    if (minutes > 9) {
-      return `${minutes}`;
-    }
-    return `0${minutes}`;
-  };
   const hourlyForecast: HourlyForecastArray = [];
   const hourly = serverResponse.hourly;
   for (let i = 0; i < hourly.time.length; i++) {
@@ -117,30 +106,34 @@ type APIInitialState = {
   dailyForecast: daysForecast;
   todaysHightLights: ITodayHighlight;
   hourlyForecast: HourlyForecastArray;
-
-  // loading: boolean,
-  // error: string | null | unknown,
+  loading: boolean;
+  error: string | null | unknown;
 };
 
 const initialState: APIInitialState = {
   dailyForecast: [],
   todaysHightLights: {},
   hourlyForecast: [],
-  // loading: false,
-  // error: null,
+  loading: false,
+  error: null,
 };
 
-// export const fetchForecastData = createAsyncThunk(
-// "forecastData", async(_, {dispatch}) => {
-//   try{
-//     fetch("https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow")
-//     .then((response) => response.json())
-//     .then((response) => dispatch(setDailyForecast(response)));
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-// )
+export const fetchDailyForecast = createAsyncThunk(
+  "forecastData",
+  async (_, { dispatch }) => {
+    console.log("go to try");
+    try {
+      fetch(
+        "https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow"
+      )
+        .then((response) => response.json())
+        .then((response) => dispatch(setDailyForecast(response)));
+      console.log("finish try");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const APISlice = createSlice({
   name: "apis",
@@ -149,6 +142,7 @@ export const APISlice = createSlice({
     setDailyForecast: (state, action: PayloadAction<any>) => {
       state.dailyForecast = ToWeatherModel(action.payload);
     },
+
     setTodaysHightLights: (state, action: PayloadAction<any>) => {
       state.todaysHightLights = fillHightlightsData(action.payload);
     },
@@ -156,18 +150,19 @@ export const APISlice = createSlice({
       state.hourlyForecast = FillHourlyForecast(action.payload);
     },
   },
-  // extraReducers: (builder) =>
-  // builder
-  // .addCase(fetchForecastData.pending, (state) = {
-  //   state.loading = true;
-  //   state.error = null;
-  // })
-  // .addCase(fetchForecastData.fulfilled, (state, action) = {
-  //   state.loading = false;
-  // })
-  // .addCase(fetchForecastData.rejected, (state, action) = {}),
-  // state.loading = false;
-  // state.error = action.payload;
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchDailyForecast.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchDailyForecast.fulfilled, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(fetchDailyForecast.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      }),
 });
 
 export const { setDailyForecast, setTodaysHightLights, setHourlyForecast } =

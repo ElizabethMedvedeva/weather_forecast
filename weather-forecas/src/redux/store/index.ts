@@ -6,3 +6,5 @@ export const reduxStore = configureStore({
 })
 
 export type StoreType = ReturnType<typeof reduxStore.getState>;
+
+export type AppDispatch = typeof reduxStore.dispatch;

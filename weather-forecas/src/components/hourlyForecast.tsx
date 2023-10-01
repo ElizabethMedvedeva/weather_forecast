@@ -7,8 +7,6 @@ export const HourlyForecast = () => {
   const hourlyForecast = useSelector(
     (state: StoreType) => state.daysForecastReducer.hourlyForecast
   );
-
-  // const [hourlyForecast, setHourlyForecast] = useState<HourlyForecastArray>([]);
   const [filtredHourlyForecast, setFiltredHourlyForecast] =
     useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
