@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface weatherDay {
   date: Date;
@@ -68,32 +68,79 @@ const fillHightlightsData = (serverResponse: any) => {
 
   return object;
 };
+export interface HourInterface {
+  temperature: number;
+  windDirection: number;
+  windGusts: number;
+  weathercode: number;
+  time: string;
+  date: Date;
+}
+
+export type HourlyForecastArray = Array<HourInterface>;
+
+const FillHourlyForecast = (serverResponse: any) => {
+  const formatHours = (hours: number) => {
+    if (hours > 9) {
+      return `${hours}`;
+    }
+    return `0${hours}`;
+  };
+  const formatMinutes = (minutes: number) => {
+    if (minutes > 9) {
+      return `${minutes}`;
+    }
+    return `0${minutes}`;
+  };
+  const hourlyForecast: HourlyForecastArray = [];
+  const hourly = serverResponse.hourly;
+  for (let i = 0; i < hourly.time.length; i++) {
+    const date = new Date(serverResponse.hourly.time[i]);
+    const hourForecast: HourInterface = {
+      date: date,
+      time: `${formatHours(date.getHours())}:${formatMinutes(
+        date.getMinutes()
+      )}`,
+      windDirection: serverResponse.hourly.winddirection_10m[0],
+      windGusts: serverResponse.hourly.windgusts_10m[0],
+      temperature: serverResponse.hourly.temperature_2m[0],
+      weathercode: serverResponse.daily.weathercode[0],
+    };
+    if (hourForecast.date.getHours() % 3 === 0) {
+      hourlyForecast.push(hourForecast);
+    }
+  }
+  return hourlyForecast;
+};
 
 type APIInitialState = {
   dailyForecast: daysForecast;
   todaysHightLights: ITodayHighlight;
-  loading: boolean,
-  error: string | null | unknown,
+  hourlyForecast: HourlyForecastArray;
+
+  // loading: boolean,
+  // error: string | null | unknown,
 };
 
 const initialState: APIInitialState = {
   dailyForecast: [],
   todaysHightLights: {},
-  loading: false,
-  error: null,
+  hourlyForecast: [],
+  // loading: false,
+  // error: null,
 };
 
-export const fetchForecastData = createAsyncThunk(
-"forecastData", async(_, {dispatch}) => {
-  try{
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow")
-    .then((response) => response.json())
-    .then((response) => dispatch(setDailyForecast(response)));
-  } catch (error) {
-    console.log(error);
-  }
-}
-)
+// export const fetchForecastData = createAsyncThunk(
+// "forecastData", async(_, {dispatch}) => {
+//   try{
+//     fetch("https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow")
+//     .then((response) => response.json())
+//     .then((response) => dispatch(setDailyForecast(response)));
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+// )
 
 export const APISlice = createSlice({
   name: "apis",
@@ -105,21 +152,25 @@ export const APISlice = createSlice({
     setTodaysHightLights: (state, action: PayloadAction<any>) => {
       state.todaysHightLights = fillHightlightsData(action.payload);
     },
+    setHourlyForecast: (state, action: PayloadAction<any>) => {
+      state.hourlyForecast = FillHourlyForecast(action.payload);
+    },
   },
-  extraReducers: (builder) => 
-  builder
-  .addCase(fetchForecastData.pending, (state) = {
-    state.loading = true;
-    state.error = null;
-  })
-  .addCase(fetchForecastData.fulfilled, (state, action) = {
-    state.loading = false;
-  })
-  .addCase(fetchForecastData.rejected, (state, action) = {}),
-  state.loading = false;
-  state.error = action.payload;
+  // extraReducers: (builder) =>
+  // builder
+  // .addCase(fetchForecastData.pending, (state) = {
+  //   state.loading = true;
+  //   state.error = null;
+  // })
+  // .addCase(fetchForecastData.fulfilled, (state, action) = {
+  //   state.loading = false;
+  // })
+  // .addCase(fetchForecastData.rejected, (state, action) = {}),
+  // state.loading = false;
+  // state.error = action.payload;
 });
 
-export const { setDailyForecast, setTodaysHightLights } = APISlice.actions;
+export const { setDailyForecast, setTodaysHightLights, setHourlyForecast } =
+  APISlice.actions;
 
 export const daysForecastReducer = APISlice.reducer;
