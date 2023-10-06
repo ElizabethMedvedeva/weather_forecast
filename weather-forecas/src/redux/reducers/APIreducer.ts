@@ -1,4 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 interface weatherDay {
   date: Date;
@@ -80,7 +81,7 @@ export interface HourInterface {
 
 export type HourlyForecastArray = Array<HourInterface>;
 
-const FillHourlyForecast = (serverResponse: any) => {
+export const FillHourlyForecast = (serverResponse: any) => {
   const hourlyForecast: HourlyForecastArray = [];
   const hourly = serverResponse.hourly;
   for (let i = 0; i < hourly.time.length; i++) {
@@ -102,12 +103,29 @@ const FillHourlyForecast = (serverResponse: any) => {
   return hourlyForecast;
 };
 
+export interface CityInterface {
+  name: string;
+  latitude: number;
+  longitude: number;
+}
+export const fillSelectedCity = (serverResponse: any) => {
+  const firstCity = serverResponse.results[0];
+  const selectedCity: CityInterface = {
+    name: firstCity.name,
+    latitude: firstCity.latitude,
+    longitude: firstCity.longitude,
+  };
+  return selectedCity;
+};
+
 type APIInitialState = {
   dailyForecast: daysForecast;
   todaysHightLights: ITodayHighlight;
   hourlyForecast: HourlyForecastArray;
   loading: boolean;
   error: string | null | unknown;
+  search: string;
+  selectedCity: CityInterface;
 };
 
 const initialState: APIInitialState = {
@@ -116,19 +134,26 @@ const initialState: APIInitialState = {
   hourlyForecast: [],
   loading: false,
   error: null,
+  search: "",
+  selectedCity: {
+    name: "Vilnius",
+    longitude: 25.2798,
+    latitude: 54.6892,
+  },
 };
-
+interface Coordinate {
+  latitude: number;
+  longitude: number;
+}
 export const fetchDailyForecast = createAsyncThunk(
   "forecastData",
-  async (_, { dispatch }) => {
-    console.log("go to try");
+  async (cordinate: Coordinate, { dispatch }) => {
     try {
       fetch(
-        "https://api.open-meteo.com/v1/forecast?latitude=54.6892&longitude=25.2798&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow"
+        `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow`
       )
         .then((response) => response.json())
         .then((response) => dispatch(setDailyForecast(response)));
-      console.log("finish try");
     } catch (error) {
       console.log(error);
     }
@@ -146,10 +171,18 @@ export const APISlice = createSlice({
     setTodaysHightLights: (state, action: PayloadAction<any>) => {
       state.todaysHightLights = fillHightlightsData(action.payload);
     },
+
     setHourlyForecast: (state, action: PayloadAction<any>) => {
-      state.hourlyForecast = FillHourlyForecast(action.payload);
+      state.hourlyForecast = action.payload;
+    },
+    setSearchLocation: (state, action: PayloadAction<any>) => {
+      state.search = action.payload;
+    },
+    setSelectedCity: (state, action) => {
+      state.selectedCity = action.payload;
     },
   },
+
   extraReducers: (builder) =>
     builder
       .addCase(fetchDailyForecast.pending, (state) => {
@@ -165,7 +198,12 @@ export const APISlice = createSlice({
       }),
 });
 
-export const { setDailyForecast, setTodaysHightLights, setHourlyForecast } =
-  APISlice.actions;
+export const {
+  setDailyForecast,
+  setTodaysHightLights,
+  setHourlyForecast,
+  setSearchLocation,
+  setSelectedCity,
+} = APISlice.actions;
 
 export const daysForecastReducer = APISlice.reducer;

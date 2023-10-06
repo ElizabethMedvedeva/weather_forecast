@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { daysForecast, fetchDailyForecast  } from "../redux/reducers/APIreducer";
+import {
+  CityInterface,
+  daysForecast,
+  fetchDailyForecast,
+} from "../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../redux/store";
 
 export const ForecastData = () => {
   const weather: daysForecast = useSelector(
     (state: StoreType) => state.daysForecastReducer.dailyForecast
   );
+
+  const selectedCity: CityInterface = useSelector(
+    (state: StoreType) => state.daysForecastReducer.selectedCity
+  );
+
+  console.log("selected", selectedCity);
 
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,12 +33,14 @@ export const ForecastData = () => {
     "Saturday",
   ];
 
-
   useEffect(() => {
-    console.log("trunk start")
-    dispatch(fetchDailyForecast())
-    console.log("trunk finish")
-  }, []);
+    dispatch(
+      fetchDailyForecast({
+        latitude: selectedCity.latitude,
+        longitude: selectedCity.longitude,
+      })
+    );
+  }, [selectedCity]);
 
   return (
     <div style={{ display: "flex" }}>
