@@ -122,7 +122,7 @@ type APIInitialState = {
   todaysHightLights: ITodayHighlight;
   hourlyForecast: HourlyForecastArray;
   loading: boolean;
-  error: string | null | unknown;
+  error: any; // vernemsya
   search: string;
   selectedCity: CityInterface;
 };
@@ -146,18 +146,13 @@ interface Coordinate {
 }
 export const fetchDailyForecast = createAsyncThunk(
   "forecastData",
-  async (cordinate: Coordinate, { dispatch }) => {
-    try {
-      fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow`
-      )
-        .then((response) => response.json())
-        .then((response) =>
-          dispatch(setDailyForecast(ToWeatherModel(response)))
-        );
-    } catch (error) {
-      console.log(error);
-    }
+  async (cordinate: Coordinate, { dispatch, rejectWithValue }) => {
+    return fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow`
+    )
+      .then((response) => response.json())
+      .then((response) => response)
+      .catch((error) => rejectWithValue(error.message));
   }
 );
 
@@ -191,6 +186,8 @@ export const APISlice = createSlice({
         state.error = null;
       })
       .addCase(fetchDailyForecast.fulfilled, (state, action) => {
+        state.dailyForecast = ToWeatherModel(action.payload);
+
         state.loading = false;
       })
       .addCase(fetchDailyForecast.rejected, (state, action) => {

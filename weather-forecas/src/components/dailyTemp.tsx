@@ -16,10 +16,12 @@ export const ForecastData = () => {
     (state: StoreType) => state.daysForecastReducer.selectedCity
   );
 
-  console.log("selected", selectedCity);
+  const { loading, error } = useSelector(
+    (state: StoreType) => state.daysForecastReducer
+  );
 
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  console.log(loading, "LOAD");
+  console.log("selected", selectedCity);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -44,7 +46,7 @@ export const ForecastData = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      {isLoading ? (
+      {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>Error: {error}</p>
