@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CityInterface,
   fillSelectedCity,
   setSearchLocation,
   setSelectedCity,
 } from "../redux/reducers/APIreducer";
+import { useDebounce } from "usehooks-ts";
+import { StoreType } from "../redux/store";
 
 export const SearchLocation = () => {
-  const searchState: any = useSelector(
-    (state: any) => state.daysForecastReducer.search
+  const searchState: string = useSelector(
+    (state: StoreType) => state.daysForecastReducer.search
   );
-
+  const searchStateDebaunse = useDebounce<string>(searchState, 700);
+  const selectedCity: CityInterface = useSelector(
+    (state: StoreType) => state.daysForecastReducer.selectedCity
+  );
   const dispatch = useDispatch();
 
   const handleInputChange = (event: any) => {
@@ -18,9 +24,9 @@ export const SearchLocation = () => {
   };
 
   useEffect(() => {
-    if (searchState) {
+    if (searchStateDebaunse) {
       fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${searchState}`
+        `https://geocoding-api.open-meteo.com/v1/search?name=${searchStateDebaunse}`
       )
         .then((response) => response.json())
         .then((json) => dispatch(setSelectedCity(fillSelectedCity(json))))
@@ -29,11 +35,11 @@ export const SearchLocation = () => {
           console.log(error.message);
         });
     }
-  }, [searchState]);
+  }, [searchStateDebaunse]);
 
   return (
     <div>
-      <p>search:{searchState}</p>
+      <p>{selectedCity.name}</p>
       <input type="text" onChange={handleInputChange} />
     </div>
   );
