@@ -81,6 +81,7 @@ export interface HourInterface {
 export type HourlyForecastArray = Array<HourInterface>;
 
 export const FillHourlyForecast = (serverResponse: any) => {
+  console.log(serverResponse, "server response");
   const hourlyForecast: HourlyForecastArray = [];
   const hourly = serverResponse.hourly;
   for (let i = 0; i < hourly.time.length; i++) {
@@ -90,13 +91,30 @@ export const FillHourlyForecast = (serverResponse: any) => {
       time: `${formatHours(date.getHours())}:${formatMinutes(
         date.getMinutes()
       )}`,
-      windDirection: serverResponse.hourly.winddirection_10m[0],
-      windGusts: serverResponse.hourly.windgusts_10m[0],
-      temperature: serverResponse.hourly.temperature_2m[0],
-      weathercode: serverResponse.daily.weathercode[0],
+      windDirection: serverResponse.hourly.winddirection_10m[i],
+      windGusts: serverResponse.hourly.windgusts_10m[i],
+      temperature: serverResponse.hourly.temperature_2m[i],
+      weathercode: serverResponse.hourly.weathercode[i],
     };
     if (hourForecast.date.getHours() % 3 === 0) {
+      console.log(hourForecast, "1 hour");
       hourlyForecast.push(hourForecast);
+    }
+  }
+  console.log(hourlyForecast, "data from hourly forecast");
+  return hourlyForecast;
+};
+const getFiveRelevant = (unsortedHourlyForecast: HourlyForecastArray) => {
+  const hourlyForecast = unsortedHourlyForecast.slice();
+  const currentTime = new Date();
+
+  for (let i = 0; i < hourlyForecast.length; i++) {
+    if (currentTime <= hourlyForecast[i].date) {
+      i -= 1;
+      if (hourlyForecast.length - i < 5) {
+        i = hourlyForecast.length - 5;
+      }
+      return hourlyForecast.slice(i, i + 5);
     }
   }
   return hourlyForecast;
@@ -121,8 +139,9 @@ type APIInitialState = {
   dailyForecast: daysForecastType;
   todaysHightLights: ITodayHighlight;
   hourlyForecast: HourlyForecastArray;
+  fiveRelevantHours: HourlyForecastArray;
   loading: boolean;
-  error: any; // vernemsya
+  error: any; // TODO vernemsya
   search: string;
   selectedCity: CityInterface;
 };
@@ -131,6 +150,7 @@ const initialState: APIInitialState = {
   dailyForecast: [],
   todaysHightLights: {},
   hourlyForecast: [],
+  fiveRelevantHours: [],
   loading: false,
   error: null,
   search: "",
@@ -159,9 +179,8 @@ export const fetchDailyForecast = createAsyncThunk(
 export const fetchHourlyForecast = createAsyncThunk(
   "hourlyForecastData",
   async (cordinate: Coordinate, { rejectWithValue }) => {
-    console.log(cordinate.latitude, "coordinate");
     return fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&hourly=temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=Europe%2FMoscow&forecast_days=1`
+      `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=Europe%2FMoscow&forecast_days=1`
     )
       .then((response) => response.json())
       .then((response) => response)
@@ -180,7 +199,12 @@ export const APISlice = createSlice({
     setTodaysHightLights: (state, action: PayloadAction<ITodayHighlight>) => {
       state.todaysHightLights = action.payload;
     },
-
+    setFiveRelevantHours: (
+      state,
+      action: PayloadAction<HourlyForecastArray>
+    ) => {
+      state.fiveRelevantHours = action.payload;
+    },
     setHourlyForecast: (state, action: PayloadAction<HourlyForecastArray>) => {
       state.hourlyForecast = action.payload;
     },
@@ -216,6 +240,7 @@ export const APISlice = createSlice({
       })
       .addCase(fetchHourlyForecast.fulfilled, (state, action) => {
         state.hourlyForecast = FillHourlyForecast(action.payload);
+        state.fiveRelevantHours = getFiveRelevant(state.hourlyForecast);
 
         state.loading = false;
       })

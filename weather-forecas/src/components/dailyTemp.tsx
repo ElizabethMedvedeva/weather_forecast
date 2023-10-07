@@ -20,8 +20,6 @@ export const ForecastData = () => {
     (state: StoreType) => state.daysForecastReducer
   );
 
-  console.log(loading, "LOAD");
-  console.log("selected", selectedCity);
 
   const dispatch = useDispatch<AppDispatch>();
 

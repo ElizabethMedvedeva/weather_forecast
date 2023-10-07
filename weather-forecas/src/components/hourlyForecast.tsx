@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, StoreType } from "../redux/store";
 import {
-  setHourlyForecast,
-  FillHourlyForecast,
   fetchHourlyForecast,
   CityInterface,
 } from "../redux/reducers/APIreducer";
 
 export const HourlyForecast = () => {
-  const hourlyForecast = useSelector(
-    (state: StoreType) => state.daysForecastReducer.hourlyForecast
+  const fiveRelevantHours = useSelector(
+    (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
   );
   const selectedCity: CityInterface = useSelector(
     (state: StoreType) => state.daysForecastReducer.selectedCity
@@ -30,26 +28,7 @@ export const HourlyForecast = () => {
     );
   }, [selectedCity]);
 
-  // useEffect(() => {
-  //   updateFiveRelevant();
-  // }, [hourlyForecast]);
-
-  const updateFiveRelevant = () => {
-    console.log("five");
-    const currentTime = new Date();
-
-    for (let i = 0; i < hourlyForecast.length; i++) {
-      if (currentTime <= hourlyForecast[i].date) {
-        i -= 1;
-        if (hourlyForecast.length - i < 5) {
-          i = hourlyForecast.length - 5;
-        }
-        dispatch(setHourlyForecast(hourlyForecast.slice(i, i + 5)));
-        break;
-      }
-    }
-  };
-
+  
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       {loading ? (
@@ -57,7 +36,7 @@ export const HourlyForecast = () => {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        hourlyForecast.map((item, index) => (
+        fiveRelevantHours.map((item, index) => (
           <div key={index}>
             <h1>Hourly forecast</h1>
             <div>
