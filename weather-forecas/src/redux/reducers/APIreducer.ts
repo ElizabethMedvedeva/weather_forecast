@@ -1,7 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 
-interface weatherDay {
+interface IWeatherDay {
   date: Date;
   temperatureMax: number;
   temperatureMin: number;
@@ -9,14 +8,14 @@ interface weatherDay {
   weathercode: number;
 }
 
-export type daysForecast = Array<weatherDay>;
+export type daysForecastType = Array<IWeatherDay>;
 
 const ToWeatherModel = (APIobj: any) => {
-  const weatherModel: daysForecast = [];
+  const weatherModel: daysForecastType = [];
   const daily = APIobj.daily;
 
   for (let i = 0; i < daily.time.length; i++) {
-    const day: weatherDay = {
+    const day: IWeatherDay = {
       date: new Date(daily.time[i]),
       temperatureMax: daily.temperature_2m_max[i],
       temperatureMin: daily.temperature_2m_min[i],
@@ -52,7 +51,7 @@ const formatMinutes = (minutes: number) => {
   }
   return `0${minutes}`;
 };
-const fillHightlightsData = (serverResponse: any) => {
+export const fillHightlightsData = (serverResponse: any) => {
   const object: ITodayHighlight = {};
   object.sunrise = new Date(serverResponse.daily.sunrise[0]);
   object.sunset = new Date(serverResponse.daily.sunset[0]);
@@ -119,7 +118,7 @@ export const fillSelectedCity = (serverResponse: any) => {
 };
 
 type APIInitialState = {
-  dailyForecast: daysForecast;
+  dailyForecast: daysForecastType;
   todaysHightLights: ITodayHighlight;
   hourlyForecast: HourlyForecastArray;
   loading: boolean;
@@ -153,7 +152,9 @@ export const fetchDailyForecast = createAsyncThunk(
         `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow`
       )
         .then((response) => response.json())
-        .then((response) => dispatch(setDailyForecast(response)));
+        .then((response) =>
+          dispatch(setDailyForecast(ToWeatherModel(response)))
+        );
     } catch (error) {
       console.log(error);
     }
@@ -164,12 +165,12 @@ export const APISlice = createSlice({
   name: "apis",
   initialState,
   reducers: {
-    setDailyForecast: (state, action: PayloadAction<any>) => {
-      state.dailyForecast = ToWeatherModel(action.payload);
+    setDailyForecast: (state, action: PayloadAction<daysForecastType>) => {
+      state.dailyForecast = action.payload;
     },
 
-    setTodaysHightLights: (state, action: PayloadAction<any>) => {
-      state.todaysHightLights = fillHightlightsData(action.payload);
+    setTodaysHightLights: (state, action: PayloadAction<ITodayHighlight>) => {
+      state.todaysHightLights = action.payload;
     },
 
     setHourlyForecast: (state, action: PayloadAction<HourlyForecastArray>) => {

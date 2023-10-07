@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CityInterface,
-  daysForecast,
+  daysForecastType,
   fetchDailyForecast,
 } from "../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../redux/store";
 
 export const ForecastData = () => {
-  const weather: daysForecast = useSelector(
+  const weather: daysForecastType = useSelector(
     (state: StoreType) => state.daysForecastReducer.dailyForecast
   );
 
