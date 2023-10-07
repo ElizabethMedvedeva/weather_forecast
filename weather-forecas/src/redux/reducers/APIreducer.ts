@@ -188,6 +188,18 @@ export const fetchHourlyForecast = createAsyncThunk(
   }
 );
 
+export const fetchTodaysHightlights = createAsyncThunk(
+  "todaysHightlights",
+  async (cordinate: Coordinate, { rejectWithValue }) => {
+    return fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=Europe%2FMoscow&forecast_days=1`
+    )
+      .then((response) => response.json())
+      .then((response) => response)
+      .catch((error) => rejectWithValue(error.message));
+  }
+);
+
 export const APISlice = createSlice({
   name: "apis",
   initialState,
@@ -241,10 +253,22 @@ export const APISlice = createSlice({
       .addCase(fetchHourlyForecast.fulfilled, (state, action) => {
         state.hourlyForecast = FillHourlyForecast(action.payload);
         state.fiveRelevantHours = getFiveRelevant(state.hourlyForecast);
-
         state.loading = false;
       })
       .addCase(fetchHourlyForecast.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      .addCase(fetchTodaysHightlights.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchTodaysHightlights.fulfilled, (state, action) => {
+        state.todaysHightLights = fillHightlightsData(action.payload);
+        state.loading = false;
+      })
+      .addCase(fetchTodaysHightlights.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       }),
