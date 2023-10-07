@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { StoreType } from "../redux/store";
+import { AppDispatch, StoreType } from "../redux/store";
 import {
   ITodayHighlight,
   setTodaysHightLights,
@@ -13,7 +13,7 @@ export const TodaysHightlights = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     setIsLoading(true);

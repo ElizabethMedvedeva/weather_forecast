@@ -7,7 +7,7 @@ import {
   setSelectedCity,
 } from "../redux/reducers/APIreducer";
 import { useDebounce } from "usehooks-ts";
-import { StoreType } from "../redux/store";
+import { AppDispatch, StoreType } from "../redux/store";
 
 export const SearchLocation = () => {
   const searchState: string = useSelector(
@@ -17,7 +17,7 @@ export const SearchLocation = () => {
   const selectedCity: CityInterface = useSelector(
     (state: StoreType) => state.daysForecastReducer.selectedCity
   );
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleInputChange = (event: any) => {
     dispatch(setSearchLocation(event.target.value));
