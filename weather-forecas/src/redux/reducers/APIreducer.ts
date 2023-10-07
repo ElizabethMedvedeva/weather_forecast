@@ -172,13 +172,13 @@ export const APISlice = createSlice({
       state.todaysHightLights = fillHightlightsData(action.payload);
     },
 
-    setHourlyForecast: (state, action: PayloadAction<any>) => {
+    setHourlyForecast: (state, action: PayloadAction<HourlyForecastArray>) => {
       state.hourlyForecast = action.payload;
     },
-    setSearchLocation: (state, action: PayloadAction<any>) => {
+    setSearchLocation: (state, action: PayloadAction<string>) => {
       state.search = action.payload;
     },
-    setSelectedCity: (state, action) => {
+    setSelectedCity: (state, action: PayloadAction<CityInterface>) => {
       state.selectedCity = action.payload;
     },
   },
