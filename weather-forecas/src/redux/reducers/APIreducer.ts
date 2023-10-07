@@ -146,9 +146,22 @@ interface Coordinate {
 }
 export const fetchDailyForecast = createAsyncThunk(
   "forecastData",
-  async (cordinate: Coordinate, { dispatch, rejectWithValue }) => {
+  async (cordinate: Coordinate, { rejectWithValue }) => {
     return fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow`
+    )
+      .then((response) => response.json())
+      .then((response) => response)
+      .catch((error) => rejectWithValue(error.message));
+  }
+);
+
+export const fetchHourlyForecast = createAsyncThunk(
+  "hourlyForecastData",
+  async (cordinate: Coordinate, { rejectWithValue }) => {
+    console.log(cordinate.latitude, "coordinate");
+    return fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&hourly=temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=Europe%2FMoscow&forecast_days=1`
     )
       .then((response) => response.json())
       .then((response) => response)
@@ -191,6 +204,22 @@ export const APISlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchDailyForecast.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      //
+
+      .addCase(fetchHourlyForecast.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchHourlyForecast.fulfilled, (state, action) => {
+        state.hourlyForecast = FillHourlyForecast(action.payload);
+
+        state.loading = false;
+      })
+      .addCase(fetchHourlyForecast.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       }),

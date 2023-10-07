@@ -8,9 +8,9 @@ function App() {
   return (
     <div className="App">
       <SearchLocation />
+      <HourlyForecast />
       <ForecastData />
       <TodaysHightlights />
-      <HourlyForecast />
     </div>
   );
 }
