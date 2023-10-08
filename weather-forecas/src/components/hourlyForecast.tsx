@@ -24,11 +24,12 @@ export const HourlyForecast = () => {
       fetchHourlyForecast({
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
+        timezone: selectedCity.timezone,
       })
     );
   }, [selectedCity]);
 
-  
+
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       {loading ? (

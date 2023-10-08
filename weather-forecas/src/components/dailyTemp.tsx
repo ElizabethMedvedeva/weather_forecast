@@ -38,6 +38,7 @@ export const ForecastData = () => {
       fetchDailyForecast({
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
+        timezone: selectedCity.timezone,
       })
     );
   }, [selectedCity]);

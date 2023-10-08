@@ -8,7 +8,7 @@ import {
 } from "../redux/reducers/APIreducer";
 
 export const TodaysHightlights = () => {
-  const todaysHighlights: ITodayHighlight = useSelector(
+  const todaysHighlights: ITodayHighlight | null = useSelector(
     (state: StoreType) => state.daysForecastReducer.todaysHightLights
   );
 
@@ -27,6 +27,7 @@ export const TodaysHightlights = () => {
       fetchTodaysHightlights({
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
+        timezone: selectedCity.timezone,
       })
     );
   }, [selectedCity]);
@@ -39,13 +40,13 @@ export const TodaysHightlights = () => {
         <p>Error: {error}</p>
       ) : (
         <div>
-          <p>sunset: {todaysHighlights.sunsetTime}</p>
-          <p>sunrise: {todaysHighlights.sunriseTime}</p>
-          <p>humidity: {todaysHighlights.humidity}</p>
-          <p>pressure: {todaysHighlights.pressure}</p>
-          <p>temperature: {todaysHighlights.temperature}</p>
-          <p>UV Index: {todaysHighlights.uvIndex}</p>
-          <p>wind speed: {todaysHighlights.windSpeed}</p>
+          <p>sunset: {todaysHighlights?.sunsetTime}</p>
+          <p>sunrise: {todaysHighlights?.sunriseTime}</p>
+          <p>humidity: {todaysHighlights?.humidity}</p>
+          <p>pressure: {todaysHighlights?.pressure}</p>
+          <p>temperature: {todaysHighlights?.temperature}</p>
+          <p>UV Index: {todaysHighlights?.uvIndex}</p>
+          <p>wind speed: {todaysHighlights?.windSpeed}</p>
         </div>
       )}
     </div>

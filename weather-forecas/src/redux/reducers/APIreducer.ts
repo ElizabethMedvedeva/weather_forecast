@@ -1,4 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import moment from "moment";
 
 interface IWeatherDay {
   date: Date;
@@ -28,88 +29,71 @@ const ToWeatherModel = (APIobj: any) => {
 };
 
 export interface ITodayHighlight {
-  sunrise?: Date;
-  sunset?: Date;
-  sunsetTime?: string;
-  sunriseTime?: string;
-  uvIndex?: number;
-  humidity?: number;
-  pressure?: number;
-  windSpeed?: number;
-  temperature?: number;
+  sunrise: string;
+  sunset: string;
+  sunsetTime: string;
+  sunriseTime: string;
+  uvIndex: number;
+  humidity: number;
+  pressure: number;
+  windSpeed: number;
+  temperature: number;
 }
 
-export const formatHours = (hours: number) => {
-  if (hours > 9) {
-    return `${hours}`;
-  }
-  return `0${hours}`;
-};
-const formatMinutes = (minutes: number) => {
-  if (minutes > 9) {
-    return `${minutes}`;
-  }
-  return `0${minutes}`;
-};
 export const fillHightlightsData = (serverResponse: any) => {
-  const object: ITodayHighlight = {};
-  object.sunrise = new Date(serverResponse.daily.sunrise[0]);
-  object.sunset = new Date(serverResponse.daily.sunset[0]);
-  object.uvIndex = serverResponse.daily.uv_index_max[0];
-  object.sunriseTime = `${formatHours(
-    object.sunrise.getHours()
-  )}:${formatMinutes(object.sunrise.getMinutes())}`;
-  object.sunsetTime = `${formatHours(object.sunset.getHours())}:${formatMinutes(
-    object.sunset.getMinutes()
-  )}`;
-  object.humidity = serverResponse.hourly.relativehumidity_2m[0];
-  object.pressure = serverResponse.hourly.surface_pressure[0];
-  object.temperature = serverResponse.hourly.temperature_2m[0];
-  object.windSpeed = serverResponse.hourly.windspeed_10m[0];
+  const object: ITodayHighlight = {
+    sunrise: moment(serverResponse.daily.sunrise[0]).toString(),
+    sunset: moment(serverResponse.daily.sunset[0]).toString(),
+    uvIndex: serverResponse.daily.uv_index_max[0],
+    sunriseTime: moment(serverResponse.daily.sunrise[0]).format("HH:mm"),
+    sunsetTime: moment(serverResponse.daily.sunset[0]).format("HH:mm"),
+    humidity: serverResponse.hourly.relativehumidity_2m[0],
+    pressure: serverResponse.hourly.surface_pressure[0],
+    temperature: serverResponse.hourly.temperature_2m[0],
+    windSpeed: serverResponse.hourly.windspeed_10m[0],
+  };
 
   return object;
 };
+
 export interface HourInterface {
   temperature: number;
   windDirection: number;
   windGusts: number;
   weathercode: number;
   time: string;
-  date: Date;
+  date: any;
 }
 
 export type HourlyForecastArray = Array<HourInterface>;
 
-export const FillHourlyForecast = (serverResponse: any) => {
-  console.log(serverResponse, "server response");
+export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
   const hourlyForecast: HourlyForecastArray = [];
   const hourly = serverResponse.hourly;
   for (let i = 0; i < hourly.time.length; i++) {
-    const date = new Date(serverResponse.hourly.time[i]);
+    const date = moment(serverResponse.hourly.time[i]).tz(timezone);
     const hourForecast: HourInterface = {
-      date: date,
-      time: `${formatHours(date.getHours())}:${formatMinutes(
-        date.getMinutes()
-      )}`,
+      date: date.toString(),
+      time: date.format("HH:mm"),
       windDirection: serverResponse.hourly.winddirection_10m[i],
       windGusts: serverResponse.hourly.windgusts_10m[i],
       temperature: serverResponse.hourly.temperature_2m[i],
       weathercode: serverResponse.hourly.weathercode[i],
     };
-    if (hourForecast.date.getHours() % 3 === 0) {
-      console.log(hourForecast, "1 hour");
+    const checkingTime = moment(hourForecast.date);
+    if (checkingTime.hour() % 3 === 0) {
       hourlyForecast.push(hourForecast);
     }
   }
-  console.log(hourlyForecast, "data from hourly forecast");
   return hourlyForecast;
 };
-const getFiveRelevant = (unsortedHourlyForecast: HourlyForecastArray) => {
+const getFiveRelevant = (unsortedHourlyForecast: HourlyForecastArray, timezone: string) => {
   const hourlyForecast = unsortedHourlyForecast.slice();
-  const currentTime = new Date();
+  const currentTime = moment().tz(timezone);
 
   for (let i = 0; i < hourlyForecast.length; i++) {
-    if (currentTime <= hourlyForecast[i].date) {
+    const forecastDate = moment(hourlyForecast[i].date)
+    if (currentTime <= forecastDate) {
       i -= 1;
       if (hourlyForecast.length - i < 5) {
         i = hourlyForecast.length - 5;
@@ -139,7 +123,7 @@ export const fillSelectedCity = (serverResponse: any) => {
 
 type APIInitialState = {
   dailyForecast: daysForecastType;
-  todaysHightLights: ITodayHighlight;
+  todaysHightLights: ITodayHighlight | null;
   hourlyForecast: HourlyForecastArray;
   fiveRelevantHours: HourlyForecastArray;
   loading: boolean;
@@ -150,7 +134,7 @@ type APIInitialState = {
 
 const initialState: APIInitialState = {
   dailyForecast: [],
-  todaysHightLights: {},
+  todaysHightLights: null,
   hourlyForecast: [],
   fiveRelevantHours: [],
   loading: false,
@@ -163,15 +147,16 @@ const initialState: APIInitialState = {
     latitude: 54.6892,
   },
 };
-interface Coordinate {
+interface IForecastParams {
   latitude: number;
   longitude: number;
+  timezone: string;
 }
 export const fetchDailyForecast = createAsyncThunk(
   "forecastData",
-  async (cordinate: Coordinate, { rejectWithValue }) => {
+  async (forecastParams: IForecastParams, { rejectWithValue }) => {
     return fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=Europe%2FMoscow`
+      `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}`
     )
       .then((response) => response.json())
       .then((response) => response)
@@ -181,9 +166,9 @@ export const fetchDailyForecast = createAsyncThunk(
 
 export const fetchHourlyForecast = createAsyncThunk(
   "hourlyForecastData",
-  async (cordinate: Coordinate, { rejectWithValue }) => {
+  async (forecastParams: IForecastParams, { rejectWithValue }) => {
     return fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=Europe%2FMoscow&forecast_days=1`
+      `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
     )
       .then((response) => response.json())
       .then((response) => response)
@@ -193,9 +178,9 @@ export const fetchHourlyForecast = createAsyncThunk(
 
 export const fetchTodaysHightlights = createAsyncThunk(
   "todaysHightlights",
-  async (cordinate: Coordinate, { rejectWithValue }) => {
+  async (forecastParams: IForecastParams, { rejectWithValue }) => {
     return fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${cordinate.latitude}&longitude=${cordinate.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=Europe%2FMoscow&forecast_days=1`
+      `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
     )
       .then((response) => response.json())
       .then((response) => response)
@@ -247,15 +232,14 @@ export const APISlice = createSlice({
         state.error = action.payload;
       })
 
-      //
 
       .addCase(fetchHourlyForecast.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchHourlyForecast.fulfilled, (state, action) => {
-        state.hourlyForecast = FillHourlyForecast(action.payload);
-        state.fiveRelevantHours = getFiveRelevant(state.hourlyForecast);
+        state.hourlyForecast = FillHourlyForecast(action.payload, state.selectedCity.timezone);
+        state.fiveRelevantHours = getFiveRelevant(state.hourlyForecast, state.selectedCity.timezone);
         state.loading = false;
       })
       .addCase(fetchHourlyForecast.rejected, (state, action) => {
