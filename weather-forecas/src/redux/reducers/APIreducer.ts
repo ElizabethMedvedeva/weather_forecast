@@ -39,7 +39,7 @@ export interface ITodayHighlight {
   temperature?: number;
 }
 
-const formatHours = (hours: number) => {
+export const formatHours = (hours: number) => {
   if (hours > 9) {
     return `${hours}`;
   }
@@ -124,6 +124,7 @@ export interface CityInterface {
   name: string;
   latitude: number;
   longitude: number;
+  timezone: string;
 }
 export const fillSelectedCity = (serverResponse: any) => {
   const firstCity = serverResponse.results[0];
@@ -131,6 +132,7 @@ export const fillSelectedCity = (serverResponse: any) => {
     name: firstCity.name,
     latitude: firstCity.latitude,
     longitude: firstCity.longitude,
+    timezone: firstCity.timezone,
   };
   return selectedCity;
 };
@@ -155,6 +157,7 @@ const initialState: APIInitialState = {
   error: null,
   search: "",
   selectedCity: {
+    timezone: "Europe/Vilnius",
     name: "Vilnius",
     longitude: 25.2798,
     latitude: 54.6892,
