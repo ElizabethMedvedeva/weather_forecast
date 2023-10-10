@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
+import { useDebounce } from "usehooks-ts";
 
 interface IWeatherDay {
   date: Date;
@@ -87,12 +88,15 @@ export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
   }
   return hourlyForecast;
 };
-const getFiveRelevant = (unsortedHourlyForecast: HourlyForecastArray, timezone: string) => {
+const getFiveRelevant = (
+  unsortedHourlyForecast: HourlyForecastArray,
+  timezone: string
+) => {
   const hourlyForecast = unsortedHourlyForecast.slice();
   const currentCityTime = moment().tz(timezone);
 
   for (let i = 0; i < hourlyForecast.length; i++) {
-    const forecastTime = moment(hourlyForecast[i].date)
+    const forecastTime = moment(hourlyForecast[i].date);
     if (forecastTime >= currentCityTime) {
       i -= 1;
       if (hourlyForecast.length - i < 5) {
@@ -189,6 +193,19 @@ export const fetchTodaysHightlights = createAsyncThunk(
   }
 );
 
+export const fetchSearchLocation = createAsyncThunk(
+  "searchLocationData",
+
+  async (searchState: string, { rejectWithValue }) => {
+    return fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${searchState}`
+    )
+      .then((response) => response.json())
+      .then((response) => response)
+      .catch((error) => rejectWithValue(error.message));
+  }
+);
+
 export const APISlice = createSlice({
   name: "apis",
   initialState,
@@ -233,14 +250,19 @@ export const APISlice = createSlice({
         state.error = action.payload;
       })
 
-
       .addCase(fetchHourlyForecast.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(fetchHourlyForecast.fulfilled, (state, action) => {
-        state.hourlyForecast = FillHourlyForecast(action.payload, state.selectedCity.timezone);
-        state.fiveRelevantHours = getFiveRelevant(state.hourlyForecast, state.selectedCity.timezone);
+        state.hourlyForecast = FillHourlyForecast(
+          action.payload,
+          state.selectedCity.timezone
+        );
+        state.fiveRelevantHours = getFiveRelevant(
+          state.hourlyForecast,
+          state.selectedCity.timezone
+        );
         state.loading = false;
       })
       .addCase(fetchHourlyForecast.rejected, (state, action) => {
@@ -257,6 +279,18 @@ export const APISlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchTodaysHightlights.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchSearchLocation.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchSearchLocation.fulfilled, (state, action) => {
+        state.selectedCity = fillSelectedCity(action.payload);
+        state.loading = false;
+      })
+      .addCase(fetchSearchLocation.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       }),

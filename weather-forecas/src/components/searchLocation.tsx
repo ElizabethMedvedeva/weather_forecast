@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CityInterface,
+  fetchSearchLocation,
   fillSelectedCity,
   setSearchLocation,
   setSelectedCity,
@@ -22,18 +23,13 @@ export const SearchLocation = () => {
   const handleInputChange = (event: any) => {
     dispatch(setSearchLocation(event.target.value));
   };
-
+  const { loading, error } = useSelector(
+    (state: StoreType) => state.daysForecastReducer
+  );
+  console.log(searchStateDebaunse, "llll");
   useEffect(() => {
     if (searchStateDebaunse) {
-      fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${searchStateDebaunse}`
-      )
-        .then((response) => response.json())
-        .then((json) => dispatch(setSelectedCity(fillSelectedCity(json))))
-
-        .catch((error) => {
-          console.log(error.message);
-        });
+      dispatch(fetchSearchLocation(searchStateDebaunse));
     }
   }, [searchStateDebaunse]);
 
