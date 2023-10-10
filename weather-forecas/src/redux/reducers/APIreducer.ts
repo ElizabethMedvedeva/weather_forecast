@@ -71,7 +71,7 @@ export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
   const hourlyForecast: HourlyForecastArray = [];
   const hourly = serverResponse.hourly;
   for (let i = 0; i < hourly.time.length; i++) {
-    const date = moment(serverResponse.hourly.time[i]).tz(timezone);
+    const date = moment.tz(serverResponse.hourly.time[i], timezone);
     const hourForecast: HourInterface = {
       date: date.toString(),
       time: date.format("HH:mm"),
@@ -81,7 +81,7 @@ export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
       weathercode: serverResponse.hourly.weathercode[i],
     };
     const checkingTime = moment(hourForecast.date);
-    if (checkingTime.hour() % 3 === 0) {
+    if (checkingTime.tz(timezone).hour() % 3 === 0) {
       hourlyForecast.push(hourForecast);
     }
   }
@@ -89,11 +89,11 @@ export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
 };
 const getFiveRelevant = (unsortedHourlyForecast: HourlyForecastArray, timezone: string) => {
   const hourlyForecast = unsortedHourlyForecast.slice();
-  const currentTime = moment().tz(timezone);
+  const currentCityTime = moment().tz(timezone);
 
   for (let i = 0; i < hourlyForecast.length; i++) {
-    const forecastDate = moment(hourlyForecast[i].date)
-    if (currentTime <= forecastDate) {
+    const forecastTime = moment(hourlyForecast[i].date)
+    if (forecastTime >= currentCityTime) {
       i -= 1;
       if (hourlyForecast.length - i < 5) {
         i = hourlyForecast.length - 5;
@@ -101,7 +101,8 @@ const getFiveRelevant = (unsortedHourlyForecast: HourlyForecastArray, timezone: 
       return hourlyForecast.slice(i, i + 5);
     }
   }
-  return hourlyForecast;
+
+  return hourlyForecast.slice(hourlyForecast.length - 5);
 };
 
 export interface CityInterface {
