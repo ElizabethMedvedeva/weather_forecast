@@ -117,11 +117,13 @@ export interface CityInterface {
   latitude: number;
   longitude: number;
   timezone: string;
+  country: string;
 }
 export const fillSelectedCity = (serverResponse: any) => {
   const firstCity = serverResponse.results[0];
   const selectedCity: CityInterface = {
     name: firstCity.name,
+    country: firstCity.country,
     latitude: firstCity.latitude,
     longitude: firstCity.longitude,
     timezone: firstCity.timezone,
@@ -151,6 +153,7 @@ const initialState: APIInitialState = {
   selectedCity: {
     timezone: "Europe/Vilnius",
     name: "Vilnius",
+    country: "Lithuania",
     longitude: 25.2798,
     latitude: 54.6892,
   },

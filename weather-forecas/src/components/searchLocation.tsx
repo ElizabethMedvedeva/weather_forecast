@@ -9,6 +9,7 @@ import {
 } from "../redux/reducers/APIreducer";
 import { useDebounce } from "usehooks-ts";
 import { AppDispatch, StoreType } from "../redux/store";
+import { Clock } from "./clock";
 
 export const SearchLocation = () => {
   const searchState: string = useSelector(
@@ -35,7 +36,11 @@ export const SearchLocation = () => {
 
   return (
     <div>
-      <p>{selectedCity.name}</p>
+      <p>
+        {selectedCity.name}, {selectedCity.country}
+      </p>
+
+      <Clock />
       <input type="text" onChange={handleInputChange} />
     </div>
   );

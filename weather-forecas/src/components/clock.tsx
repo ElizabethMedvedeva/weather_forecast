@@ -9,11 +9,40 @@ export const Clock = () => {
   const currentTime = new Date();
 
   const convertedTime = moment().tz(timeZone).format("HH:mm");
+  const convertedDate: any = moment().tz(timeZone).format("DD");
+  const convertedMonth: any = moment().tz(timeZone).format("MM");
+  const weekDay = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "Dec",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+  ];
+
+  const convertedWeekDay = moment().tz(timeZone).weekday();
+
   return (
     <div>
-      <p>time : {currentTime.toString()}</p>
-      <p>timeZone : {timeZone.toString()}</p>
-      <p>converted Time: {convertedTime}</p>
+      <p> {convertedTime}</p>
+      <p>
+        {weekDay[convertedWeekDay]}, {convertedDate} {months[convertedMonth]}{" "}
+      </p>
     </div>
   );
 };

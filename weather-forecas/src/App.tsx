@@ -8,7 +8,6 @@ import { TodaysHightlights } from "./components/todaysHighlights";
 function App() {
   return (
     <div className="App">
-      <Clock />
       <SearchLocation />
       <HourlyForecast />
       <ForecastData />
