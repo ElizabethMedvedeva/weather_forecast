@@ -1,6 +1,9 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import moment from "moment";
-import { useDebounce } from "usehooks-ts";
+import {
+  axiosApiInstanceGeo,
+  axiosApiInstanceMeteo,
+} from "../../api/axiosConfig";
 
 interface IWeatherDay {
   date: Date;
@@ -172,24 +175,28 @@ export const fetchDailyForecast = createAsyncThunk(
 export const fetchHourlyForecast = createAsyncThunk(
   "hourlyForecastData",
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
-    return fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
-    )
-      .then((response) => response.json())
-      .then((response) => response)
-      .catch((error) => rejectWithValue(error.message));
+    try {
+      const result = await axiosApiInstanceMeteo.get(
+        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+      );
+      return result.data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
 export const fetchTodaysHightlights = createAsyncThunk(
   "todaysHightlights",
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
-    return fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
-    )
-      .then((response) => response.json())
-      .then((response) => response)
-      .catch((error) => rejectWithValue(error.message));
+    try {
+      const result = await axiosApiInstanceMeteo.get(
+        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+      );
+      return result.data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -197,12 +204,14 @@ export const fetchSearchLocation = createAsyncThunk(
   "searchLocationData",
 
   async (searchState: string, { rejectWithValue }) => {
-    return fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${searchState}`
-    )
-      .then((response) => response.json())
-      .then((response) => response)
-      .catch((error) => rejectWithValue(error.message));
+    try {
+      const result = await axiosApiInstanceGeo.get(
+        `/v1/search?name=${searchState}`
+      );
+      return result.data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
