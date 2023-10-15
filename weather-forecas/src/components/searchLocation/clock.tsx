@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import moment from "moment-timezone";
 
-import { StoreType } from "../redux/store";
+import { StoreType } from "../../redux/store";
 
 export const Clock = () => {
   const timeZone = useSelector(

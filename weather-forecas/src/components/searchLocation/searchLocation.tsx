@@ -5,11 +5,9 @@ import { useDebounce } from "usehooks-ts";
 import {
   CityInterface,
   fetchSearchLocation,
-  fillSelectedCity,
   setSearchLocation,
-  setSelectedCity,
-} from "../redux/reducers/APIreducer";
-import { AppDispatch, StoreType } from "../redux/store";
+} from "../../redux/reducers/APIreducer";
+import { AppDispatch, StoreType } from "../../redux/store";
 
 import { Clock } from "./clock";
 

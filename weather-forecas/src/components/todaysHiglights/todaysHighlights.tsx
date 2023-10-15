@@ -5,8 +5,8 @@ import {
   CityInterface,
   fetchTodaysHightlights,
   ITodayHighlight,
-} from "../redux/reducers/APIreducer";
-import { AppDispatch, StoreType } from "../redux/store";
+} from "../../redux/reducers/APIreducer";
+import { AppDispatch, StoreType } from "../../redux/store";
 
 export const TodaysHightlights = () => {
   const todaysHighlights: ITodayHighlight | null = useSelector(
