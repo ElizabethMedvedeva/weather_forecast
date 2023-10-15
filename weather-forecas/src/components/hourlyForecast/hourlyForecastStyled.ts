@@ -17,7 +17,11 @@ export const HourContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const Weathercode = styled.div<IWeathercode>`
-  image: ${(props) =>
-    props.weathercode === 2 ? "/weather-forecas/src/assets/fog.png" : "yellow"};
+export const Weathercode = styled.div`
+  background-color: pink;
+`;
+
+export const WeathercodeImg = styled.img<IWeathercode>`
+  width: 40px;
+  height: auto;
 `;

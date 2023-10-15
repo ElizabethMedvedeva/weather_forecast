@@ -6,12 +6,14 @@ import {
   fetchHourlyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
+import { getImageByWeathercode } from "../utility/weatherImages";
 
 import {
   HourContainer,
   HourlyContainer,
   HourlyForecastDiv,
   Weathercode,
+  WeathercodeImg,
 } from "./hourlyForecastStyled";
 
 export const HourlyForecast = (props: any) => {
@@ -49,9 +51,12 @@ export const HourlyForecast = (props: any) => {
           fiveRelevantHours.map((item, index) => (
             <HourContainer key={index}>
               <h3>time: {item.time}</h3>
-              <Weathercode weathercode={item.weathercode}>
-                <img src="/weather-forecas/src/assets/fog.png" alt="fog"></img>
-                <h3>weathercode</h3>
+              <Weathercode>
+                <WeathercodeImg
+                  weathercode={item.weathercode}
+                  src={getImageByWeathercode(item.weathercode)}
+                  alt="weathercode_img"
+                ></WeathercodeImg>
               </Weathercode>
               <h3>weathercode: {item.weathercode}</h3>
               <h3>temperature: {item.temperature}</h3>

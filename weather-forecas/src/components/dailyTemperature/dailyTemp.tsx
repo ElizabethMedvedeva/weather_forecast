@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -7,6 +7,11 @@ import {
   fetchDailyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
+import {
+  Weathercode,
+  WeathercodeImg,
+} from "../hourlyForecast/hourlyForecastStyled";
+import { getImageByWeathercode } from "../utility/weatherImages";
 
 export const ForecastData = () => {
   const weather: daysForecastType = useSelector(
@@ -73,6 +78,13 @@ export const ForecastData = () => {
               <p>Max temperature: {item.temperatureMax}</p>
               <p>Min temperature: {item.temperatureMin}</p>
               <p>UV Index Max: {item.uvIndexMax}</p>
+              <Weathercode>
+                <WeathercodeImg
+                  weathercode={item.weathercode}
+                  src={getImageByWeathercode(item.weathercode)}
+                  alt="weathercode_img"
+                ></WeathercodeImg>
+              </Weathercode>
               <p>Weathercode: {item.weathercode}</p>
             </div>
           </div>
