@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
-import { StoreType } from "../redux/store";
 import moment from "moment-timezone";
+
+import { StoreType } from "../redux/store";
 
 export const Clock = () => {
   const timeZone = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity.timezone
+    (state: StoreType) => state.daysForecastReducer.selectedCity.timezone,
   );
   const currentTime = new Date();
 

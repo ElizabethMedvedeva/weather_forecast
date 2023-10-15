@@ -1,21 +1,22 @@
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, StoreType } from "../redux/store";
+
 import {
-  fetchHourlyForecast,
   CityInterface,
+  fetchHourlyForecast,
 } from "../redux/reducers/APIreducer";
+import { AppDispatch, StoreType } from "../redux/store";
 
 export const HourlyForecast = () => {
   const fiveRelevantHours = useSelector(
-    (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
+    (state: StoreType) => state.daysForecastReducer.fiveRelevantHours,
   );
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity
+    (state: StoreType) => state.daysForecastReducer.selectedCity,
   );
 
   const { loading, error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer
+    (state: StoreType) => state.daysForecastReducer,
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -25,10 +26,9 @@ export const HourlyForecast = () => {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
         timezone: selectedCity.timezone,
-      })
+      }),
     );
   }, [selectedCity]);
-
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>

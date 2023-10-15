@@ -1,5 +1,6 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import moment from "moment";
+
 import {
   axiosApiInstanceGeo,
   axiosApiInstanceMeteo,
@@ -44,17 +45,26 @@ export interface ITodayHighlight {
   temperature: number;
 }
 
-export const fillHightlightsData = (serverResponse: any) => {
+export const fillHightlightsData = (serverResponse: any, timezone: string) => {
+  const currentCityTime = moment().tz(timezone);
+  let timeIndex = serverResponse.hourly.time.length;
+  for (let i = 0; i < serverResponse.hourly.time.length; i++) {
+    const time = moment.tz(serverResponse.hourly.time[i], timezone);
+    if (time >= currentCityTime) {
+      timeIndex = i;
+      break;
+    }
+  }
   const object: ITodayHighlight = {
     sunrise: moment(serverResponse.daily.sunrise[0]).toString(),
     sunset: moment(serverResponse.daily.sunset[0]).toString(),
     uvIndex: serverResponse.daily.uv_index_max[0],
     sunriseTime: moment(serverResponse.daily.sunrise[0]).format("HH:mm"),
     sunsetTime: moment(serverResponse.daily.sunset[0]).format("HH:mm"),
-    humidity: serverResponse.hourly.relativehumidity_2m[0],
-    pressure: serverResponse.hourly.surface_pressure[0],
-    temperature: serverResponse.hourly.temperature_2m[0],
-    windSpeed: serverResponse.hourly.windspeed_10m[0],
+    humidity: serverResponse.hourly.relativehumidity_2m[timeIndex],
+    pressure: serverResponse.hourly.surface_pressure[timeIndex],
+    temperature: serverResponse.current_weather.temperature,
+    windSpeed: serverResponse.current_weather.windspeed,
   };
 
   return object;
@@ -93,7 +103,7 @@ export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
 };
 const getFiveRelevant = (
   unsortedHourlyForecast: HourlyForecastArray,
-  timezone: string
+  timezone: string,
 ) => {
   const hourlyForecast = unsortedHourlyForecast.slice();
   const currentCityTime = moment().tz(timezone);
@@ -167,12 +177,12 @@ export const fetchDailyForecast = createAsyncThunk(
   "forecastData",
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
     return fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}`
+      `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}`,
     )
       .then((response) => response.json())
       .then((response) => response)
       .catch((error) => rejectWithValue(error.message));
-  }
+  },
 );
 
 export const fetchHourlyForecast = createAsyncThunk(
@@ -180,13 +190,13 @@ export const fetchHourlyForecast = createAsyncThunk(
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
     try {
       const result = await axiosApiInstanceMeteo.get(
-        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`,
       );
       return result.data;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const fetchTodaysHightlights = createAsyncThunk(
@@ -194,13 +204,13 @@ export const fetchTodaysHightlights = createAsyncThunk(
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
     try {
       const result = await axiosApiInstanceMeteo.get(
-        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`,
       );
       return result.data;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const fetchSearchLocation = createAsyncThunk(
@@ -209,13 +219,13 @@ export const fetchSearchLocation = createAsyncThunk(
   async (searchState: string, { rejectWithValue }) => {
     try {
       const result = await axiosApiInstanceGeo.get(
-        `/v1/search?name=${searchState}`
+        `/v1/search?name=${searchState}`,
       );
       return result.data;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const APISlice = createSlice({
@@ -231,7 +241,7 @@ export const APISlice = createSlice({
     },
     setFiveRelevantHours: (
       state,
-      action: PayloadAction<HourlyForecastArray>
+      action: PayloadAction<HourlyForecastArray>,
     ) => {
       state.fiveRelevantHours = action.payload;
     },
@@ -269,11 +279,11 @@ export const APISlice = createSlice({
       .addCase(fetchHourlyForecast.fulfilled, (state, action) => {
         state.hourlyForecast = FillHourlyForecast(
           action.payload,
-          state.selectedCity.timezone
+          state.selectedCity.timezone,
         );
         state.fiveRelevantHours = getFiveRelevant(
           state.hourlyForecast,
-          state.selectedCity.timezone
+          state.selectedCity.timezone,
         );
         state.loading = false;
       })
@@ -287,7 +297,10 @@ export const APISlice = createSlice({
         state.error = null;
       })
       .addCase(fetchTodaysHightlights.fulfilled, (state, action) => {
-        state.todaysHightLights = fillHightlightsData(action.payload);
+        state.todaysHightLights = fillHightlightsData(
+          action.payload,
+          state.selectedCity.timezone,
+        );
         state.loading = false;
       })
       .addCase(fetchTodaysHightlights.rejected, (state, action) => {

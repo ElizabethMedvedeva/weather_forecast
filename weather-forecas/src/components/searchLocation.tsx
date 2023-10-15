@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useDebounce } from "usehooks-ts";
+
 import {
   CityInterface,
   fetchSearchLocation,
@@ -7,17 +9,17 @@ import {
   setSearchLocation,
   setSelectedCity,
 } from "../redux/reducers/APIreducer";
-import { useDebounce } from "usehooks-ts";
 import { AppDispatch, StoreType } from "../redux/store";
+
 import { Clock } from "./clock";
 
 export const SearchLocation = () => {
   const searchState: string = useSelector(
-    (state: StoreType) => state.daysForecastReducer.search
+    (state: StoreType) => state.daysForecastReducer.search,
   );
   const searchStateDebaunse = useDebounce<string>(searchState, 700);
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity
+    (state: StoreType) => state.daysForecastReducer.selectedCity,
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -25,9 +27,8 @@ export const SearchLocation = () => {
     dispatch(setSearchLocation(event.target.value));
   };
   const { loading, error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer
+    (state: StoreType) => state.daysForecastReducer,
   );
-  console.log(searchStateDebaunse, "llll");
   useEffect(() => {
     if (searchStateDebaunse) {
       dispatch(fetchSearchLocation(searchStateDebaunse));

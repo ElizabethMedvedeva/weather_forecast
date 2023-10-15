@@ -1,9 +1,10 @@
-import "./App.css";
 import { Clock } from "./components/clock";
 import { ForecastData } from "./components/dailyTemp";
 import { HourlyForecast } from "./components/hourlyForecast";
 import { SearchLocation } from "./components/searchLocation";
 import { TodaysHightlights } from "./components/todaysHighlights";
+
+import "./App.css";
 
 function App() {
   return (
