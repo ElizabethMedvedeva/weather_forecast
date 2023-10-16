@@ -1,17 +1,20 @@
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+
 import { ForecastData } from "./components/dailyTemperature/dailyTemp";
-import { HourlyForecast } from "./components/hourlyForecast/hourlyForecast";
-import { SearchLocation } from "./components/searchLocation/searchLocation";
-import { TodaysHightlights } from "./components/todaysHiglights/todaysHighlights";
+import { Main } from "./components/main/mainComponent";
 
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <SearchLocation />
-      <HourlyForecast />
+      <Main />
       <ForecastData />
-      <TodaysHightlights />
     </div>
   );
 }
