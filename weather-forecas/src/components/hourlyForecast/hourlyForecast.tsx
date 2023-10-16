@@ -55,26 +55,28 @@ export const HourlyForecast = (props: any) => {
         ) : (
           fiveRelevantHours.map((item, index) => (
             <HourContainer key={index}>
-              <h3>{item.time}</h3>
-              <Weathercode>
-                <WeathercodeImg
-                  weathercode={item.weathercode}
-                  src={getImageByWeathercode(item.weathercode)}
-                  alt="weathercode_img"
-                ></WeathercodeImg>
-              </Weathercode>
+              <div>
+                <h3>{item.time}</h3>
+                <Weathercode>
+                  <WeathercodeImg
+                    weathercode={item.weathercode}
+                    src={getImageByWeathercode(item.weathercode)}
+                    alt="weathercode_img"
+                  ></WeathercodeImg>
+                </Weathercode>
 
-              <h3>{item.temperature}°C</h3>
-              <WindDirectionDiv>
-                <WindDirectionImg
-                  rotate={getWindDirection(item.windDirection).rotate}
-                  src={windDirectionArrow}
-                  alt="arrow"
-                ></WindDirectionImg>
-                <p>{getWindDirection(item.windDirection).direction}</p>
-              </WindDirectionDiv>
+                <h4>{item.temperature}°C</h4>
+                <WindDirectionDiv>
+                  <WindDirectionImg
+                    rotate={getWindDirection(item.windDirection).rotate}
+                    src={windDirectionArrow}
+                    alt="arrow"
+                  ></WindDirectionImg>
+                  <h4>{getWindDirection(item.windDirection).direction}</h4>
+                </WindDirectionDiv>
 
-              <h3> {item.windGusts} km/h</h3>
+                <h4> {item.windGusts} km/h</h4>
+              </div>
             </HourContainer>
           ))
         )}

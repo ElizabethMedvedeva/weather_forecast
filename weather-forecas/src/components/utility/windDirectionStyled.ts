@@ -11,8 +11,8 @@ export const WindDirectionDiv = styled.div`
 `;
 
 export const WindDirectionImg = styled.img<IWindDirectionProps>`
-  width: 40px;
-  height: 40px;
+  max-width: 55px;
+  height: auto;
   margin: 0 auto;
   transform: rotate(${({ rotate }) => rotate}deg);
 `;
