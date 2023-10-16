@@ -7,3 +7,6 @@ export const axiosApiInstanceMeteo = axios.create({
 export const axiosApiInstanceGeo = axios.create({
   baseURL: "https://geocoding-api.open-meteo.com",
 });
+s;
+
+//// напримерь здесь, нажимаю fix all autofixable problems
