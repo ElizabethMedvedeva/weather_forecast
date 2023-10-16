@@ -8,6 +8,18 @@ import {
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
 
+import {
+  CoupleWeatherDetailsDiv,
+  SunTimeDiv,
+  SunTimeInfo,
+  TemmperatureDiv,
+  TodaysHightlightsContainer,
+  TodaysHightlightSet,
+  TodaysHightlightsIcon,
+  WeatherDetailsDiv,
+  WeatherDetailsIcon,
+} from "./todaysHighlights.Styled";
+
 export const TodaysHightlights = () => {
   const todaysHighlights: ITodayHighlight | null = useSelector(
     (state: StoreType) => state.daysForecastReducer.todaysHightLights,
@@ -34,22 +46,67 @@ export const TodaysHightlights = () => {
   }, [selectedCity]);
 
   return (
-    <div>
+    <TodaysHightlightsContainer>
+      <h1>{"Today's hilights"}</h1>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <div>
-          <p>sunset: {todaysHighlights?.sunsetTime}</p>
-          <p>sunrise: {todaysHighlights?.sunriseTime}</p>
-          <p>humidity: {todaysHighlights?.humidity}</p>
-          <p>pressure: {todaysHighlights?.pressure}</p>
-          <p>temperature: {todaysHighlights?.temperature}</p>
-          <p>UV Index: {todaysHighlights?.uvIndex}</p>
-          <p>wind speed: {todaysHighlights?.windSpeed}</p>
-        </div>
+        <TodaysHightlightSet>
+          <div>
+            <SunTimeDiv>
+              <TodaysHightlightsIcon src="assets/sunriseTH.png" alt="sunrise" />
+              <SunTimeInfo>
+                <h5>Sunrise</h5>
+                <h5>{todaysHighlights?.sunriseTime}</h5>
+              </SunTimeInfo>
+            </SunTimeDiv>
+            <SunTimeDiv>
+              <TodaysHightlightsIcon src="assets/sunsetTH.png" alt="sunset" />
+              <SunTimeInfo>
+                <h5>Sunset</h5>
+                <h5>{todaysHighlights?.sunsetTime}</h5>
+              </SunTimeInfo>
+            </SunTimeDiv>
+          </div>
+          <TemmperatureDiv>
+            <h3>{todaysHighlights?.temperature}°C</h3>
+          </TemmperatureDiv>
+          <div>
+            <CoupleWeatherDetailsDiv>
+              <WeatherDetailsDiv>
+                <WeatherDetailsIcon
+                  src="assets/humidityTH.png"
+                  alt="humidity"
+                />
+                <h5>{todaysHighlights?.humidity}%</h5>
+                <h5>Humidity</h5>
+              </WeatherDetailsDiv>
+              <WeatherDetailsDiv>
+                <WeatherDetailsIcon
+                  src="assets/pressureTH.png"
+                  alt="pressure"
+                />
+                <h5>{todaysHighlights?.pressure}hPa</h5>
+                <h5>Pressure</h5>
+              </WeatherDetailsDiv>
+            </CoupleWeatherDetailsDiv>
+            <CoupleWeatherDetailsDiv>
+              <WeatherDetailsDiv>
+                <WeatherDetailsIcon src="assets/windTH.png" alt="pressure" />
+                <h5>{todaysHighlights?.windSpeed}km/h</h5>
+                <h5>Wind Speed</h5>
+              </WeatherDetailsDiv>
+              <WeatherDetailsDiv>
+                <WeatherDetailsIcon src="assets/uvTH.png" alt="pressure" />
+                <h5>{todaysHighlights?.uvIndex}</h5>
+                <h5>UV</h5>
+              </WeatherDetailsDiv>
+            </CoupleWeatherDetailsDiv>
+          </div>
+        </TodaysHightlightSet>
       )}
-    </div>
+    </TodaysHightlightsContainer>
   );
 };

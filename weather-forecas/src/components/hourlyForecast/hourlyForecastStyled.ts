@@ -6,7 +6,6 @@ export const HourlyForecastDiv = styled.div`
   border-radius: 30px;
   background: rgba(68, 68, 68, 0.8);
   color: #ffffff;
-  font-family: "Poppins", sans-serif;
   h1 {
     padding: 30px 0px;
     font-size: 40px;
