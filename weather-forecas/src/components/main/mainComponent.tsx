@@ -6,9 +6,7 @@ import { TodaysHightlights } from "../todaysHiglights/todaysHighlights";
 export const Main = () => {
   return (
     <div style={{ display: "flex" }}>
-      <div>
-        <SideHeader />
-      </div>
+      <div>{/* <SideHeader /> */}</div>
 
       <div>
         <SearchLocation />

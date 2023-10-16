@@ -11,10 +11,13 @@ import { Main } from "./components/main/mainComponent";
 import "./App.css";
 import { NotFoundComponent } from "./components/empty/empty";
 
+import { SideHeader } from "./components/sideHeader/sideHeader";
+
 function App() {
   return (
     <div className="App" style={{ display: "flex" }}>
       <Router>
+        <SideHeader />
         <Routes>
           <Route path="/" element={<Main />} />
 

@@ -19,7 +19,7 @@ import {
   WindDirectionDiv,
   WindDirectionImg,
 } from "../utility/windDirectionStyled";
-import WindDirectionArrow from "../../assets/wind_direction.png";
+import windDirectionArrow from "../../assets/wind_direction.png";
 
 export const HourlyForecast = (props: any) => {
   const fiveRelevantHours = useSelector(
@@ -64,17 +64,15 @@ export const HourlyForecast = (props: any) => {
                 ></WeathercodeImg>
               </Weathercode>
 
-              <h3>weathercode: {item.weathercode}</h3>
               <h3>temperature: {item.temperature}</h3>
               <WindDirectionDiv>
                 <WindDirectionImg
                   rotate={getWindDirection(item.windDirection).rotate}
-                  src={WindDirectionArrow}
+                  src={windDirectionArrow}
                   alt="arrow"
                 ></WindDirectionImg>
                 <p>{getWindDirection(item.windDirection).direction}</p>
               </WindDirectionDiv>
-              <h3>windDirection: {item.windDirection}</h3>
 
               <h3>wind Gusts: {item.windGusts}</h3>
             </HourContainer>

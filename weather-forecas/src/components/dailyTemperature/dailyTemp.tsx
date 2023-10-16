@@ -60,6 +60,7 @@ export const ForecastData = () => {
               flexDirection: "row",
               backgroundColor: "pink",
               margin: "10px",
+              height: "30vh",
             }}
           >
             <div
@@ -82,7 +83,6 @@ export const ForecastData = () => {
                   alt="weathercode_img"
                 ></WeathercodeImg>
               </Weathercode>
-              <p>Weathercode: {item.weathercode}</p>
             </div>
           </div>
         ))
