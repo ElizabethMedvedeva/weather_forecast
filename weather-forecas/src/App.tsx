@@ -13,8 +13,13 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <Main />
-      <ForecastData />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Main />} />
+
+          <Route path="/forecast" element={<ForecastData />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
