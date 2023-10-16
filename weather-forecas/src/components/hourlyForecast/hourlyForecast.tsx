@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import windDirectionArrow from "../../assets/wind_direction.png";
 import {
   CityInterface,
   fetchHourlyForecast,
@@ -8,29 +9,28 @@ import {
 import { AppDispatch, StoreType } from "../../redux/store";
 import { Weathercode, WeathercodeImg } from "../utility/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weatherImages";
+import { getWindDirection } from "../utility/windDirection";
+import {
+  WindDirectionDiv,
+  WindDirectionImg,
+} from "../utility/windDirectionStyled";
 
 import {
   HourContainer,
   HourlyContainer,
   HourlyForecastDiv,
 } from "./hourlyForecastStyled";
-import { getWindDirection } from "../utility/windDirection";
-import {
-  WindDirectionDiv,
-  WindDirectionImg,
-} from "../utility/windDirectionStyled";
-import windDirectionArrow from "../../assets/wind_direction.png";
 
 export const HourlyForecast = (props: any) => {
   const fiveRelevantHours = useSelector(
-    (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
+    (state: StoreType) => state.daysForecastReducer.fiveRelevantHours,
   );
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity
+    (state: StoreType) => state.daysForecastReducer.selectedCity,
   );
 
   const { loading, error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer
+    (state: StoreType) => state.daysForecastReducer,
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -40,7 +40,7 @@ export const HourlyForecast = (props: any) => {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
         timezone: selectedCity.timezone,
-      })
+      }),
     );
   }, [selectedCity]);
 

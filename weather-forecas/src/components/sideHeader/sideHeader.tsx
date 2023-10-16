@@ -1,7 +1,9 @@
 import { NavLink } from "react-router-dom";
+
+import calendarIcon from "../../assets/calendarIcon.png";
 import favoriteIcon from "../../assets/favoriteIcon.png";
 import weatherIcon from "../../assets/weatherIcon.png";
-import calendarIcon from "../../assets/calendarIcon.png";
+
 import { SideHeaderDiv, SideHeaderIconDiv } from "./sideHeaderStyled";
 
 export const SideHeader = () => {

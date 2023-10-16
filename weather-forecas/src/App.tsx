@@ -6,12 +6,11 @@ import {
 } from "react-router-dom";
 
 import { ForecastData } from "./components/dailyTemperature/dailyTemp";
+import { NotFoundComponent } from "./components/empty/empty";
 import { Main } from "./components/main/mainComponent";
+import { SideHeader } from "./components/sideHeader/sideHeader";
 
 import "./App.css";
-import { NotFoundComponent } from "./components/empty/empty";
-
-import { SideHeader } from "./components/sideHeader/sideHeader";
 
 function App() {
   return (

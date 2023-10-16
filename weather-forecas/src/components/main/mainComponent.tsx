@@ -1,16 +1,17 @@
 import { HourlyForecast } from "../hourlyForecast/hourlyForecast";
 import { SearchLocation } from "../searchLocation/searchLocation";
-import { SideHeader } from "../sideHeader/sideHeader";
 import { TodaysHightlights } from "../todaysHiglights/todaysHighlights";
+
+import { MainContainer } from "./mainComponent.Styled";
 
 export const Main = () => {
   return (
-    <div style={{ display: "flex" }}>
+    <MainContainer>
       <div>
         <SearchLocation />
-        <HourlyForecast />
         <TodaysHightlights />
+        <HourlyForecast />
       </div>
-    </div>
+    </MainContainer>
   );
 };
