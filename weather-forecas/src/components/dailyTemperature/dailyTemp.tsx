@@ -7,20 +7,20 @@ import {
   fetchDailyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
-import { Weathercode, WeathercodeImg } from "../shared/weathercode.Styled";
+import { Weathercode, WeathercodeImg } from "../utility/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weatherImages";
 
 export const ForecastData = () => {
   const weather: daysForecastType = useSelector(
-    (state: StoreType) => state.daysForecastReducer.dailyForecast,
+    (state: StoreType) => state.daysForecastReducer.dailyForecast
   );
 
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity,
+    (state: StoreType) => state.daysForecastReducer.selectedCity
   );
 
   const { loading, error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer,
+    (state: StoreType) => state.daysForecastReducer
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -41,7 +41,7 @@ export const ForecastData = () => {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
         timezone: selectedCity.timezone,
-      }),
+      })
     );
   }, [selectedCity]);
 
