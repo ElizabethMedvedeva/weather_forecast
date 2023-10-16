@@ -7,10 +7,7 @@ import {
   fetchDailyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
-import {
-  Weathercode,
-  WeathercodeImg,
-} from "../hourlyForecast/hourlyForecastStyled";
+import { Weathercode, WeathercodeImg } from "../shared/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weatherImages";
 
 export const ForecastData = () => {

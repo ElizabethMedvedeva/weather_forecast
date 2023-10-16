@@ -6,14 +6,13 @@ import {
   fetchHourlyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
+import { Weathercode, WeathercodeImg } from "../shared/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weatherImages";
 
 import {
   HourContainer,
   HourlyContainer,
   HourlyForecastDiv,
-  Weathercode,
-  WeathercodeImg,
 } from "./hourlyForecastStyled";
 
 export const HourlyForecast = (props: any) => {
