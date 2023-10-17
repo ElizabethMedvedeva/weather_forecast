@@ -6,6 +6,10 @@ export const TodaysHightlightsContainer = styled.div`
   border-radius: 30px;
   background: rgba(68, 68, 68, 0.8);
   color: #ffffff;
+  h1 {
+    padding: 20px 0;
+    font-size: 40px;
+  }
 `;
 
 export const TodaysHightlightSet = styled.div`
@@ -43,6 +47,11 @@ export const TemmperatureDiv = styled.div`
     -webkit-text-fill-color: transparent;
   }
 `;
+export const WeatherDetailsSet = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
 
 export const CoupleWeatherDetailsDiv = styled.div`
   display: flex;
@@ -51,9 +60,11 @@ export const CoupleWeatherDetailsDiv = styled.div`
 export const WeatherDetailsDiv = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
+  align-items: center;
   h5 {
     font-size: 15px;
-    padding: 5px 0;
+    padding: 10px 0;
   }
 `;
 export const WeatherDetailsIcon = styled.img`

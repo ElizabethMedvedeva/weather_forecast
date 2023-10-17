@@ -18,6 +18,7 @@ import {
   TodaysHightlightsIcon,
   WeatherDetailsDiv,
   WeatherDetailsIcon,
+  WeatherDetailsSet,
 } from "./todaysHighlights.Styled";
 
 export const TodaysHightlights = () => {
@@ -73,7 +74,7 @@ export const TodaysHightlights = () => {
           <TemmperatureDiv>
             <h3>{todaysHighlights?.temperature}°C</h3>
           </TemmperatureDiv>
-          <div>
+          <WeatherDetailsSet>
             <CoupleWeatherDetailsDiv>
               <WeatherDetailsDiv>
                 <WeatherDetailsIcon
@@ -84,6 +85,14 @@ export const TodaysHightlights = () => {
                 <h5>Humidity</h5>
               </WeatherDetailsDiv>
               <WeatherDetailsDiv>
+                {" "}
+                <WeatherDetailsIcon src="assets/windTH.png" alt="pressure" />
+                <h5>{todaysHighlights?.windSpeed}km/h</h5>
+                <h5>Wind Speed</h5>
+              </WeatherDetailsDiv>
+            </CoupleWeatherDetailsDiv>
+            <CoupleWeatherDetailsDiv>
+              <WeatherDetailsDiv>
                 <WeatherDetailsIcon
                   src="assets/pressureTH.png"
                   alt="pressure"
@@ -91,20 +100,13 @@ export const TodaysHightlights = () => {
                 <h5>{todaysHighlights?.pressure}hPa</h5>
                 <h5>Pressure</h5>
               </WeatherDetailsDiv>
-            </CoupleWeatherDetailsDiv>
-            <CoupleWeatherDetailsDiv>
-              <WeatherDetailsDiv>
-                <WeatherDetailsIcon src="assets/windTH.png" alt="pressure" />
-                <h5>{todaysHighlights?.windSpeed}km/h</h5>
-                <h5>Wind Speed</h5>
-              </WeatherDetailsDiv>
               <WeatherDetailsDiv>
                 <WeatherDetailsIcon src="assets/uvTH.png" alt="pressure" />
                 <h5>{todaysHighlights?.uvIndex}</h5>
                 <h5>UV</h5>
               </WeatherDetailsDiv>
             </CoupleWeatherDetailsDiv>
-          </div>
+          </WeatherDetailsSet>
         </TodaysHightlightSet>
       )}
     </TodaysHightlightsContainer>
