@@ -16,6 +16,7 @@ color: #ffffff;
 text-align: center;
 position: relative;
 width: 180px;
+margin-top: 40px;
 `
 export const OptionCitiesDiv = styled.div`
   display: flex;
@@ -42,4 +43,10 @@ h3{
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+`
+export const CurrentWeatherIcon = styled.img`
+margin: 0 auto;
+max-width: 180px;
+height: auto;
+
 `

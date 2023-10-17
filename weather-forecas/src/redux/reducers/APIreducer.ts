@@ -94,10 +94,8 @@ export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
       temperature: serverResponse.hourly.temperature_2m[i],
       weathercode: serverResponse.hourly.weathercode[i],
     };
-    const checkingTime = moment(hourForecast.date);
-    if (checkingTime.tz(timezone).hour() % 3 === 0) {
-      hourlyForecast.push(hourForecast);
-    }
+
+    hourlyForecast.push(hourForecast);
   }
   return hourlyForecast;
 };
@@ -106,33 +104,36 @@ const getFiveRelevant = (
   timezone: string
 ) => {
   const hourlyForecast = unsortedHourlyForecast.slice();
+  const filteredHourlyForecast = hourlyForecast.filter(
+    (item) => moment(item.date).tz(timezone).hour() % 3 === 0
+  );
   const currentCityTime = moment().tz(timezone);
-
-  for (let i = 0; i < hourlyForecast.length; i++) {
-    const forecastTime = moment(hourlyForecast[i].date);
+  for (let i = 0; i < filteredHourlyForecast.length; i++) {
+    const forecastTime = moment(filteredHourlyForecast[i].date);
     if (forecastTime >= currentCityTime) {
       i -= 1;
-      if (hourlyForecast.length - i < 5) {
-        i = hourlyForecast.length - 5;
+      if (filteredHourlyForecast.length - i < 5) {
+        i = filteredHourlyForecast.length - 5;
       }
-      return hourlyForecast.slice(i, i + 5);
+      return filteredHourlyForecast.slice(i, i + 5);
     }
   }
-
-  return hourlyForecast.slice(hourlyForecast.length - 5);
+  return filteredHourlyForecast.slice(filteredHourlyForecast.length - 5);
 };
+
 const getCurrentWeather = (
   unsortedHourlyForecast: HourlyForecastArray,
   timezone: string
 ) => {
   const currentCityTime = moment().tz(timezone);
   const hourlyForecast = unsortedHourlyForecast.slice();
-  for(let i = 0; i < hourlyForecast.length; i++) {
+  for (let i = 0; i < hourlyForecast.length; i++) {
     const forecastTime = moment(hourlyForecast[i].date);
-    if(forecastTime.hour() === currentCityTime.hour()){
-      return hourlyForecast[i].weathercode
-    };
-  } throw new Error ("Unexpected time");
+    if (forecastTime.hour() === currentCityTime.hour()) {
+      return hourlyForecast[i].weathercode;
+    }
+  }
+  throw new Error("Unexpected time");
 };
 
 export interface CityInterface {
@@ -141,38 +142,26 @@ export interface CityInterface {
   longitude: number;
   timezone: string;
   country: string;
+  id: number;
 }
-export const fillSelectedCity = (serverResponse: any) => {
-  const firstCity = serverResponse.results[0];
-  const selectedCity: CityInterface = {
-    name: firstCity.name,
-    country: firstCity.country,
-    latitude: firstCity.latitude,
-    longitude: firstCity.longitude,
-    timezone: firstCity.timezone,
-  };
-  return selectedCity;
-};
 
-export interface IOptionCity {
-  name: string;
-  latitude: number;
-  longitude: number;
-  timezone: string;
-  country: string;
-}
-export type OptionCities = Array<IOptionCity>;
+export type OptionCities = Array<CityInterface>;
 
 export const optionCitySearch = (serverResponse: any): OptionCities => {
+  if (!serverResponse || !serverResponse.results) {
+    return [];
+  }
   const optionCitySearch = [];
   const optionCity = serverResponse.results;
-  for (let i = 0; i < 3; i++) {
+  const iterationCount = Math.min(3, optionCity.length);
+  for (let i = 0; i < iterationCount; i++) {
     const allCityOptions = {
       name: optionCity[i].name,
       country: optionCity[i].country,
       latitude: optionCity[i].latitude,
       longitude: optionCity[i].longitude,
       timezone: optionCity[i].timezone,
+      id: optionCity[i].id,
     };
     optionCitySearch.push(allCityOptions);
   }
@@ -207,6 +196,7 @@ const initialState: APIInitialState = {
     country: "Lithuania",
     longitude: 25.2798,
     latitude: 54.6892,
+    id: 593116,
   },
   citiesOptions: [],
   currentWeather: 0,
@@ -304,9 +294,8 @@ export const APISlice = createSlice({
       state.citiesOptions = action.payload;
     },
     setCurrentWeather: (state, action: PayloadAction<any>) => {
-      state.currentWeather  = action.payload;
+      state.currentWeather = action.payload;
     },
-    
   },
 
   extraReducers: (builder) =>

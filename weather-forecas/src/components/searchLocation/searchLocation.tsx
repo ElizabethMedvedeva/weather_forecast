@@ -12,7 +12,7 @@ import {
 import { AppDispatch, StoreType } from "../../redux/store";
 
 import { Clock } from "./clock";
-import { CityNameDiv, OptionCitiesButton, OptionCitiesDiv, SearchLocationContainer, SearchLocationInput } from "./searchLocation.Styled";
+import { CityNameDiv, CurrentWeatherIcon, OptionCitiesButton, OptionCitiesDiv, SearchLocationContainer, SearchLocationInput } from "./searchLocation.Styled";
 import { getImageByWeathercode } from "../utility/weatherImages";
 
 export const SearchLocation = () => {
@@ -39,20 +39,21 @@ export const SearchLocation = () => {
     (state: StoreType) => state.daysForecastReducer
   );
   useEffect(() => {
-    if (searchStateDebaunse) {
+    if (searchStateDebaunse.length > 1) {
       dispatch(fetchSearchLocation(searchStateDebaunse));
     }
   }, [searchStateDebaunse]);
 
   const handleInputChangeClick = (event: any) => {
     const dataset = event.target.dataset;
-    setShowOption(false);
     for (const city of cityOptions) {
-      if (city.name === dataset.name && city.country === dataset.country) {
+      if (city.id === Number(dataset.id)) {
         dispatch(setSelectedCity(city));
         break;
       }
     }
+    setShowOption(false);
+    event.target.value = ""
   };
   return (
     <SearchLocationContainer>
@@ -60,8 +61,8 @@ export const SearchLocation = () => {
       {showOption ? <OptionCitiesDiv>
         {cityOptions.map((item: any) => (
           <OptionCitiesButton
-            data-name={item.name}
-            data-country={item.country}
+            key={item.id}
+            data-id={item.id}
             onClick={handleInputChangeClick}
           >
             {item.name} / {item.country}
@@ -75,9 +76,9 @@ export const SearchLocation = () => {
         </h3>
       </CityNameDiv>
       <Clock />
-      <img
+      <CurrentWeatherIcon
         src={getImageByWeathercode(currentWeather)}
-        alt="weathercode_img"></img>
+        alt="weathercode_img"></CurrentWeatherIcon>
     </SearchLocationContainer>
   );
 };
