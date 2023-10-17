@@ -6,8 +6,9 @@ export const TodaysHightlightsContainer = styled.div`
   border-radius: 30px;
   background: rgba(68, 68, 68, 0.8);
   color: #ffffff;
+  margin: 40px;
   h1 {
-    padding: 20px 0;
+    padding: 15px 0 10px 0;
     font-size: 40px;
   }
 `;

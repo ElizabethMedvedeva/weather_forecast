@@ -4,7 +4,11 @@ import calendarIcon from "../../assets/calendarIcon.png";
 import favoriteIcon from "../../assets/favoriteIcon.png";
 import weatherIcon from "../../assets/weatherIcon.png";
 
-import { SideHeaderDiv, SideHeaderIconDiv } from "./sideHeaderStyled";
+import {
+  SideHeaderDiv,
+  SideHeaderIcon,
+  SideHeaderIconDiv,
+} from "./sideHeaderStyled";
 
 export const SideHeader = () => {
   return (
@@ -14,7 +18,7 @@ export const SideHeader = () => {
           className={({ isActive }) => (isActive ? "active-link" : "")}
           to="/forecast"
         >
-          <img src={calendarIcon}></img>
+          <SideHeaderIcon src={calendarIcon} />
         </NavLink>
       </SideHeaderIconDiv>
 
