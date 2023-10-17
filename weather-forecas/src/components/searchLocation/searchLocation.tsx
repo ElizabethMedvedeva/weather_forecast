@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "usehooks-ts";
 
@@ -12,6 +12,8 @@ import {
 import { AppDispatch, StoreType } from "../../redux/store";
 
 import { Clock } from "./clock";
+import { CityNameDiv, OptionCitiesButton, OptionCitiesDiv, SearchLocationContainer, SearchLocationInput } from "./searchLocation.Styled";
+import { getImageByWeathercode } from "../utility/weatherImages";
 
 export const SearchLocation = () => {
   const searchState: string = useSelector(
@@ -24,6 +26,10 @@ export const SearchLocation = () => {
   const selectedCity: CityInterface = useSelector(
     (state: StoreType) => state.daysForecastReducer.selectedCity
   );
+  const currentWeather = useSelector((state: StoreType) => state.daysForecastReducer.currentWeather)
+
+  const [showOption, setShowOption] = useState<boolean>(true);
+
   const dispatch = useDispatch<AppDispatch>();
 
   const handleInputChange = (event: any) => {
@@ -40,7 +46,7 @@ export const SearchLocation = () => {
 
   const handleInputChangeClick = (event: any) => {
     const dataset = event.target.dataset;
-
+    setShowOption(false);
     for (const city of cityOptions) {
       if (city.name === dataset.name && city.country === dataset.country) {
         dispatch(setSelectedCity(city));
@@ -49,26 +55,29 @@ export const SearchLocation = () => {
     }
   };
   return (
-    <div>
-      <p>
-        {selectedCity.name}, {selectedCity.country}
-      </p>
-      <Clock />
+    <SearchLocationContainer>
+      <SearchLocationInput placeholder="Search city" type="text" onChange={handleInputChange} />
+      {showOption ? <OptionCitiesDiv>
+        {cityOptions.map((item: any) => (
+          <OptionCitiesButton
+            data-name={item.name}
+            data-country={item.country}
+            onClick={handleInputChangeClick}
+          >
+            {item.name} / {item.country}
+          </OptionCitiesButton>
+        ))}
+      </OptionCitiesDiv> : <></>}
 
-      <input type="text" onChange={handleInputChange} />
-      <div>
-        <div className="modal_header"></div>
-        <div className="modal_content"></div>
-      </div>
-      {cityOptions.map((item: any) => (
-        <button
-          data-name={item.name}
-          data-country={item.country}
-          onClick={handleInputChangeClick}
-        >
-          {item.name}
-        </button>
-      ))}
-    </div>
+      <CityNameDiv>
+        <h3>
+          {selectedCity.name}, {selectedCity.country}
+        </h3>
+      </CityNameDiv>
+      <Clock />
+      <img
+        src={getImageByWeathercode(currentWeather)}
+        alt="weathercode_img"></img>
+    </SearchLocationContainer>
   );
 };

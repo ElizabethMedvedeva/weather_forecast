@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const TodaysHightlightsContainer = styled.div`
-  height: 410px;
+  height: 450px;
   max-width: 787px;
   border-radius: 30px;
   background: rgba(68, 68, 68, 0.8);

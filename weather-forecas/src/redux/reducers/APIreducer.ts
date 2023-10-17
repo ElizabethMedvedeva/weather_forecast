@@ -121,6 +121,19 @@ const getFiveRelevant = (
 
   return hourlyForecast.slice(hourlyForecast.length - 5);
 };
+const getCurrentWeather = (
+  unsortedHourlyForecast: HourlyForecastArray,
+  timezone: string
+) => {
+  const currentCityTime = moment().tz(timezone);
+  const hourlyForecast = unsortedHourlyForecast.slice();
+  for(let i = 0; i < hourlyForecast.length; i++) {
+    const forecastTime = moment(hourlyForecast[i].date);
+    if(forecastTime.hour() === currentCityTime.hour()){
+      return hourlyForecast[i].weathercode
+    };
+  } throw new Error ("Unexpected time");
+};
 
 export interface CityInterface {
   name: string;
@@ -153,7 +166,7 @@ export type OptionCities = Array<IOptionCity>;
 export const optionCitySearch = (serverResponse: any): OptionCities => {
   const optionCitySearch = [];
   const optionCity = serverResponse.results;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 3; i++) {
     const allCityOptions = {
       name: optionCity[i].name,
       country: optionCity[i].country,
@@ -177,6 +190,7 @@ type APIInitialState = {
   search: string;
   selectedCity: CityInterface;
   citiesOptions: OptionCities;
+  currentWeather: number;
 };
 
 const initialState: APIInitialState = {
@@ -195,6 +209,7 @@ const initialState: APIInitialState = {
     latitude: 54.6892,
   },
   citiesOptions: [],
+  currentWeather: 0,
 };
 interface IForecastParams {
   latitude: number;
@@ -288,6 +303,10 @@ export const APISlice = createSlice({
     setOptionCitySearch: (state, action: PayloadAction<OptionCities>) => {
       state.citiesOptions = action.payload;
     },
+    setCurrentWeather: (state, action: PayloadAction<any>) => {
+      state.currentWeather  = action.payload;
+    },
+    
   },
 
   extraReducers: (builder) =>
@@ -319,6 +338,10 @@ export const APISlice = createSlice({
           state.hourlyForecast,
           state.selectedCity.timezone
         );
+        state.currentWeather = getCurrentWeather(
+          state.hourlyForecast,
+          state.selectedCity.timezone
+        );
         state.loading = false;
       })
       .addCase(fetchHourlyForecast.rejected, (state, action) => {
@@ -346,7 +369,6 @@ export const APISlice = createSlice({
         state.error = null;
       })
       .addCase(fetchSearchLocation.fulfilled, (state, action) => {
-        // state.selectedCity = fillSelectedCity(action.payload);
         state.citiesOptions = optionCitySearch(action.payload);
         state.loading = false;
       })

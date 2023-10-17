@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import moment from "moment-timezone";
 
 import { StoreType } from "../../redux/store";
+import { ClockContainer } from "./clock.Styled";
 
 export const Clock = () => {
   const timeZone = useSelector(
@@ -39,11 +40,11 @@ export const Clock = () => {
   const convertedWeekDay = moment().tz(timeZone).weekday();
 
   return (
-    <div>
-      <p> {convertedTime}</p>
-      <p>
+    <ClockContainer>
+      <h3> {convertedTime}</h3>
+      <h4>
         {weekDay[convertedWeekDay]}, {convertedDate} {months[convertedMonth]}{" "}
-      </p>
-    </div>
+      </h4>
+    </ClockContainer>
   );
 };
