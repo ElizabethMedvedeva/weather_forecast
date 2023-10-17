@@ -148,18 +148,18 @@ export interface IOptionCity {
   timezone: string;
   country: string;
 }
-export type OptionCities = Array<IOptionCity>
+export type OptionCities = Array<IOptionCity>;
 
 export const optionCitySearch = (serverResponse: any): OptionCities => {
   const optionCitySearch = [];
   const optionCity = serverResponse.results;
   for (let i = 0; i < 5; i++) {
     const allCityOptions = {
-      name: optionCity.name,
-      country: optionCity.country,
-      latitude: optionCity.latitude,
-      longitude: optionCity.longitude,
-      timezone: optionCity.timezone,
+      name: optionCity[i].name,
+      country: optionCity[i].country,
+      latitude: optionCity[i].latitude,
+      longitude: optionCity[i].longitude,
+      timezone: optionCity[i].timezone,
     };
     optionCitySearch.push(allCityOptions);
   }

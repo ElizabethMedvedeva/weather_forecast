@@ -13,12 +13,14 @@ import { Clock } from "./clock";
 
 export const SearchLocation = () => {
   const searchState: string = useSelector(
-    (state: StoreType) => state.daysForecastReducer.search,
+    (state: StoreType) => state.daysForecastReducer.search
   );
-  const cityOptions = useSelector((state: StoreType) => state.daysForecastReducer.citiesOptions)
+  const cityOptions = useSelector(
+    (state: StoreType) => state.daysForecastReducer.citiesOptions
+  );
   const searchStateDebaunse = useDebounce<string>(searchState, 700);
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity,
+    (state: StoreType) => state.daysForecastReducer.selectedCity
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -26,7 +28,7 @@ export const SearchLocation = () => {
     dispatch(setSearchLocation(event.target.value));
   };
   const { loading, error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer,
+    (state: StoreType) => state.daysForecastReducer
   );
   useEffect(() => {
     if (searchStateDebaunse) {
@@ -40,25 +42,15 @@ export const SearchLocation = () => {
         {selectedCity.name}, {selectedCity.country}
       </p>
       <Clock />
-      
-      <form>
-      <select onChange={handleInputChange}>
-            <option value="grapefruit">Грейпфрут</option>
-            <option value="lime">Лайм</option>
-            <option value="coconut">Кокос</option>
-            <option value="mango">Манго</option>
-          </select>
+
       <input type="text" onChange={handleInputChange} />
       <div>
         <div className="modal_header"></div>
         <div className="modal_content"></div>
       </div>
       {cityOptions.map((item: any) => (
-        <button>{JSON.stringify(item)}</button>
-        )
-        
-        )}
-      </form>
+        <button>{item.name}</button>
+      ))}
     </div>
   );
 };
