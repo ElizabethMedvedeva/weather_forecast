@@ -23,16 +23,16 @@ import {
 
 export const HourlyForecast = () => {
   const fiveRelevantHours = useSelector(
-    (state: StoreType) => state.daysForecastReducer.fiveRelevantHours,
+    (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
   );
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity,
+    (state: StoreType) => state.daysForecastReducer.selectedCity
   );
 
   const { loading, error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer,
+    (state: StoreType) => state.daysForecastReducer
   );
-
+  console.log(selectedCity, "ssqew");
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(
@@ -40,7 +40,7 @@ export const HourlyForecast = () => {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
         timezone: selectedCity.timezone,
-      }),
+      })
     );
   }, [selectedCity]);
 

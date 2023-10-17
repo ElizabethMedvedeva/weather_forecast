@@ -346,7 +346,7 @@ export const APISlice = createSlice({
         state.error = null;
       })
       .addCase(fetchSearchLocation.fulfilled, (state, action) => {
-        state.selectedCity = fillSelectedCity(action.payload);
+        // state.selectedCity = fillSelectedCity(action.payload);
         state.citiesOptions = optionCitySearch(action.payload);
         state.loading = false;
       })

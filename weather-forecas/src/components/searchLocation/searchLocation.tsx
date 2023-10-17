@@ -5,7 +5,9 @@ import { useDebounce } from "usehooks-ts";
 import {
   CityInterface,
   fetchSearchLocation,
+  optionCitySearch,
   setSearchLocation,
+  setSelectedCity,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
 
@@ -36,6 +38,16 @@ export const SearchLocation = () => {
     }
   }, [searchStateDebaunse]);
 
+  const handleInputChangeClick = (event: any) => {
+    const dataset = event.target.dataset;
+
+    for (const city of cityOptions) {
+      if (city.name === dataset.name && city.country === dataset.country) {
+        dispatch(setSelectedCity(city));
+        break;
+      }
+    }
+  };
   return (
     <div>
       <p>
@@ -49,7 +61,13 @@ export const SearchLocation = () => {
         <div className="modal_content"></div>
       </div>
       {cityOptions.map((item: any) => (
-        <button>{item.name}</button>
+        <button
+          data-name={item.name}
+          data-country={item.country}
+          onClick={handleInputChangeClick}
+        >
+          {item.name}
+        </button>
       ))}
     </div>
   );
