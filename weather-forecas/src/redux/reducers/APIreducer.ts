@@ -126,7 +126,9 @@ const getCurrentWeather = (
   timezone: string
 ) => {
   const currentCityTime = moment().tz(timezone);
+
   const hourlyForecast = unsortedHourlyForecast.slice();
+
   for (let i = 0; i < hourlyForecast.length; i++) {
     const forecastTime = moment(hourlyForecast[i].date);
     if (forecastTime.hour() === currentCityTime.hour()) {
@@ -153,6 +155,7 @@ export const optionCitySearch = (serverResponse: any): OptionCities => {
   }
   const optionCitySearch = [];
   const optionCity = serverResponse.results;
+  console.log(optionCity, "test11");
   const iterationCount = Math.min(3, optionCity.length);
   for (let i = 0; i < iterationCount; i++) {
     const allCityOptions = {

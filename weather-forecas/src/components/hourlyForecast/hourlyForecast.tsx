@@ -32,7 +32,7 @@ export const HourlyForecast = () => {
   const { loading, error } = useSelector(
     (state: StoreType) => state.daysForecastReducer
   );
-  console.log(selectedCity, "ssqew");
+
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(
