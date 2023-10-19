@@ -9,6 +9,7 @@ import {
 import { AppDispatch, StoreType } from "../../redux/store";
 import { Weathercode, WeathercodeImg } from "../utility/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weatherImages";
+import { CircularProgress } from "@mui/material";
 
 export const ForecastData = () => {
   const weather: daysForecastType = useSelector(
@@ -48,7 +49,7 @@ export const ForecastData = () => {
   return (
     <div style={{ display: "flex" }}>
       {loading ? (
-        <p>Loading...</p>
+        <CircularProgress />
       ) : error ? (
         <p>Error: {error}</p>
       ) : (

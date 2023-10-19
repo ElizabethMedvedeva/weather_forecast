@@ -21,6 +21,7 @@ import {
   SearchLocationInput,
 } from "./searchLocation.Styled";
 import { getImageByWeathercode } from "../utility/weatherImages";
+import { CircularProgress } from "@mui/material";
 
 const delay = 700;
 
@@ -58,7 +59,7 @@ export const SearchLocation = () => {
   );
 
   useEffect(() => {
-    if (searchStateDebaunse) {
+    if (searchStateDebaunse.length > 1) {
       // вернуть searchStateDebaunse.length > 1
       dispatch(fetchSearchLocation(searchStateDebaunse));
     }
@@ -78,6 +79,13 @@ export const SearchLocation = () => {
   };
   return (
     <SearchLocationContainer>
+
+
+{loading ? (
+        <CircularProgress />
+      ) : error ? (
+        <p>Error: {error}</p>
+      ) : (
       <SearchLocationInput
         placeholder="Search city"
         type="text"
@@ -108,7 +116,8 @@ export const SearchLocation = () => {
       <CurrentWeatherIcon
         src={getImageByWeathercode(currentWeather)}
         alt="weathercode_img"
-      ></CurrentWeatherIcon>
+      ></CurrentWeatherIcon> )}
     </SearchLocationContainer>
+    };
   );
-};
+

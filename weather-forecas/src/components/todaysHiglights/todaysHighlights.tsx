@@ -20,18 +20,19 @@ import {
   WeatherDetailsIcon,
   WeatherDetailsSet,
 } from "./todaysHighlights.Styled";
+import { CircularProgress } from "@mui/material";
 
 export const TodaysHightlights = () => {
   const todaysHighlights: ITodayHighlight | null = useSelector(
-    (state: StoreType) => state.daysForecastReducer.todaysHightLights,
+    (state: StoreType) => state.daysForecastReducer.todaysHightLights
   );
 
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity,
+    (state: StoreType) => state.daysForecastReducer.selectedCity
   );
 
   const { loading, error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer,
+    (state: StoreType) => state.daysForecastReducer
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -42,7 +43,7 @@ export const TodaysHightlights = () => {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
         timezone: selectedCity.timezone,
-      }),
+      })
     );
   }, [selectedCity]);
 
@@ -50,7 +51,7 @@ export const TodaysHightlights = () => {
     <TodaysHightlightsContainer>
       <h1>{"Today's hilights"}</h1>
       {loading ? (
-        <p>Loading...</p>
+        <CircularProgress />
       ) : error ? (
         <p>Error: {error}</p>
       ) : (

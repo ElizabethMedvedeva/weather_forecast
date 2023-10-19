@@ -20,6 +20,7 @@ import {
   HourlyContainer,
   HourlyForecastDiv,
 } from "./hourlyForecastStyled";
+import { CircularProgress, LinearProgress } from "@mui/material";
 
 export const HourlyForecast = () => {
   const fiveRelevantHours = useSelector(
@@ -49,7 +50,7 @@ export const HourlyForecast = () => {
       <h1>Hourly forecast</h1>
       <HourlyContainer>
         {loading ? (
-          <p>Loading...</p>
+          <CircularProgress />
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
