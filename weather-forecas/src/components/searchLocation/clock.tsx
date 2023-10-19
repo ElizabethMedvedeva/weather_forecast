@@ -6,7 +6,7 @@ import { ClockContainer } from "./clock.Styled";
 
 export const Clock = () => {
   const timeZone = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity.timezone,
+    (state: StoreType) => state.daysForecastReducer.selectedCity.timezone
   );
   const currentTime = new Date();
 

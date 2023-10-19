@@ -79,45 +79,45 @@ export const SearchLocation = () => {
   };
   return (
     <SearchLocationContainer>
-
-
-{loading ? (
+      {loading ? (
         <CircularProgress />
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-      <SearchLocationInput
-        placeholder="Search city"
-        type="text"
-        onChange={handleInputChange}
-      />
-      {showOption ? (
-        <OptionCitiesDiv>
-          {cityOptions.map((item: any) => (
-            <OptionCitiesButton
-              key={item.id}
-              data-id={item.id}
-              onClick={handleInputChangeClick}
-            >
-              {item.name} / {item.country}
-            </OptionCitiesButton>
-          ))}
-        </OptionCitiesDiv>
-      ) : (
-        <></>
+        <>
+          <SearchLocationInput
+            placeholder="Search city"
+            type="text"
+            onChange={handleInputChange}
+          />
+          {showOption ? (
+            <OptionCitiesDiv>
+              {cityOptions.map((item: any) => (
+                <OptionCitiesButton
+                  key={item.id}
+                  data-id={item.id}
+                  onClick={handleInputChangeClick}
+                >
+                  {item.name} / {item.country}
+                </OptionCitiesButton>
+              ))}
+            </OptionCitiesDiv>
+          ) : (
+            <></>
+          )}
+
+          <CityNameDiv>
+            <h3>
+              {selectedCity.name}, {selectedCity.country}
+            </h3>
+          </CityNameDiv>
+          <Clock />
+          <CurrentWeatherIcon
+            src={getImageByWeathercode(currentWeather)}
+            alt="weathercode_img"
+          />
+        </>
       )}
-
-      <CityNameDiv>
-        <h3>
-          {selectedCity.name}, {selectedCity.country}
-        </h3>
-      </CityNameDiv>
-      <Clock />
-      <CurrentWeatherIcon
-        src={getImageByWeathercode(currentWeather)}
-        alt="weathercode_img"
-      ></CurrentWeatherIcon> )}
     </SearchLocationContainer>
-    };
   );
-
+};
