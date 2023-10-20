@@ -60,7 +60,6 @@ export const SearchLocation = () => {
 
   useEffect(() => {
     if (searchStateDebaunse.length > 1) {
-      // вернуть searchStateDebaunse.length > 1
       dispatch(fetchSearchLocation(searchStateDebaunse));
     }
   }, [searchStateDebaunse]);

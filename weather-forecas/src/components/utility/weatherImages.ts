@@ -1,106 +1,81 @@
-import blowing_snow from "../../assets/blowing_snow.png";
-import clear from "../../assets/clear.png";
-import cloudy from "../../assets/cloudy.png";
-import fog from "../../assets/fog.png";
-import hail from "../../assets/hail.png";
-import haze from "../../assets/haze.png";
-import heavy_rain from "../../assets/heavy_rain.png";
-import heavy_snow from "../../assets/heavy_snow.png";
-import heavy_thunderstorm from "../../assets/heavy_thunderstorm.png";
-import lightning from "../../assets/lightning.png";
-import rain from "../../assets/rain.png";
-import sandstorm from "../../assets/sandstorm.png";
-import slight_rain from "../../assets/slight_rain.png";
-import slight_snow from "../../assets/slight_snow.png";
-import slight_thunderstorm from "../../assets/slight_thunderstorm.png";
-import slow_rain from "../../assets/slow_rain.png";
-import smoke from "../../assets/smoke.png";
-import snow_drizzle from "../../assets/snow_drizzle.png";
-import snow_grains from "../../assets/snow_grains.png";
-import snow_rain from "../../assets/snow_rain.png";
-import snowflake from "../../assets/snowflake.png";
-import thunderstorm from "../../assets/thunderstorm.png";
-import tornado from "../../assets/tornado.png";
-import wind from "../../assets/wind.png";
-
 export const getImageByWeathercode = (weathercode: number) => {
   if (
     (10 <= weathercode && weathercode <= 12) ||
     weathercode === 28 ||
     (40 <= weathercode && weathercode <= 49)
   ) {
-    return fog;
+    return "assets/fog.png";
   }
   if (97 <= weathercode && weathercode <= 99) {
-    return heavy_thunderstorm;
+    return "assets/heavy_thunderstorm.png";
   }
   if (0 <= weathercode && weathercode <= 3) {
-    return cloudy;
+    return "assets/cloudy.png";
   }
   if (weathercode === 4) {
-    return smoke;
+    return "assets/smoke.png";
   }
   if (weathercode === 5) {
-    return haze;
+    return "assets/haze.png";
   }
   if (
     (6 <= weathercode && weathercode <= 9) ||
     (30 <= weathercode && weathercode <= 35)
   ) {
-    return sandstorm;
+    return "assets/sandstorm.png";
   }
   if (weathercode === 13) {
-    return lightning;
+    return "assets/lightning.png";
   }
   if (weathercode === 18 || weathercode === 19) {
-    return wind;
+    return "assets/wind.png";
   }
   if (14 <= weathercode && weathercode <= 16) {
-    return slow_rain;
+    return "assets/slow_rain.png";
   }
   if (weathercode === 17 || weathercode === 29) {
-    return thunderstorm;
+    return "assets/thunderstorm.png";
   }
   if (weathercode === 95 || weathercode === 96) {
-    return slight_thunderstorm;
+    return "assets/slight_thunderstorm.png";
   }
   if (weathercode === 20) {
-    return tornado;
+    return "assets/tornado.png";
   }
   if (
     weathercode === 21 ||
     weathercode === 24 ||
     (60 <= weathercode && weathercode <= 66)
   ) {
-    return rain;
+    return "assets/rain.png";
   }
   if (weathercode === 77) {
-    return snow_grains;
+    return "assets/snow_grains.png";
   }
   if (weathercode === 78) {
-    return snowflake;
+    return "assets/snowflake.png";
   }
   if (36 <= weathercode && weathercode <= 38) {
-    return blowing_snow;
+    return "assets/blowing_snow.png";
   }
   if (50 <= weathercode && weathercode <= 56) {
-    return snow_drizzle;
+    return "assets/snow_drizzle.png";
   }
   if (57 <= weathercode && weathercode <= 59) {
-    return snow_rain;
+    return "assets/snow_rain.png";
   }
   if (
     weathercode === 27 ||
     weathercode === 79 ||
     (89 <= weathercode && weathercode <= 90)
   ) {
-    return hail;
+    return "assets/hail.png";
   }
   if (weathercode === 91) {
-    return slight_rain;
+    return "assets/slight_rain.png";
   }
   if (weathercode === 26 || weathercode === 94 || weathercode === 39) {
-    return heavy_snow;
+    return "assets/heavy_snow.png";
   }
   if (
     weathercode === 22 ||
@@ -109,7 +84,7 @@ export const getImageByWeathercode = (weathercode: number) => {
     (85 <= weathercode && weathercode <= 88) ||
     weathercode === 93
   ) {
-    return slight_snow;
+    return "assets/slight_snow.png";
   }
   if (
     weathercode === 25 ||
@@ -117,7 +92,7 @@ export const getImageByWeathercode = (weathercode: number) => {
     (80 <= weathercode && weathercode <= 84) ||
     weathercode === 92
   ) {
-    return heavy_rain;
+    return "assets/heavy_rain.png";
   }
-  return clear;
+  return "assets/clear.png";
 };

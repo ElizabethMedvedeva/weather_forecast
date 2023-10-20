@@ -8,7 +8,6 @@ export const Clock = () => {
   const timeZone = useSelector(
     (state: StoreType) => state.daysForecastReducer.selectedCity.timezone
   );
-  const currentTime = new Date();
 
   const convertedTime = moment().tz(timeZone).format("HH:mm");
   const convertedDate: any = moment().tz(timeZone).format("DD");

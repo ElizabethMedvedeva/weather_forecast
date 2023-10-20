@@ -124,7 +124,7 @@ const getFiveRelevant = (
 const getCurrentWeather = (
   unsortedHourlyForecast: HourlyForecastArray,
   timezone: string
-) => {
+) => { 
   const currentCityTime = moment().tz(timezone);
 
   const hourlyForecast = unsortedHourlyForecast.slice();
@@ -155,7 +155,6 @@ export const optionCitySearch = (serverResponse: any): OptionCities => {
   }
   const optionCitySearch = [];
   const optionCity = serverResponse.results;
-  console.log(optionCity, "test11");
   const iterationCount = Math.min(3, optionCity.length);
   for (let i = 0; i < iterationCount; i++) {
     const allCityOptions = {
@@ -168,7 +167,6 @@ export const optionCitySearch = (serverResponse: any): OptionCities => {
     };
     optionCitySearch.push(allCityOptions);
   }
-  console.log(optionCitySearch, "option city search");
   return optionCitySearch;
 };
 
