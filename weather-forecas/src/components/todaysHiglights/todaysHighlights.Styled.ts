@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 export const TodaysHightlightsContainer = styled.div`
-  height: 450px;
-  max-width: 787px;
+  height: 400px;
+  max-width: 800px;
   border-radius: 30px;
   background: rgba(68, 68, 68, 0.8);
   color: #ffffff;
-  margin: 40px;
+  margin: 15px;
   h1 {
-    padding: 15px 0 10px 0;
-    font-size: 40px;
+    padding: 10px 0;
+    font-size: 35px;
   }
 `;
 
@@ -56,6 +56,7 @@ export const WeatherDetailsSet = styled.div`
 
 export const CoupleWeatherDetailsDiv = styled.div`
   display: flex;
+  justify-content: space-evenly;
 `;
 
 export const WeatherDetailsDiv = styled.div`
@@ -63,6 +64,7 @@ export const WeatherDetailsDiv = styled.div`
   flex-direction: column;
   padding: 0 20px;
   align-items: center;
+  justify-content: center;
   h5 {
     font-size: 15px;
     padding: 10px 0;

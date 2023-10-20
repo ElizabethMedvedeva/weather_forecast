@@ -4,9 +4,9 @@ export const SearchLocationContainer = styled.div`
   background: rgba(68, 68, 68, 0.8);
   color: #ffffff;
   margin: 0 auto;
-  width: 380px;
   height: 800px;
   border-radius: 30px;
+  padding: 0 40px;
 `;
 export const SearchLocationInput = styled.input`
 background: rgba(68, 68, 68, 0.8);

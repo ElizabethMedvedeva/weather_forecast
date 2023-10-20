@@ -8,9 +8,11 @@ export const Main = () => {
   return (
     <MainContainer>
       <div>
-        <SearchLocation />
         <TodaysHightlights />
         <HourlyForecast />
+      </div>
+      <div>
+        <SearchLocation />
       </div>
     </MainContainer>
   );
