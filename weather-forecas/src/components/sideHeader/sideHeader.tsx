@@ -1,9 +1,5 @@
 import { NavLink } from "react-router-dom";
 
-import calendarIcon from "../../assets/calendarIcon.png";
-import favoriteIcon from "../../assets/favoriteIcon.png";
-import weatherIcon from "../../assets/weatherIcon.png";
-
 import {
   SideHeaderDiv,
   SideHeaderIcon,
@@ -18,7 +14,7 @@ export const SideHeader = () => {
           className={({ isActive }) => (isActive ? "active-link" : "")}
           to="/forecast"
         >
-          <SideHeaderIcon src={calendarIcon} />
+          <SideHeaderIcon src={"assets/calendarIcon.png"} />
         </NavLink>
       </SideHeaderIconDiv>
 
@@ -27,7 +23,7 @@ export const SideHeader = () => {
           className={({ isActive }) => (isActive ? "active-link" : "")}
           to="/forecast"
         >
-          <img src={weatherIcon}></img>
+          <img src={"assets/weatherIcon.png"}></img>
         </NavLink>
       </SideHeaderIconDiv>
 
@@ -36,7 +32,7 @@ export const SideHeader = () => {
           className={({ isActive }) => (isActive ? "active-link" : "")}
           to="/forecast"
         >
-          <img src={favoriteIcon}></img>
+          <img src={"/assets/favoriteIcon.png"}></img>
         </NavLink>
       </SideHeaderIconDiv>
     </SideHeaderDiv>

@@ -1,26 +1,25 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import windDirectionArrow from "../../assets/wind_direction.png";
 import {
   CityInterface,
   fetchHourlyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
-import { Weathercode, WeathercodeImg } from "../utility/weathercode.Styled";
-import { getImageByWeathercode } from "../utility/weatherImages";
-import { getWindDirection } from "../utility/windDirection";
+import { Weathercode, WeathercodeImg } from "../utility/weathercode/weathercode.Styled";
+import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
+import { getWindDirection } from "../utility/windDirection/windDirection";
 import {
   WindDirectionDiv,
   WindDirectionImg,
-} from "../utility/windDirectionStyled";
+} from "../utility/windDirection/windDirectionStyled";
 
 import {
   HourContainer,
   HourlyContainer,
   HourlyForecastDiv,
 } from "./hourlyForecastStyled";
-import { CircularProgress, LinearProgress } from "@mui/material";
+import { CircularProgress} from "@mui/material";
 
 export const HourlyForecast = () => {
   const fiveRelevantHours = useSelector(
@@ -69,7 +68,7 @@ export const HourlyForecast = () => {
               <WindDirectionDiv>
                 <WindDirectionImg
                   rotate={getWindDirection(item.windDirection).rotate}
-                  src={windDirectionArrow}
+                  src={"assets/wind_direction.png"}
                   alt="arrow"
                 ></WindDirectionImg>
                 <h4>{getWindDirection(item.windDirection).direction}</h4>

@@ -20,7 +20,7 @@ import {
   SearchLocationContainer,
   SearchLocationInput,
 } from "./searchLocation.Styled";
-import { getImageByWeathercode } from "../utility/weatherImages";
+import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import { CircularProgress } from "@mui/material";
 
 const delay = 700;

@@ -7,8 +7,8 @@ import {
   fetchDailyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
-import { Weathercode, WeathercodeImg } from "../utility/weathercode.Styled";
-import { getImageByWeathercode } from "../utility/weatherImages";
+import { Weathercode, WeathercodeImg } from "../utility/weathercode/weathercode.Styled";
+import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import { CircularProgress } from "@mui/material";
 
 export const ForecastData = () => {
