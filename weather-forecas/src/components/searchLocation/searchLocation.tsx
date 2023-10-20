@@ -5,7 +5,6 @@ import { useDebounce } from "usehooks-ts";
 import {
   CityInterface,
   fetchSearchLocation,
-  optionCitySearch,
   setSearchLocation,
   setSelectedCity,
 } from "../../redux/reducers/APIreducer";
