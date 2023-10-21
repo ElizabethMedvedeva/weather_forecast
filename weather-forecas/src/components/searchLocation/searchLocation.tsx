@@ -84,6 +84,7 @@ export const SearchLocation = () => {
       ) : (
         <>
           <SearchLocationInput
+            value={searchState}
             placeholder="Search city"
             type="text"
             onChange={handleInputChange}
