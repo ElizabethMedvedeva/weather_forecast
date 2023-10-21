@@ -6,16 +6,20 @@ import {
   SideHeaderIconDiv,
 } from "./sideHeaderStyled";
 
+import { useThemeContext } from "../../theme/themeContext";
+
 export const SideHeader = () => {
+  const themeContext: any = useThemeContext();
+
   return (
     <SideHeaderDiv>
-      <SideHeaderIconDiv><NavLink
-        className={({ isActive }) => (isActive ? "active-link" : "")}
-        to="/"
-      >
-        <img src={"assets/weatherIcon.png"}></img>
-      </NavLink>
-
+      <SideHeaderIconDiv>
+        <NavLink
+          className={({ isActive }) => (isActive ? "active-link" : "")}
+          to="/"
+        >
+          <img src={"assets/weatherIcon.png"}></img>
+        </NavLink>
       </SideHeaderIconDiv>
       <SideHeaderIconDiv>
         <NavLink

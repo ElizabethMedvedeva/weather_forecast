@@ -18,9 +18,11 @@ import {
   FourteenDaysDiv,
   SevenDaysButton,
 } from "./dailyTempStyled";
+import { useThemeContext } from "../../theme/themeContext";
 export type ForecastDayAmount = "Seven" | "Fourteen";
 
 export const ForecastData = () => {
+  const themeContext: any = useThemeContext();
   const [dayAmount, setDayAmount] = useState<ForecastDayAmount>("Seven");
   const changeForecastDateAmount = () => {
     if (dayAmount === "Seven") {
@@ -34,9 +36,8 @@ export const ForecastData = () => {
     (state: StoreType) => state.daysForecastReducer.dailyForecast
   );
   const weatherSeven = weather.slice(0, 7);
-  console.log(weatherSeven, "WEATHER");
+
   const weatherFourteen = weather.slice(7, weather.length);
-  console.log(weatherFourteen, "WEATHER14");
 
   const selectedCity: CityInterface = useSelector(
     (state: StoreType) => state.daysForecastReducer.selectedCity
@@ -67,7 +68,7 @@ export const ForecastData = () => {
       })
     );
   }, [selectedCity]);
-  console.log("forecastData", dayAmount);
+
   return (
     <div>
       {loading ? (

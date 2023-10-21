@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -6,7 +6,10 @@ import {
   fetchHourlyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
-import { Weathercode, WeathercodeImg } from "../utility/weathercode/weathercode.Styled";
+import {
+  Weathercode,
+  WeathercodeImg,
+} from "../utility/weathercode/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import { getWindDirection } from "../utility/windDirection/windDirection";
 import {
@@ -19,9 +22,13 @@ import {
   HourlyContainer,
   HourlyForecastDiv,
 } from "./hourlyForecastStyled";
-import { CircularProgress} from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import { useThemeContext } from "../../theme/themeContext";
 
 export const HourlyForecast = () => {
+  const themeContext: any = useThemeContext();
+  console.log(themeContext, "HOURLY");
+  console.log(themeContext, "123123");
   const fiveRelevantHours = useSelector(
     (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
   );
