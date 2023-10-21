@@ -24,11 +24,16 @@ import {
 } from "./hourlyForecastStyled";
 import { CircularProgress } from "@mui/material";
 import { useThemeContext } from "../../theme/themeContext";
+import { Theme, ThemeType } from "../../theme/theme";
+
+interface IThemeContext {
+  theme: Theme;
+  changeTheme: () => void;
+}
 
 export const HourlyForecast = () => {
-  const themeContext: any = useThemeContext();
-  console.log(themeContext, "HOURLY");
-  console.log(themeContext, "123123");
+  const themeContext = useThemeContext();
+  console.log(themeContext, "just theme context")
   const fiveRelevantHours = useSelector(
     (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
   );
@@ -52,7 +57,9 @@ export const HourlyForecast = () => {
   }, [selectedCity]);
 
   return (
-    <HourlyForecastDiv>
+    <HourlyForecastDiv
+    theme = {themeContext.theme}
+    >
       <h1>Hourly forecast</h1>
       <HourlyContainer>
         {loading ? (

@@ -11,6 +11,7 @@ import { useThemeContext } from "../../theme/themeContext";
 export const SideHeader = () => {
   const themeContext: any = useThemeContext();
 
+
   return (
     <SideHeaderDiv>
       <SideHeaderIconDiv>
@@ -38,6 +39,7 @@ export const SideHeader = () => {
           <img src={"/assets/favoriteIcon.png"}></img>
         </NavLink>
       </SideHeaderIconDiv>
+      <button onClick={themeContext.changeTheme}></button>
     </SideHeaderDiv>
   );
 };
