@@ -1,7 +1,15 @@
 import React, { useContext, useState } from "react";
-import { ThemeType } from "./theme";
+// import { ThemeType } from "./theme";
+type ThemeType = "light" | "dark";
 
-export const ThemeContext = React.createContext({});
+type ThemeContextType = {
+  theme: ThemeType;
+  changeTheme: () => void;
+};
+export const ThemeContext = React.createContext<ThemeContextType>({
+  theme: "light",
+  changeTheme: () => {},
+});
 export const ThemeContextProvider = ({ children }: any) => {
   const [theme, setTheme] = useState<ThemeType>("light");
 
@@ -14,10 +22,12 @@ export const ThemeContextProvider = ({ children }: any) => {
     }
   };
 
+  const themeContextValue: ThemeContextType = {
+    theme,
+    changeTheme,
+  };
   return (
-    <ThemeContext.Provider
-      value={{ theme: theme, changeTheme: () => changeTheme() }}
-    >
+    <ThemeContext.Provider value={themeContextValue}>
       {children}
     </ThemeContext.Provider>
   );

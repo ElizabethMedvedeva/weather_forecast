@@ -1,16 +1,11 @@
 import styled from "styled-components";
 import { Theme, ThemeType } from "../../theme/theme";
 
-interface IHourlyForecastStyle {
-  themeStyles: Theme;
-  themeType: ThemeType;
-}
-
 export const HourlyForecastDiv = styled.div<any>`
   height: 370px;
   max-width: 940px;
   border-radius: 30px;
-  background: ${(props) => props.theme === "light" ? "pink" :  "green"};
+  background: ${(props) => (props.theme === "light" ? "pink" : "green")};
   color: #ffffff;
   margin: 15px;
   h1 {

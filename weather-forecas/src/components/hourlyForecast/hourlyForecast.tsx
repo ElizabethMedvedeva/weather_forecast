@@ -27,13 +27,13 @@ import { useThemeContext } from "../../theme/themeContext";
 import { Theme, ThemeType } from "../../theme/theme";
 
 interface IThemeContext {
-  theme: Theme;
-  changeTheme: () => void;
+  theme: any;
+  changeTheme: any;
 }
 
 export const HourlyForecast = () => {
-  const themeContext = useThemeContext();
-  console.log(themeContext, "just theme context")
+  const themeContext: IThemeContext = useThemeContext();
+  console.log(themeContext, "just theme context");
   const fiveRelevantHours = useSelector(
     (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
   );
@@ -57,9 +57,7 @@ export const HourlyForecast = () => {
   }, [selectedCity]);
 
   return (
-    <HourlyForecastDiv
-    theme = {themeContext.theme}
-    >
+    <HourlyForecastDiv theme={themeContext.theme}>
       <h1>Hourly forecast</h1>
       <HourlyContainer>
         {loading ? (
