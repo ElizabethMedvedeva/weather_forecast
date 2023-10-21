@@ -124,7 +124,7 @@ const getFiveRelevant = (
 const getCurrentWeather = (
   unsortedHourlyForecast: HourlyForecastArray,
   timezone: string
-) => { 
+) => {
   const currentCityTime = moment().tz(timezone);
 
   const hourlyForecast = unsortedHourlyForecast.slice();
@@ -213,7 +213,7 @@ export const fetchDailyForecast = createAsyncThunk(
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
     try {
       const result = await axiosApiInstanceMeteo.get(
-        `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}`
+        `https://api.open-meteo.com/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&daily=weathercode,temperature_2m_max,temperature_2m_min,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=14`
       );
       return result.data;
     } catch (error: any) {
@@ -228,10 +228,9 @@ export const fetchHourlyForecast = createAsyncThunk(
     try {
       // for mock meteo: /api/hourly-mix-2
       const result = await axiosApiInstanceMeteo.get(
-       `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
-       //`/api/hourly-mix-2?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
-
-       );
+        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+        //`/api/hourly-mix-2?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+      );
       return result.data;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -245,10 +244,9 @@ export const fetchTodaysHightlights = createAsyncThunk(
     try {
       // mock-meteo: /api/hourly-mix
       const result = await axiosApiInstanceMeteo.get(
-   `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
         //`/api/hourly-mix?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
-
-        );
+      );
       return result.data;
     } catch (error: any) {
       return rejectWithValue(error.message);
