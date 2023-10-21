@@ -19,7 +19,6 @@ function App() {
         <SideHeader />
         <Routes>
           <Route path="/" element={<Main />} />
-
           <Route path="/forecast" element={<ForecastData />} />
           <Route path="*" element={<NotFoundComponent />} />
         </Routes>
