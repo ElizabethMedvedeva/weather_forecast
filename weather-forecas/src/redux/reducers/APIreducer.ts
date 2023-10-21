@@ -226,9 +226,12 @@ export const fetchHourlyForecast = createAsyncThunk(
   "hourlyForecastData",
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
     try {
+      // for mock meteo: /api/hourly-mix-2
       const result = await axiosApiInstanceMeteo.get(
-        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
-      );
+       `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+       //`/api/hourly-mix-2?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=weathercode,temperature_2m,winddirection_10m,windgusts_10m&daily=weathercode&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+
+       );
       return result.data;
     } catch (error: any) {
       return rejectWithValue(error.message);
@@ -240,9 +243,12 @@ export const fetchTodaysHightlights = createAsyncThunk(
   "todaysHightlights",
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
     try {
+      // mock-meteo: /api/hourly-mix
       const result = await axiosApiInstanceMeteo.get(
-        `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
-      );
+   `/v1/forecast?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+        //`/api/hourly-mix?latitude=${forecastParams.latitude}&longitude=${forecastParams.longitude}&hourly=temperature_2m,relativehumidity_2m,surface_pressure,windspeed_10m&daily=sunrise,sunset,uv_index_max&current_weather=true&timezone=${forecastParams.timezone}&forecast_days=1`
+
+        );
       return result.data;
     } catch (error: any) {
       return rejectWithValue(error.message);
