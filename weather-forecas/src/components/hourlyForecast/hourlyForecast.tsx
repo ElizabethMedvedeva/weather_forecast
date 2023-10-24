@@ -62,7 +62,10 @@ export const HourlyForecast = () => {
           <p>Error: {error}</p>
         ) : (
           fiveRelevantHours.map((item, index) => (
-            <HourContainer key={index}>
+            <HourContainer 
+            themeStyles={themeContextData.stylesForTheme}
+            themeType={themeContextData.currentTheme}
+            key={index}>
               <h3>{item.time}</h3>
               <Weathercode>
                 <WeathercodeImg

@@ -30,10 +30,10 @@ export const HourlyContainer = styled.div`
     padding: 2px 0;
   }
 `;
-export const HourContainer = styled.div`
+export const HourContainer = styled.div<StyledInterface>`
   display: flex;
   flex-direction: column;
-  background: rgba(68, 68, 68, 0.8);
+  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   padding: 10px 20px;
   margin: 0px 20px;
   border-radius: 40px;
