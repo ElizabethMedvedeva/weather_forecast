@@ -11,7 +11,6 @@ import { useThemeContext } from "../../theme/themeContext";
 export const SideHeader = () => {
   const themeContext: any = useThemeContext();
 
-
   return (
     <SideHeaderDiv>
       <SideHeaderIconDiv>

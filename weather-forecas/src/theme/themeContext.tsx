@@ -9,7 +9,7 @@ type ThemeContextType = {
 };
 
 export const ThemeContextProvider = ({ children }: any) => {
-  const [theme, setTheme] = useState<ThemeType>("light");
+  const [theme, setTheme] = useState<ThemeType>("dark");
 
   const changeTheme = () => {
     if (theme === "dark") {
@@ -26,7 +26,11 @@ export const ThemeContextProvider = ({ children }: any) => {
   // };
   return (
     <ThemeContext.Provider
-      value={{ currentTheme: ThemeContext, stylesForTheme: Themes[theme] }}
+      value={{
+        currentTheme: ThemeContext,
+        stylesForTheme: Themes[theme],
+        changeTheme,
+      }}
     >
       {children}
     </ThemeContext.Provider>
