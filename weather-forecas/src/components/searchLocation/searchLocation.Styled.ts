@@ -1,8 +1,12 @@
 import styled from "styled-components";
-
-export const SearchLocationContainer = styled.div`
-  background: rgba(68, 68, 68, 0.8);
-  color: #ffffff;
+import { Theme, ThemeType } from "../../theme/theme";
+interface StyledInterface {
+  themeStyles: Theme;
+  themeType: ThemeType;
+}
+export const SearchLocationContainer = styled.div<StyledInterface>`
+  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
+  color: ${({ themeStyles }) => themeStyles.text};
   margin: 0 auto;
   height: 800px;
   border-radius: 30px;

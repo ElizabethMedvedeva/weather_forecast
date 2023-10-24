@@ -19,10 +19,13 @@ import {
   SevenDaysButton,
 } from "./dailyTempStyled";
 import { useThemeContext } from "../../theme/themeContext";
+import { IThemeContext } from "../../theme";
 export type ForecastDayAmount = "Seven" | "Fourteen";
 
 export const ForecastData = () => {
-  const themeContext: any = useThemeContext();
+  const themeContextData: IThemeContext = useThemeContext();
+  console.log(themeContextData, "test123");
+
   const [dayAmount, setDayAmount] = useState<ForecastDayAmount>("Seven");
   const changeForecastDateAmount = () => {
     if (dayAmount === "Seven") {

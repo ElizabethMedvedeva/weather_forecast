@@ -29,7 +29,7 @@ import { IThemeContext } from "../../theme";
 
 export const HourlyForecast = () => {
   const themeContextData: IThemeContext = useThemeContext();
-  console.log(themeContextData, "context test");
+
   const fiveRelevantHours = useSelector(
     (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
   );

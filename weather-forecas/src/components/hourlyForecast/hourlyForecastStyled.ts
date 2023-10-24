@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { Theme, ThemeType } from "../../theme/theme";
 
-export const HourlyForecastDiv = styled.div<any>`
+interface StyledInterface {
+  themeStyles: Theme;
+  themeType: ThemeType;
+}
+export const HourlyForecastDiv = styled.div<StyledInterface>`
   height: 370px;
   max-width: 940px;
   border-radius: 30px;

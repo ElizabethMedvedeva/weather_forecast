@@ -21,10 +21,13 @@ import {
 } from "./searchLocation.Styled";
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import { CircularProgress } from "@mui/material";
+import { useThemeContext } from "../../theme/themeContext";
+import { IThemeContext } from "../../theme";
 
 const delay = 700;
 
 export const SearchLocation = () => {
+  const themeContextData: IThemeContext = useThemeContext();
   const searchState: string = useSelector(
     (state: StoreType) => state.daysForecastReducer.search
   );
@@ -76,7 +79,10 @@ export const SearchLocation = () => {
     setShowOption(false);
   };
   return (
-    <SearchLocationContainer>
+    <SearchLocationContainer
+      themeStyles={themeContextData.stylesForTheme}
+      themeType={themeContextData.currentTheme}
+    >
       {loading ? (
         <CircularProgress />
       ) : error ? (

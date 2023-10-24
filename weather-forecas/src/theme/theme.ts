@@ -20,7 +20,7 @@ type ThemesType = Record<ThemeType, Theme>;
 export const Themes: ThemesType = {
   light: {
     text: Colors.WHITE,
-    backgroundLinear: Colors.DEEP_GRAY,
+    backgroundLinear: Colors.THUNDORA,
   },
   dark: {
     text: Colors.MINE_SHAFT,
