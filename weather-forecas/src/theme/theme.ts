@@ -6,7 +6,6 @@ enum Colors {
   ALTO = "#D9D9D9",
   DEEP_GRAY = "#1D1D1D",
   SILVER = "rgba(187, 187, 187, 0.8)",
-
 }
 
 export type ThemeType = "light" | "dark";

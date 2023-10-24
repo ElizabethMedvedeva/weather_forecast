@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -26,14 +26,14 @@ import { CircularProgress } from "@mui/material";
 import { useThemeContext } from "../../theme/themeContext";
 import { Theme, ThemeType } from "../../theme/theme";
 
-interface IThemeContext {
-  theme: any;
-  changeTheme: any;
+interface IThemeContextData {
+  currentTheme: ThemeType;
+  stylesForCurrentTheme: Theme;
 }
 
 export const HourlyForecast = () => {
-  const themeContext: IThemeContext = useThemeContext();
-  console.log(themeContext, "just theme context");
+  const themeContextData = useThemeContext();
+  console.log(themeContextData, "context test");
   const fiveRelevantHours = useSelector(
     (state: StoreType) => state.daysForecastReducer.fiveRelevantHours
   );
@@ -55,14 +55,15 @@ export const HourlyForecast = () => {
       })
     );
   }, [selectedCity]);
-
+  console.log(themeContextData, "theme context test");
   return (
-    <HourlyForecastDiv theme={themeContext.theme}>
+    <HourlyForecastDiv
+      themeStyles={themeContextData.currentTheme}
+      themeType={themeContextData.currentTheme}
+    >
       <h1>Hourly forecast</h1>
       <HourlyContainer>
-        {loading ? (
-          <CircularProgress />
-        ) : error ? (
+        {error ? (
           <p>Error: {error}</p>
         ) : (
           fiveRelevantHours.map((item, index) => (

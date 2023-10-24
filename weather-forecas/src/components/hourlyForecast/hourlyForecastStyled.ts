@@ -5,8 +5,9 @@ export const HourlyForecastDiv = styled.div<any>`
   height: 370px;
   max-width: 940px;
   border-radius: 30px;
-  background: ${(props) => (props.theme === "light" ? "pink" : "green")};
-  color: #ffffff;
+  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
+  color: ${({ themeStyles }) => themeStyles.text};
+
   margin: 15px;
   h1 {
     padding: 15px 0px;
