@@ -9,6 +9,7 @@ interface StyledInterface {
 export const GeneralContainer = styled.div<StyledInterface>`
   display: flex;
   background-image: ${({ themeStyles }) => themeStyles.backgroundImage};
-  
   background-size: cover;
+  width: 100%;
+  height: 100%;
 `;
