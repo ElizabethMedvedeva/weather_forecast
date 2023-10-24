@@ -9,6 +9,11 @@ enum Colors {
 }
 
 export type ThemeType = "light" | "dark";
+export interface IThemeContext {
+  currentTheme: ThemeType;
+  stylesForTheme: Theme;
+  changeTheme: () => void;
+}
 
 export interface Theme {
   text: Colors;

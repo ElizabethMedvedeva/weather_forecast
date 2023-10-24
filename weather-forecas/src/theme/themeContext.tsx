@@ -20,10 +20,6 @@ export const ThemeContextProvider = ({ children }: any) => {
     }
   };
 
-  // const themeContextValue: ThemeContextType = {
-  //   theme,
-  //   changeTheme,
-  // };
   return (
     <ThemeContext.Provider
       value={{

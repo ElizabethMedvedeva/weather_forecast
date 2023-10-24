@@ -21,8 +21,12 @@ import {
   WeatherDetailsSet,
 } from "./todaysHighlights.Styled";
 import { CircularProgress } from "@mui/material";
+import { useThemeContext } from "../../theme/themeContext";
+import { IThemeContext } from "../../theme/theme";
 
 export const TodaysHightlights = () => {
+  const themeContextData: IThemeContext = useThemeContext();
+
   const todaysHighlights: ITodayHighlight | null = useSelector(
     (state: StoreType) => state.daysForecastReducer.todaysHightLights
   );
@@ -48,7 +52,10 @@ export const TodaysHightlights = () => {
   }, [selectedCity]);
 
   return (
-    <TodaysHightlightsContainer>
+    <TodaysHightlightsContainer
+      themeStyles={themeContextData.stylesForTheme}
+      themeType={themeContextData.currentTheme}
+    >
       <h1>{"Today's hilights"}</h1>
       {loading ? (
         <CircularProgress />

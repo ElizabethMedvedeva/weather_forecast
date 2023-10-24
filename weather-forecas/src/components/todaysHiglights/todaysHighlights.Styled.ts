@@ -1,11 +1,16 @@
 import styled from "styled-components";
+import { Theme, ThemeType } from "../../theme/theme";
+interface StyledInterface {
+  themeStyles: Theme;
+  themeType: ThemeType;
+}
 
-export const TodaysHightlightsContainer = styled.div`
+export const TodaysHightlightsContainer = styled.div<StyledInterface>`
   height: 400px;
   max-width: 800px;
   border-radius: 30px;
-  background: rgba(68, 68, 68, 0.8);
-  color: #ffffff;
+  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
+  color: ${({ themeStyles }) => themeStyles.text};
   margin: 15px;
   h1 {
     padding: 10px 0;

@@ -7,6 +7,7 @@ import {
 } from "./sideHeaderStyled";
 
 import { useThemeContext } from "../../theme/themeContext";
+import Switch from "@mui/material/Switch";
 
 export const SideHeader = () => {
   const themeContext: any = useThemeContext();
@@ -38,7 +39,7 @@ export const SideHeader = () => {
           <img src={"/assets/favoriteIcon.png"}></img>
         </NavLink>
       </SideHeaderIconDiv>
-      <button onClick={themeContext.changeTheme}></button>
+      <Switch defaultChecked onClick={themeContext.changeTheme} />
     </SideHeaderDiv>
   );
 };

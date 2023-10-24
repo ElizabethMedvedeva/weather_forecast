@@ -24,8 +24,7 @@ import {
 } from "./hourlyForecastStyled";
 import { CircularProgress } from "@mui/material";
 import { useThemeContext } from "../../theme/themeContext";
-import { Theme, ThemeType } from "../../theme/theme";
-import { IThemeContext } from "../../theme";
+import { IThemeContext, Theme, ThemeType } from "../../theme/theme";
 
 export const HourlyForecast = () => {
   const themeContextData: IThemeContext = useThemeContext();

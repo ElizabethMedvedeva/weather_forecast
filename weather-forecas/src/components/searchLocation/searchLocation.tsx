@@ -22,12 +22,13 @@ import {
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import { CircularProgress } from "@mui/material";
 import { useThemeContext } from "../../theme/themeContext";
-import { IThemeContext } from "../../theme";
+import { IThemeContext } from "../../theme/theme";
 
 const delay = 700;
 
 export const SearchLocation = () => {
   const themeContextData: IThemeContext = useThemeContext();
+
   const searchState: string = useSelector(
     (state: StoreType) => state.daysForecastReducer.search
   );
