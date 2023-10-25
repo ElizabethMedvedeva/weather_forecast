@@ -4,6 +4,13 @@ interface IDayAmount {
   dayAmount: ForecastDayAmount;
 }
 
+export const DailyTempContainer = styled.div`
+  display: flex;
+  flexdirection: column;
+
+  margin: 10px;
+  height: 30vh;
+`;
 export const FourteenDaysDiv = styled.div<IDayAmount>`
   display: ${(props) => (props.dayAmount === "Seven" ? "none" : "flex")};
 `;

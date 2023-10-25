@@ -14,6 +14,7 @@ import {
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import { CircularProgress } from "@mui/material";
 import {
+  DailyTempContainer,
   FourteenDaysButton,
   FourteenDaysDiv,
   SevenDaysButton,
@@ -91,29 +92,21 @@ export const ForecastData = () => {
           </FourteenDaysButton>
           <div style={{ display: "flex", flexDirection: "row" }}>
             {weatherSeven.map((item: any) => (
-              <div
-                key={item.date}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  backgroundColor: "pink",
-                  margin: "10px",
-                  height: "30vh",
-                }}
-              >
+              <DailyTempContainer key={item.date}>
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    backgroundColor: "red",
+                    backgroundColor: "green",
                     margin: "10px",
+                    height: "30vh",
                   }}
                 >
-                  <h5>weekDay: {weekDay[item.date.getDay()]}</h5>
-                  <h5>date: {item.date.getDate()}</h5>
-                  <h5>Max temperature: {item.temperatureMax}</h5>
-                  <h5>Min temperature: {item.temperatureMin}</h5>
-                  <h5>UV Index Max: {item.uvIndexMax}</h5>
+                  <h5> {weekDay[item.date.getDay()]}</h5>
+                  <h5> {item.date.getDate()}</h5>
+                  <h5>Max: {item.temperatureMax}</h5>
+                  <h5>Min: {item.temperatureMin}</h5>
+                  <h5>UV: {item.uvIndexMax}</h5>
                   <Weathercode>
                     <WeathercodeImg
                       weathercode={item.weathercode}
@@ -122,7 +115,7 @@ export const ForecastData = () => {
                     ></WeathercodeImg>
                   </Weathercode>
                 </div>
-              </div>
+              </DailyTempContainer>
             ))}
           </div>
 
@@ -133,29 +126,21 @@ export const ForecastData = () => {
             }}
           >
             {weatherFourteen.map((item: any) => (
-              <div
-                key={item.date}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  backgroundColor: "green",
-                  margin: "10px",
-                  height: "30vh",
-                }}
-              >
+              <DailyTempContainer key={item.date}>
                 <div
                   style={{
                     display: "flex",
-                    flexDirection: "column",
-                    backgroundColor: "red",
+                    flexDirection: "row",
+                    backgroundColor: "green",
                     margin: "10px",
+                    height: "30vh",
                   }}
                 >
-                  <h5>weekDay: {weekDay[item.date.getDay()]}</h5>
-                  <h5>date: {item.date.getDate()}</h5>
-                  <h5>Max temperature: {item.temperatureMax}</h5>
-                  <h5>Min temperature: {item.temperatureMin}</h5>
-                  <h5>UV Index Max: {item.uvIndexMax}</h5>
+                  <h5>{weekDay[item.date.getDay()]}</h5>
+                  <h5> {item.date.getDate()}</h5>
+                  <h5>Max: {item.temperatureMax}</h5>
+                  <h5>Min: {item.temperatureMin}</h5>
+                  <h5>UV: {item.uvIndexMax}</h5>
                   <Weathercode>
                     <WeathercodeImg
                       weathercode={item.weathercode}
@@ -164,7 +149,7 @@ export const ForecastData = () => {
                     ></WeathercodeImg>
                   </Weathercode>
                 </div>
-              </div>
+              </DailyTempContainer>
             ))}
           </FourteenDaysDiv>
         </div>

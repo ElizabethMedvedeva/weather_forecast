@@ -9,7 +9,7 @@ type ThemeContextType = {
 };
 
 export const ThemeContextProvider = ({ children }: any) => {
-  const [theme, setTheme] = useState<ThemeType>("dark");
+  const [theme, setTheme] = useState<ThemeType>("light");
 
   const changeTheme = () => {
     if (theme === "dark") {

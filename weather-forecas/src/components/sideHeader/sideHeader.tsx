@@ -39,7 +39,7 @@ export const SideHeader = () => {
           <img src={"/assets/favoriteIcon.png"}></img>
         </NavLink>
       </SideHeaderIconDiv>
-      <Switch defaultChecked onClick={themeContext.changeTheme} />
+      <Switch onClick={themeContext.changeTheme} />
     </SideHeaderDiv>
   );
 };
