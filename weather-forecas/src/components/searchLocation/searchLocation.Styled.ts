@@ -14,9 +14,20 @@ export const SearchLocationContainer = styled.div<StyledInterface>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+
+  width: 100%;
+`;
+export const LoadingSearchDiv = styled.div`
+  position: absolute;
+  top: 46px;
+  left: 31%;
 `;
 export const SearchLocationInput = styled.input<StyledInterface>`
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
+  position: absolute;
+  left: 27%;
+  top: 0;
   border: 1px solid #1d1d1d;
   border-radius: 30px;
   color: ${({ themeStyles }) => themeStyles.text};
@@ -33,6 +44,9 @@ export const OptionCitiesDiv = styled.div<StyledInterface>`
   max-width: 300px;
   color: ${({ themeStyles }) => themeStyles.text};
   width: 180px;
+  position: absolute;
+  left: 27%;
+  top: 68px;
 `;
 
 export const OptionCitiesButton = styled.button<StyledInterface>`
@@ -40,10 +54,9 @@ export const OptionCitiesButton = styled.button<StyledInterface>`
   border: 1px solid #1d1d1d;
   border-radius: 30px;
   color: ${({ themeStyles }) => themeStyles.text};
-  margin: 5px 0;
 `;
 export const CityNameDiv = styled.div<StyledInterface>`
-  margin-top: 120px;
+  margin-top: 195px;
   h3 {
     font-size: 30px;
     background: ${({ themeStyles }) => themeStyles.cityText};

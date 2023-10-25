@@ -176,6 +176,7 @@ type APIInitialState = {
   hourlyForecast: HourlyForecastArray;
   fiveRelevantHours: HourlyForecastArray;
   loading: boolean;
+  loadingSearch: boolean;
   error: any; // TODO vernemsya
   search: string;
   selectedCity: CityInterface;
@@ -189,6 +190,7 @@ const initialState: APIInitialState = {
   hourlyForecast: [],
   fiveRelevantHours: [],
   loading: false,
+  loadingSearch: false,
   error: null,
   search: "",
   selectedCity: {
@@ -359,15 +361,15 @@ export const APISlice = createSlice({
         state.error = action.payload;
       })
       .addCase(fetchSearchLocation.pending, (state) => {
-        state.loading = true;
+        state.loadingSearch = true;
         state.error = null;
       })
       .addCase(fetchSearchLocation.fulfilled, (state, action) => {
         state.citiesOptions = optionCitySearch(action.payload);
-        state.loading = false;
+        state.loadingSearch = false;
       })
       .addCase(fetchSearchLocation.rejected, (state, action) => {
-        state.loading = false;
+        state.loadingSearch = false;
         state.error = action.payload;
       }),
 });

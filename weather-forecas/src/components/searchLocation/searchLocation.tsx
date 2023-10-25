@@ -14,6 +14,7 @@ import { Clock } from "./clock";
 import {
   CityNameDiv,
   CurrentWeatherIcon,
+  LoadingSearchDiv,
   OptionCitiesButton,
   OptionCitiesDiv,
   SearchLocationContainer,
@@ -57,7 +58,7 @@ export const SearchLocation = () => {
       }
     }, delay);
   };
-  const { loading, error } = useSelector(
+  const { loadingSearch, error } = useSelector(
     (state: StoreType) => state.daysForecastReducer
   );
 
@@ -84,9 +85,7 @@ export const SearchLocation = () => {
       themeStyles={themeContextData.stylesForTheme}
       themeType={themeContextData.currentTheme}
     >
-      {loading ? (
-        <CircularProgress />
-      ) : error ? (
+      {error ? (
         <p>Error: {error}</p>
       ) : (
         <>
@@ -98,10 +97,15 @@ export const SearchLocation = () => {
             type="text"
             onChange={handleInputChange}
           />
+          <LoadingSearchDiv>
+            {loadingSearch && <CircularProgress size={"17px"} />}
+          </LoadingSearchDiv>
+
           {showOption ? (
             <OptionCitiesDiv
               themeStyles={themeContextData.stylesForTheme}
-              themeType={themeContextData.currentTheme}>
+              themeType={themeContextData.currentTheme}
+            >
               {cityOptions.map((item: any) => (
                 <OptionCitiesButton
                   themeStyles={themeContextData.stylesForTheme}
@@ -118,8 +122,10 @@ export const SearchLocation = () => {
             <></>
           )}
 
-          <CityNameDiv themeStyles={themeContextData.stylesForTheme}
-            themeType={themeContextData.currentTheme}>
+          <CityNameDiv
+            themeStyles={themeContextData.stylesForTheme}
+            themeType={themeContextData.currentTheme}
+          >
             <h3>
               {selectedCity.name}, {selectedCity.country}
             </h3>

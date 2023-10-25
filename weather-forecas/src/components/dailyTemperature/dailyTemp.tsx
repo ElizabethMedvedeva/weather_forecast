@@ -72,9 +72,7 @@ export const ForecastData = () => {
 
   return (
     <div>
-      {loading ? (
-        <CircularProgress />
-      ) : error ? (
+      {error ? (
         <p>Error: {error}</p>
       ) : (
         <div style={{ display: "flex", flexDirection: "column" }}>

@@ -50,7 +50,7 @@ export const HourlyForecast = () => {
       })
     );
   }, [selectedCity]);
-  console.log(themeContextData, "theme context test");
+
   return (
     <HourlyForecastDiv
       themeStyles={themeContextData.stylesForTheme}
@@ -62,10 +62,11 @@ export const HourlyForecast = () => {
           <p>Error: {error}</p>
         ) : (
           fiveRelevantHours.map((item, index) => (
-            <HourContainer 
-            themeStyles={themeContextData.stylesForTheme}
-            themeType={themeContextData.currentTheme}
-            key={index}>
+            <HourContainer
+              themeStyles={themeContextData.stylesForTheme}
+              themeType={themeContextData.currentTheme}
+              key={index}
+            >
               <h3>{item.time}</h3>
               <Weathercode>
                 <WeathercodeImg

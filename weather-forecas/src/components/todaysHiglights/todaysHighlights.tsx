@@ -57,9 +57,7 @@ export const TodaysHightlights = () => {
       themeType={themeContextData.currentTheme}
     >
       <h1>{"Today's hilights"}</h1>
-      {loading ? (
-        <CircularProgress />
-      ) : error ? (
+      {error ? (
         <p>Error: {error}</p>
       ) : (
         <TodaysHightlightSet>
@@ -80,8 +78,8 @@ export const TodaysHightlights = () => {
             </SunTimeDiv>
           </div>
           <TemmperatureDiv
-          themeStyles={themeContextData.stylesForTheme}
-          themeType={themeContextData.currentTheme}
+            themeStyles={themeContextData.stylesForTheme}
+            themeType={themeContextData.currentTheme}
           >
             <h3>{todaysHighlights?.temperature}°C</h3>
           </TemmperatureDiv>
