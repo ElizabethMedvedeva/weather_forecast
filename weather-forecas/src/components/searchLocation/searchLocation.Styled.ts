@@ -15,36 +15,38 @@ export const SearchLocationContainer = styled.div<StyledInterface>`
   flex-direction: column;
   align-items: center;
 `;
-export const SearchLocationInput = styled.input`
-  background: rgba(68, 68, 68, 0.8);
+export const SearchLocationInput = styled.input<StyledInterface>`
+  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   border: 1px solid #1d1d1d;
   border-radius: 30px;
-  color: #ffffff;
+  color: ${({ themeStyles }) => themeStyles.text};
   text-align: center;
   width: 180px;
   margin-top: 40px;
+  &::placeholder {
+    color: ${({ themeStyles }) => themeStyles.text};
+  }
 `;
-export const OptionCitiesDiv = styled.div`
+export const OptionCitiesDiv = styled.div<StyledInterface>`
   display: flex;
   flex-direction: column;
   max-width: 300px;
-  color: #ffffff;
+  color: ${({ themeStyles }) => themeStyles.text};
   width: 180px;
 `;
 
-export const OptionCitiesButton = styled.button`
-  background: rgba(68, 68, 68, 0.8);
+export const OptionCitiesButton = styled.button<StyledInterface>`
+  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   border: 1px solid #1d1d1d;
   border-radius: 30px;
-  color: #ffffff;
+  color: ${({ themeStyles }) => themeStyles.text};
+  margin: 5px 0;
 `;
-export const CityNameDiv = styled.div`
+export const CityNameDiv = styled.div<StyledInterface>`
   margin-top: 120px;
   h3 {
     font-size: 30px;
-    background: -webkit-linear-gradient(89deg, #eee 35%, #333);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: ${({ themeStyles }) => themeStyles.cityText};
   }
 `;
 export const CurrentWeatherIcon = styled.img`

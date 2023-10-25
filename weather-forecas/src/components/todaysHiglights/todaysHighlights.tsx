@@ -79,7 +79,10 @@ export const TodaysHightlights = () => {
               </SunTimeInfo>
             </SunTimeDiv>
           </div>
-          <TemmperatureDiv>
+          <TemmperatureDiv
+          themeStyles={themeContextData.stylesForTheme}
+          themeType={themeContextData.currentTheme}
+          >
             <h3>{todaysHighlights?.temperature}°C</h3>
           </TemmperatureDiv>
           <WeatherDetailsSet>

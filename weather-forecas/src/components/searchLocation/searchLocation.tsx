@@ -91,15 +91,21 @@ export const SearchLocation = () => {
       ) : (
         <>
           <SearchLocationInput
+            themeStyles={themeContextData.stylesForTheme}
+            themeType={themeContextData.currentTheme}
             value={searchState}
             placeholder="Search city"
             type="text"
             onChange={handleInputChange}
           />
           {showOption ? (
-            <OptionCitiesDiv>
+            <OptionCitiesDiv
+              themeStyles={themeContextData.stylesForTheme}
+              themeType={themeContextData.currentTheme}>
               {cityOptions.map((item: any) => (
                 <OptionCitiesButton
+                  themeStyles={themeContextData.stylesForTheme}
+                  themeType={themeContextData.currentTheme}
                   key={item.id}
                   data-id={item.id}
                   onClick={handleInputChangeClick}
@@ -112,7 +118,8 @@ export const SearchLocation = () => {
             <></>
           )}
 
-          <CityNameDiv>
+          <CityNameDiv themeStyles={themeContextData.stylesForTheme}
+            themeType={themeContextData.currentTheme}>
             <h3>
               {selectedCity.name}, {selectedCity.country}
             </h3>

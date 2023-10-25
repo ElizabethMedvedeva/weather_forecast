@@ -42,15 +42,13 @@ export const TodaysHightlightsIcon = styled.img`
   width: 75px;
 `;
 
-export const TemmperatureDiv = styled.div`
+export const TemmperatureDiv = styled.div<StyledInterface>`
   display: flex;
   justify-content: center;
   align-items: center;
   h3 {
     font-size: 80px;
-    background: -webkit-linear-gradient(76deg, #eee 40%, #333);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: ${({ themeStyles }) => themeStyles.backgroundTextLinear};
   }
 `;
 export const WeatherDetailsSet = styled.div`
