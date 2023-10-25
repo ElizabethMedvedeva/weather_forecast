@@ -15,7 +15,7 @@ import {
   CityNameDiv,
   CurrentWeatherIcon,
   LoadingSearchDiv,
-  OptionCitiesButton,
+
   OptionCitiesDiv,
   SearchLocationContainer,
   SearchLocationInput,
@@ -24,6 +24,8 @@ import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import { CircularProgress } from "@mui/material";
 import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
+import { getItem, setItem } from "../utility/storeLS/storeLS";
+import { OptionCitiesButton } from "./optionCity";
 
 const delay = 700;
 
@@ -45,6 +47,13 @@ export const SearchLocation = () => {
   );
 
   const [showOption, setShowOption] = useState<boolean>(true);
+  const [showFavorites, setShowFavorites] = useState<boolean>(false);
+console.log(">>>", showFavorites)
+
+  let favoriteCities = getItem("favoriteCities")
+  if (favoriteCities === null) {
+    favoriteCities = {};
+  }
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -64,6 +73,7 @@ export const SearchLocation = () => {
 
   useEffect(() => {
     if (searchStateDebaunse.length > 1) {
+      setShowFavorites(false)
       dispatch(fetchSearchLocation(searchStateDebaunse));
     }
   }, [searchStateDebaunse]);
@@ -80,6 +90,33 @@ export const SearchLocation = () => {
 
     setShowOption(false);
   };
+  const handlerAddToLS = (event: any) => {
+    const dataset = event.target.dataset;
+    for (const city of cityOptions) {
+      if (city.id === Number(dataset.id)) {
+        let favoriteCities = getItem("favoriteCities")
+        if (favoriteCities === null) {
+          favoriteCities = {};
+        }
+        if (city.id in favoriteCities) {
+          delete favoriteCities[city.id];
+        } else { favoriteCities[city.id] = city; }
+        setItem("favoriteCities", favoriteCities);
+        break;
+      }
+    }
+  }
+  const showFavoritesFunc = (event: any) => {
+
+    if (event.target.value) {
+      setShowFavorites(false)
+    }
+    else {
+      setShowFavorites(true)
+    }
+
+  }
+
   return (
     <SearchLocationContainer
       themeStyles={themeContextData.stylesForTheme}
@@ -96,6 +133,8 @@ export const SearchLocation = () => {
             placeholder="Search city"
             type="text"
             onChange={handleInputChange}
+            onFocus={showFavoritesFunc}
+          
           />
           <LoadingSearchDiv>
             {loadingSearch && <CircularProgress size={"17px"} />}
@@ -106,30 +145,42 @@ export const SearchLocation = () => {
               themeStyles={themeContextData.stylesForTheme}
               themeType={themeContextData.currentTheme}
             >
-              {cityOptions.map((item: any) => (
+              {showFavorites ? (
+                Object.values(favoriteCities).map(
+                  (item: any) => (
+                    <OptionCitiesButton
+                      city={item}
+                      themeContext={themeContextData}
+                      // OTHER CLICK HANDLER NOT CITIES
+                      cityInputHanlder={handleInputChangeClick}
+                      favoriteInputHanlder={handlerAddToLS}
+                    />
+                  )
+                )
+              ) : <></>}
+              {cityOptions.map((item: CityInterface) => (
                 <OptionCitiesButton
-                  themeStyles={themeContextData.stylesForTheme}
-                  themeType={themeContextData.currentTheme}
-                  key={item.id}
-                  data-id={item.id}
-                  onClick={handleInputChangeClick}
-                >
-                  {item.name} / {item.country}
-                </OptionCitiesButton>
+                  city={item}
+                  themeContext={themeContextData}
+                  cityInputHanlder={handleInputChangeClick}
+                  favoriteInputHanlder={handlerAddToLS}
+                />
               ))}
             </OptionCitiesDiv>
           ) : (
             <></>
           )}
-
-          <CityNameDiv
-            themeStyles={themeContextData.stylesForTheme}
-            themeType={themeContextData.currentTheme}
-          >
-            <h3>
-              {selectedCity.name}, {selectedCity.country}
-            </h3>
-          </CityNameDiv>
+          <>
+            <CityNameDiv
+              themeStyles={themeContextData.stylesForTheme}
+              themeType={themeContextData.currentTheme}
+            >
+              <h3>
+                {selectedCity.name},
+              </h3>
+              <h3>{selectedCity.country}</h3>
+            </CityNameDiv>
+          </>
           <Clock />
           <CurrentWeatherIcon
             src={getImageByWeathercode(currentWeather)}

@@ -49,7 +49,7 @@ export const OptionCitiesDiv = styled.div<StyledInterface>`
   top: 68px;
 `;
 
-export const OptionCitiesButton = styled.button<StyledInterface>`
+export const StyledOptionCitiesButton = styled.button<StyledInterface>`
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   border: 1px solid #1d1d1d;
   border-radius: 30px;

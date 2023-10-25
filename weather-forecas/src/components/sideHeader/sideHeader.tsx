@@ -30,15 +30,6 @@ export const SideHeader = () => {
           <SideHeaderIcon src={"assets/calendarIcon.png"} />
         </NavLink>
       </SideHeaderIconDiv>
-
-      <SideHeaderIconDiv>
-        <NavLink
-          className={({ isActive }) => (isActive ? "active-link" : "")}
-          to="/forecast"
-        >
-          <img src={"/assets/favoriteIcon.png"}></img>
-        </NavLink>
-      </SideHeaderIconDiv>
       <Switch onClick={themeContext.changeTheme} />
     </SideHeaderDiv>
   );

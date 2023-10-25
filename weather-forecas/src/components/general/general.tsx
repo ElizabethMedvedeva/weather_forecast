@@ -12,7 +12,7 @@ import { CircularProgress } from "@mui/material";
 
 export const General = () => {
   const themeContextData: IThemeContext = useThemeContext();
-  const { loading, error } = useSelector(
+  const { loading } = useSelector(
     (state: StoreType) => state.daysForecastReducer
   );
   return (
