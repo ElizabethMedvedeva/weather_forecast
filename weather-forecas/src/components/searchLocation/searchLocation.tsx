@@ -15,7 +15,6 @@ import {
   CityNameDiv,
   CurrentWeatherIcon,
   LoadingSearchDiv,
-
   OptionCitiesDiv,
   SearchLocationContainer,
   SearchLocationInput,
@@ -27,11 +26,11 @@ import { IThemeContext } from "../../theme/theme";
 import { getItem, setItem } from "../utility/storeLS/storeLS";
 import { OptionCitiesButton } from "./optionCity";
 
-const delay = 700;
 interface IFavoriteCities {
-  [id: number]: CityInterface
+  [id: number]: CityInterface;
 }
 export const SearchLocation = () => {
+  const delay = 700;
   const themeContextData: IThemeContext = useThemeContext();
 
   const searchState: string = useSelector(
@@ -50,10 +49,8 @@ export const SearchLocation = () => {
 
   const [showOption, setShowOption] = useState<boolean>(true);
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
-  
 
-
-  let favoriteCities: IFavoriteCities = getItem("favoriteCities")
+  let favoriteCities: IFavoriteCities = getItem("favoriteCities");
   if (favoriteCities === null) {
     favoriteCities = {};
   }
@@ -76,7 +73,7 @@ export const SearchLocation = () => {
 
   useEffect(() => {
     if (searchStateDebaunse.length > 1) {
-      setShowFavorites(false)
+      setShowFavorites(false);
       dispatch(fetchSearchLocation(searchStateDebaunse));
     }
   }, [searchStateDebaunse]);
@@ -96,9 +93,9 @@ export const SearchLocation = () => {
   };
   const handlerAddToLS = (event: any) => {
     const dataset = event.target.dataset;
-    for (const city of cityOptions) {
+    for (const city of [...cityOptions, ...Object.values(favoriteCities)]) {
       if (city.id === Number(dataset.id)) {
-        let favoriteCities = getItem("favoriteCities")
+        let favoriteCities = getItem("favoriteCities");
         if (favoriteCities === null) {
           favoriteCities = {};
         }
@@ -108,20 +105,20 @@ export const SearchLocation = () => {
           favoriteCities[city.id] = city;
         }
         setItem("favoriteCities", favoriteCities);
+
         break;
       }
     }
-  }
-  const showFavoritesFunc = (event: any) => {
-    console.log("in focus")
-    if (event.target.value) {
-      setShowFavorites(false)
-    }
-    else {
-      setShowFavorites(true)
-    }
+  };
 
-  }
+  const showFavoritesFunc = (event: any) => {
+    console.log("in focus");
+    if (event.target.value) {
+      setShowFavorites(false);
+    } else {
+      setShowFavorites(true);
+    }
+  };
 
   return (
     <SearchLocationContainer
@@ -140,7 +137,6 @@ export const SearchLocation = () => {
             type="text"
             onChange={handleInputChange}
             onFocus={showFavoritesFunc}
-
           />
           <LoadingSearchDiv>
             {loadingSearch && <CircularProgress size={"17px"} />}
@@ -151,9 +147,10 @@ export const SearchLocation = () => {
               themeStyles={themeContextData.stylesForTheme}
               themeType={themeContextData.currentTheme}
             >
-              {(showFavorites && cityOptions.length === 0) ? (
-                Object.values(favoriteCities).map(
-                  (city: CityInterface) => (
+              {showFavorites && cityOptions.length === 0 ? (
+                Object.values(favoriteCities)
+                  .slice(0, 2)
+                  .map((city: CityInterface) => (
                     <OptionCitiesButton
                       city={city}
                       themeContext={themeContextData}
@@ -162,17 +159,20 @@ export const SearchLocation = () => {
                       favoriteInputHanlder={handlerAddToLS}
                       marked={city.id in favoriteCities}
                     />
-                  )
-                )
-              ) : <></>}
+                  ))
+              ) : (
+                <></>
+              )}
               {cityOptions.map((city: CityInterface) => (
-                <OptionCitiesButton
-                  city={city}
-                  themeContext={themeContextData}
-                  cityInputHanlder={handleInputChangeClick}
-                  favoriteInputHanlder={handlerAddToLS}
-                  marked={city.id in favoriteCities}
-                />
+                <>
+                  <OptionCitiesButton
+                    city={city}
+                    themeContext={themeContextData}
+                    cityInputHanlder={handleInputChangeClick}
+                    favoriteInputHanlder={handlerAddToLS}
+                    marked={city.id in favoriteCities}
+                  />
+                </>
               ))}
             </OptionCitiesDiv>
           ) : (
@@ -183,9 +183,7 @@ export const SearchLocation = () => {
               themeStyles={themeContextData.stylesForTheme}
               themeType={themeContextData.currentTheme}
             >
-              <h3>
-                {selectedCity.name},
-              </h3>
+              <h3>{selectedCity.name},</h3>
               <h3>{selectedCity.country}</h3>
             </CityNameDiv>
           </>
