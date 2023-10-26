@@ -50,10 +50,19 @@ export const SearchLocation = () => {
   const [showOption, setShowOption] = useState<boolean>(true);
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
 
-  let favoriteCities: IFavoriteCities = getItem("favoriteCities");
-  if (favoriteCities === null) {
-    favoriteCities = {};
-  }
+  const [favoriteCities, setFavoriteCities] = useState<IFavoriteCities>({});
+
+  useEffect(() => {
+    let favoriteCitiesLS = getItem("favoriteCities");
+    if (favoriteCitiesLS === null) {
+      favoriteCitiesLS = {};
+    }
+    setFavoriteCities(favoriteCitiesLS);
+  }, []);
+
+  useEffect(() => {
+    setItem("favoriteCities", favoriteCities);
+  }, [favoriteCities]);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -91,21 +100,20 @@ export const SearchLocation = () => {
 
     setShowOption(false);
   };
-  const handlerAddToLS = (event: any) => {
+  const AddToFavorite = (event: any) => {
+    const independFavoriteCities = { ...favoriteCities };
     const dataset = event.target.dataset;
-    for (const city of [...cityOptions, ...Object.values(favoriteCities)]) {
+    for (const city of [
+      ...cityOptions,
+      ...Object.values(independFavoriteCities),
+    ]) {
       if (city.id === Number(dataset.id)) {
-        let favoriteCities = getItem("favoriteCities");
-        if (favoriteCities === null) {
-          favoriteCities = {};
-        }
-        if (city.id in favoriteCities) {
-          delete favoriteCities[city.id];
+        if (city.id in independFavoriteCities) {
+          delete independFavoriteCities[city.id];
         } else {
-          favoriteCities[city.id] = city;
+          independFavoriteCities[city.id] = city;
         }
-        setItem("favoriteCities", favoriteCities);
-
+        setFavoriteCities(independFavoriteCities);
         break;
       }
     }
@@ -154,9 +162,8 @@ export const SearchLocation = () => {
                     <OptionCitiesButton
                       city={city}
                       themeContext={themeContextData}
-                      // OTHER CLICK HANDLER NOT CITIES
                       cityInputHanlder={handleInputChangeClick}
-                      favoriteInputHanlder={handlerAddToLS}
+                      favoriteInputHanlder={AddToFavorite}
                       marked={city.id in favoriteCities}
                     />
                   ))
@@ -169,7 +176,7 @@ export const SearchLocation = () => {
                     city={city}
                     themeContext={themeContextData}
                     cityInputHanlder={handleInputChangeClick}
-                    favoriteInputHanlder={handlerAddToLS}
+                    favoriteInputHanlder={AddToFavorite}
                     marked={city.id in favoriteCities}
                   />
                 </>

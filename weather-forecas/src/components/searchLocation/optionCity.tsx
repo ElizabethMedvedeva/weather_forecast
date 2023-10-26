@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CityInterface } from "../../redux/reducers/APIreducer";
 import { IThemeContext } from "../../theme/theme";
 import { StyledOptionCitiesButton } from "./searchLocation.Styled";
@@ -18,29 +17,27 @@ export const OptionCitiesButton = ({
   favoriteInputHanlder,
   marked,
 }: IOptionCityButton) => {
-  const [showFavoriteButton, setshowFavoriteButton] = useState<boolean>(marked);
-
-  const setshowFavoriteButtonFunc = (event: any) => {
-    setshowFavoriteButton(!showFavoriteButton);
-    favoriteInputHanlder(event);
-  };
-  console.log(showFavoriteButton, "TESTSTATE");
+  console.log(">> inside option", {
+    marked: marked,
+    city: city,
+    name: city.name,
+  });
   return (
     <>
       <StyledOptionCitiesButton
         themeStyles={themeContext.stylesForTheme}
         themeType={themeContext.currentTheme}
-        key={city.id}
+        key={`city-selector-${city.id}`}
         data-id={city.id}
         onClick={cityInputHanlder}
       >
         {city.name} / {city.country}
       </StyledOptionCitiesButton>
-      {showFavoriteButton ? (
+      {marked ? (
         <button
           key={`button-${city.id}`}
           data-id={city.id}
-          onClick={setshowFavoriteButtonFunc}
+          onClick={favoriteInputHanlder}
           style={{
             backgroundColor: "black",
             width: "20px",
@@ -51,7 +48,7 @@ export const OptionCitiesButton = ({
         <button
           key={`button-${city.id}`}
           data-id={city.id}
-          onClick={setshowFavoriteButtonFunc}
+          onClick={favoriteInputHanlder}
           style={{
             backgroundColor: "red",
             width: "20px",
