@@ -18,17 +18,13 @@ export const OptionCitiesButton = ({
   favoriteInputHanlder,
   marked,
 }: IOptionCityButton) => {
-  const [showFavotieButton, setshowFavotieButton] = useState<boolean>(true);
+  const [showFavoriteButton, setshowFavoriteButton] = useState<boolean>(marked);
 
-  const setshowFavotieButtonFunc = () => {
-    if (showFavotieButton === true) {
-      setshowFavotieButton(false);
-    }
-    if (showFavotieButton === false) {
-      setshowFavotieButton(true);
-    }
+  const setshowFavoriteButtonFunc = (event: any) => {
+    setshowFavoriteButton(!showFavoriteButton);
+    favoriteInputHanlder(event);
   };
-  console.log(showFavotieButton, "TESTSTATE");
+  console.log(showFavoriteButton, "TESTSTATE");
   return (
     <>
       <StyledOptionCitiesButton
@@ -40,32 +36,29 @@ export const OptionCitiesButton = ({
       >
         {city.name} / {city.country}
       </StyledOptionCitiesButton>
-
-      <button
-        key={`button-${city.id}`}
-        data-id={city.id}
-        onClick={() => {
-          favoriteInputHanlder();
-          setshowFavotieButtonFunc();
-        }}
-        style={{
-          display: showFavotieButton ? "none" : "flex",
-          backgroundColor: marked ? "red" : "white",
-          width: "20px",
-          height: "20px",
-        }}
-      />
-      <button
-        key={`button-${city.id}`}
-        data-id={city.id}
-        onClick={favoriteInputHanlder}
-        style={{
-          display: !showFavotieButton ? "none" : "flex",
-          backgroundColor: marked ? "red" : "white",
-          width: "20px",
-          height: "20px",
-        }}
-      />
+      {showFavoriteButton ? (
+        <button
+          key={`button-${city.id}`}
+          data-id={city.id}
+          onClick={setshowFavoriteButtonFunc}
+          style={{
+            backgroundColor: "black",
+            width: "20px",
+            height: "20px",
+          }}
+        />
+      ) : (
+        <button
+          key={`button-${city.id}`}
+          data-id={city.id}
+          onClick={setshowFavoriteButtonFunc}
+          style={{
+            backgroundColor: "red",
+            width: "20px",
+            height: "20px",
+          }}
+        />
+      )}
     </>
   );
 };
