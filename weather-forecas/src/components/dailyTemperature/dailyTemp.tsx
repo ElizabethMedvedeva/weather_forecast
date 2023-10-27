@@ -13,7 +13,6 @@ import {
   WeathercodeImgDaily,
 } from "../utility/weathercode/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
-import { CircularProgress } from "@mui/material";
 import {
   DailyTempCardBox,
   DailyTempCardTemperatureBox,
@@ -59,7 +58,7 @@ export const ForecastData = () => {
     (state: StoreType) => state.daysForecastReducer.selectedCity
   );
 
-  const { loading, error } = useSelector(
+  const { error } = useSelector(
     (state: StoreType) => state.daysForecastReducer
   );
 

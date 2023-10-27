@@ -20,7 +20,6 @@ import {
   WeatherDetailsIcon,
   WeatherDetailsSet,
 } from "./todaysHighlights.Styled";
-import { CircularProgress } from "@mui/material";
 import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
 
@@ -35,7 +34,7 @@ export const TodaysHightlights = () => {
     (state: StoreType) => state.daysForecastReducer.selectedCity
   );
 
-  const { loading, error } = useSelector(
+  const { error } = useSelector(
     (state: StoreType) => state.daysForecastReducer
   );
 
