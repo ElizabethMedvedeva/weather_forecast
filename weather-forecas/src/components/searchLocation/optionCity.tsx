@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { CityInterface } from "../../redux/reducers/APIreducer";
 import { IThemeContext } from "../../theme/theme";
 import { StyledOptionCitiesButton } from "./searchLocation.Styled";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 interface IOptionCityButton {
   city: CityInterface;
@@ -17,45 +20,63 @@ export const OptionCitiesButton = ({
   favoriteInputHanlder,
   marked,
 }: IOptionCityButton) => {
-  console.log(">> inside option", {
-    marked: marked,
-    city: city,
-    name: city.name,
-  });
+  const [showFavoriteButton, setshowFavoriteButton] = useState<boolean>(marked);
+
+  const setshowFavoriteButtonFunc = (event: any) => {
+    setshowFavoriteButton(!showFavoriteButton);
+    favoriteInputHanlder(event);
+  };
+  
   return (
     <>
-      <StyledOptionCitiesButton
-        themeStyles={themeContext.stylesForTheme}
-        themeType={themeContext.currentTheme}
-        key={`city-selector-${city.id}`}
-        data-id={city.id}
-        onClick={cityInputHanlder}
-      >
-        {city.name} / {city.country}
-      </StyledOptionCitiesButton>
-      {marked ? (
-        <button
-          key={`button-${city.id}`}
+      {" "}
+      <div style={{ position: "relative" }}>
+        <StyledOptionCitiesButton
+          themeStyles={themeContext.stylesForTheme}
+          themeType={themeContext.currentTheme}
+          key={city.id}
           data-id={city.id}
-          onClick={favoriteInputHanlder}
-          style={{
-            backgroundColor: "black",
-            width: "20px",
-            height: "20px",
-          }}
-        />
-      ) : (
-        <button
-          key={`button-${city.id}`}
-          data-id={city.id}
-          onClick={favoriteInputHanlder}
-          style={{
-            backgroundColor: "red",
-            width: "20px",
-            height: "20px",
-          }}
-        />
-      )}
+          onClick={cityInputHanlder}
+        >
+          {city.name} / {city.country}
+        </StyledOptionCitiesButton>
+        {showFavoriteButton ? (
+          <button
+            key={`button-${city.id}`}
+            data-id={city.id}
+            onClick={setshowFavoriteButtonFunc}
+           
+            style={{
+              border: "none",
+              // background: "transparent",
+              position: "absolute",
+              top: "20%",
+              right: "15%",
+              height: "10px",
+              width: "10px",
+            }}
+          
+         />
+          
+        ) : (
+          <button
+            key={`button-${city.id}`}
+            data-id={city.id}
+            onClick={setshowFavoriteButtonFunc}
+            style={{
+              border: "none",
+              // background: "transparent",
+              position: "absolute",
+              background: "pink",
+              height: "10px",
+              width: "10px",
+              top: "20%",
+              right: "15%",
+            }}/>
+          
+        
+        )}
+      </div>
     </>
   );
 };

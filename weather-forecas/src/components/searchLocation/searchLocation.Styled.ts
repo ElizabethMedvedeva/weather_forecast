@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Theme, ThemeType } from "../../theme/theme";
+
 interface StyledInterface {
   themeStyles: Theme;
   themeType: ThemeType;
@@ -28,13 +29,14 @@ export const SearchLocationInput = styled.input<StyledInterface>`
   position: absolute;
   left: 27%;
   top: 0;
+
   border: 1px solid #1d1d1d;
   border-radius: 30px;
   color: ${({ themeStyles }) => themeStyles.text};
   text-align: center;
   width: 180px;
   margin-top: 40px;
-  &::placeholder {
+  posi &::placeholder {
     color: ${({ themeStyles }) => themeStyles.text};
   }
 `;
@@ -53,10 +55,13 @@ export const StyledOptionCitiesButton = styled.button<StyledInterface>`
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   border: 1px solid #1d1d1d;
   border-radius: 30px;
+  width: 180px;
+  padding-right: 70px;
+
   color: ${({ themeStyles }) => themeStyles.text};
 `;
 export const CityNameDiv = styled.div<StyledInterface>`
-  margin-top: 195px;
+  margin-top: 225px;
   h3 {
     font-size: 30px;
     background: ${({ themeStyles }) => themeStyles.cityText};
