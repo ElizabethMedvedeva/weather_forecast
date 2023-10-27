@@ -2,8 +2,6 @@ import { useState } from "react";
 import { CityInterface } from "../../redux/reducers/APIreducer";
 import { IThemeContext } from "../../theme/theme";
 import { StyledOptionCitiesButton } from "./searchLocation.Styled";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 
 interface IOptionCityButton {
   city: CityInterface;
@@ -45,7 +43,7 @@ export const OptionCitiesButton = ({
             key={`button-${city.id}`}
             data-id={city.id}
             onClick={setshowFavoriteButtonFunc}
-           
+           className="icon-heart-stroke"
             style={{
               border: "none",
               // background: "transparent",
@@ -63,6 +61,7 @@ export const OptionCitiesButton = ({
             key={`button-${city.id}`}
             data-id={city.id}
             onClick={setshowFavoriteButtonFunc}
+            className="icon-heart-fill"
             style={{
               border: "none",
               // background: "transparent",
