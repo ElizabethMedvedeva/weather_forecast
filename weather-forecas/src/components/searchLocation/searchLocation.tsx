@@ -5,7 +5,6 @@ import { useDebounce } from "usehooks-ts";
 import {
   CityInterface,
   fetchSearchLocation,
-  setSearchLocation,
   setSelectedCity,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
@@ -33,13 +32,11 @@ export const SearchLocation = () => {
   const delay = 700;
   const themeContextData: IThemeContext = useThemeContext();
 
-  const searchState: string = useSelector(
-    (state: StoreType) => state.daysForecastReducer.search
-  );
+  const [search, setSearch] = useState<string>("");
   const cityOptions = useSelector(
     (state: StoreType) => state.daysForecastReducer.citiesOptions
   );
-  const searchStateDebaunse = useDebounce<string>(searchState, delay);
+  const searchStateDebaunse = useDebounce<string>(search, delay);
   const selectedCity: CityInterface = useSelector(
     (state: StoreType) => state.daysForecastReducer.selectedCity
   );
@@ -67,7 +64,7 @@ export const SearchLocation = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleInputChange = (event: any) => {
-    dispatch(setSearchLocation(event.target.value));
+    setSearch(event.target.value);
     setTimeout(() => {
       if (event.target.value) {
         setShowOption(true);
@@ -93,7 +90,7 @@ export const SearchLocation = () => {
     for (const city of [...cityOptions, ...Object.values(favoriteCities)]) {
       if (city.id === Number(dataset.id)) {
         dispatch(setSelectedCity(city));
-        dispatch(setSearchLocation(""));
+        setSearch("");
         break;
       }
     }
@@ -140,7 +137,7 @@ export const SearchLocation = () => {
           <SearchLocationInput
             themeStyles={themeContextData.stylesForTheme}
             themeType={themeContextData.currentTheme}
-            value={searchState}
+            value={search}
             placeholder="Search city"
             type="text"
             onChange={handleInputChange}
