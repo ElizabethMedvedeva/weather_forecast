@@ -8,6 +8,8 @@ enum Colors {
   ALTO = "#D9D9D9",
   DEEP_GRAY = "#1D1D1D",
   SILVER = "rgba(128, 128, 128, 0.6)",
+  LINEAR_DAILY_LIGHT = "B5B5B5",
+  LINEAR_DAILY_DARK = "#2e2e2e",
   LINEAR_TEMPERATURE_DARK = `-webkit-linear-gradient(76deg, #eee 40%, #333);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent`,
@@ -37,6 +39,7 @@ export interface Theme {
   backgroundImage: string;
   backgroundTextLinear: Colors;
   cityText: Colors;
+  backgroundButtonLinear: Colors;
 }
 
 type ThemesType = Record<ThemeType, Theme>;
@@ -47,6 +50,7 @@ export const Themes: ThemesType = {
     backgroundLinear: Colors.SILVER,
     backgroundImage: BACKGROUND_IMAGE_LIGHT,
     backgroundTextLinear: Colors.LINEAR_TEMPERATURE_LIGHT,
+    backgroundButtonLinear: Colors.LINEAR_DAILY_LIGHT,
     cityText: Colors.CITY_LIGHT,
   },
   dark: {
@@ -54,6 +58,7 @@ export const Themes: ThemesType = {
     backgroundLinear: Colors.THUNDORA,
     backgroundImage: BACKGROUND_IMAGE_DARK,
     backgroundTextLinear: Colors.LINEAR_TEMPERATURE_DARK,
+    backgroundButtonLinear: Colors.LINEAR_DAILY_DARK,
     cityText: Colors.LINEAR_TEMPERATURE_DARK,
   },
 };

@@ -10,20 +10,35 @@ import { AppDispatch, StoreType } from "../../redux/store";
 import {
   Weathercode,
   WeathercodeImg,
+  WeathercodeImgDaily,
 } from "../utility/weathercode/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import { CircularProgress } from "@mui/material";
 import {
+  DailyTempCardBox,
+  DailyTempCardTemperatureBox,
+  DailyTempCardTopDiv,
   DailyTempContainer,
+  DailyTempDayDiv,
+  DailyTempImgDiv,
+  DailyTempMainDiv,
+  DailyTempMaxTempDiv,
+  DailyTempMinTempDiv,
+  DailyTempUvDiv,
+  DailyTempUvIcon,
+  DailyTempWeekDayDiv,
   FourteenDaysButton,
   FourteenDaysDiv,
   SevenDaysButton,
+  SevenDaysDiv,
 } from "./dailyTempStyled";
 import { useThemeContext } from "../../theme/themeContext";
+import { IThemeContext } from "../../theme/theme";
 
 export type ForecastDayAmount = "Seven" | "Fourteen";
 
 export const ForecastData = () => {
+  const themeContextData: IThemeContext = useThemeContext();
   const [dayAmount, setDayAmount] = useState<ForecastDayAmount>("Seven");
   const changeForecastDateAmount = () => {
     if (dayAmount === "Seven") {
@@ -75,82 +90,113 @@ export const ForecastData = () => {
       {error ? (
         <p>Error: {error}</p>
       ) : (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <SevenDaysButton
-            dayAmount={dayAmount}
-            onClick={changeForecastDateAmount}
-          >
-            14days
-          </SevenDaysButton>
-          <FourteenDaysButton
-            dayAmount={dayAmount}
-            onClick={changeForecastDateAmount}
-          >
-            7days
-          </FourteenDaysButton>
-          <div style={{ display: "flex", flexDirection: "row" }}>
+        <DailyTempMainDiv>
+          {" "}
+          <SevenDaysDiv>
             {weatherSeven.map((item: any) => (
               <DailyTempContainer key={item.date}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    backgroundColor: "green",
-                    margin: "10px",
-                    height: "30vh",
-                  }}
+                <DailyTempCardBox
+                  themeStyles={themeContextData.stylesForTheme}
+                  themeType={themeContextData.currentTheme}
                 >
-                  <h5> {weekDay[item.date.getDay()]}</h5>
-                  <h5> {item.date.getDate()}</h5>
-                  <h5>Max: {item.temperatureMax}</h5>
-                  <h5>Min: {item.temperatureMin}</h5>
-                  <h5>UV: {item.uvIndexMax}</h5>
-                  <Weathercode>
-                    <WeathercodeImg
+                  <DailyTempCardTopDiv>
+                    <DailyTempWeekDayDiv>
+                      <h5>{weekDay[item.date.getDay()]}</h5>
+                    </DailyTempWeekDayDiv>
+                    <DailyTempDayDiv>
+                      <h5> {item.date.getDate()}</h5>
+                    </DailyTempDayDiv>
+                  </DailyTempCardTopDiv>
+
+                  <DailyTempImgDiv>
+                    <WeathercodeImgDaily
                       weathercode={item.weathercode}
                       src={getImageByWeathercode(item.weathercode)}
                       alt="weathercode_img"
-                    ></WeathercodeImg>
-                  </Weathercode>
-                </div>
+                    ></WeathercodeImgDaily>
+                  </DailyTempImgDiv>
+
+                  <DailyTempCardTemperatureBox>
+                    <DailyTempMaxTempDiv>
+                      <h4>max: {item.temperatureMax} °C</h4>
+                    </DailyTempMaxTempDiv>
+                    <DailyTempMinTempDiv>
+                      <h4>min: {item.temperatureMin} °C</h4>
+                    </DailyTempMinTempDiv>
+                  </DailyTempCardTemperatureBox>
+                  <DailyTempUvDiv>
+                    <DailyTempUvIcon
+                      src="assets/uvTH.png"
+                      alt="pressure"
+                    ></DailyTempUvIcon>
+                    <h5>{item.uvIndexMax}</h5>
+                  </DailyTempUvDiv>
+                </DailyTempCardBox>
               </DailyTempContainer>
             ))}
+          </SevenDaysDiv>
+          <div>
+            <SevenDaysButton
+              themeStyles={themeContextData.stylesForTheme}
+              themeType={themeContextData.currentTheme}
+              dayAmount={dayAmount}
+              onClick={changeForecastDateAmount}
+            >
+              Show more
+            </SevenDaysButton>
           </div>
-
-          <FourteenDaysDiv
-            dayAmount={dayAmount}
-            style={{
-              flexDirection: "row",
-            }}
-          >
+          <FourteenDaysDiv dayAmount={dayAmount}>
             {weatherFourteen.map((item: any) => (
               <DailyTempContainer key={item.date}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    backgroundColor: "green",
-                    margin: "10px",
-                    height: "30vh",
-                  }}
+                <DailyTempCardBox
+                  themeStyles={themeContextData.stylesForTheme}
+                  themeType={themeContextData.currentTheme}
                 >
-                  <h5>{weekDay[item.date.getDay()]}</h5>
-                  <h5> {item.date.getDate()}</h5>
-                  <h5>Max: {item.temperatureMax}</h5>
-                  <h5>Min: {item.temperatureMin}</h5>
-                  <h5>UV: {item.uvIndexMax}</h5>
-                  <Weathercode>
-                    <WeathercodeImg
+                  <DailyTempCardTopDiv>
+                    <DailyTempWeekDayDiv>
+                      <h5>{weekDay[item.date.getDay()]}</h5>
+                    </DailyTempWeekDayDiv>
+                    <DailyTempDayDiv>
+                      <h5> {item.date.getDate()}</h5>
+                    </DailyTempDayDiv>
+                  </DailyTempCardTopDiv>
+
+                  <DailyTempImgDiv>
+                    <WeathercodeImgDaily
                       weathercode={item.weathercode}
                       src={getImageByWeathercode(item.weathercode)}
                       alt="weathercode_img"
-                    ></WeathercodeImg>
-                  </Weathercode>
-                </div>
+                    ></WeathercodeImgDaily>
+                  </DailyTempImgDiv>
+
+                  <DailyTempCardTemperatureBox>
+                    <DailyTempMaxTempDiv>
+                      <h4>max: {item.temperatureMax} °C</h4>
+                    </DailyTempMaxTempDiv>
+                    <DailyTempMinTempDiv>
+                      <h4>min: {item.temperatureMin} °C</h4>
+                    </DailyTempMinTempDiv>
+                  </DailyTempCardTemperatureBox>
+                  <DailyTempUvDiv>
+                    <DailyTempUvIcon
+                      src="assets/uvTH.png"
+                      alt="pressure"
+                    ></DailyTempUvIcon>
+                    <h5>{item.uvIndexMax}</h5>
+                  </DailyTempUvDiv>
+                </DailyTempCardBox>
               </DailyTempContainer>
             ))}
           </FourteenDaysDiv>
-        </div>
+          <FourteenDaysButton
+            themeStyles={themeContextData.stylesForTheme}
+            themeType={themeContextData.currentTheme}
+            dayAmount={dayAmount}
+            onClick={changeForecastDateAmount}
+          >
+            Show less
+          </FourteenDaysButton>
+        </DailyTempMainDiv>
       )}
     </div>
   );
