@@ -43,7 +43,8 @@ export const Clock = () => {
   return (
     <ClockContainer
       themeStyles={themeContextData.stylesForTheme}
-      themeType={themeContextData.currentTheme}>
+      themeType={themeContextData.currentTheme}
+    >
       <h3> {convertedTime}</h3>
       <h4>
         {weekDay[convertedWeekDay]}, {convertedDate} {months[convertedMonth]}{" "}

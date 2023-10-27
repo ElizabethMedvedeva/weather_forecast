@@ -7,7 +7,6 @@ interface IDayAmount {
 export const DailyTempContainer = styled.div`
   display: flex;
   flexdirection: column;
-
   margin: 10px;
   height: 30vh;
 `;

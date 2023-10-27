@@ -12,15 +12,12 @@ import {
   WeathercodeImg,
 } from "../utility/weathercode/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
-import { CircularProgress } from "@mui/material";
 import {
   DailyTempContainer,
   FourteenDaysButton,
   FourteenDaysDiv,
   SevenDaysButton,
 } from "./dailyTempStyled";
-import { useThemeContext } from "../../theme/themeContext";
-
 export type ForecastDayAmount = "Seven" | "Fourteen";
 
 export const ForecastData = () => {
@@ -44,7 +41,7 @@ export const ForecastData = () => {
     (state: StoreType) => state.daysForecastReducer.selectedCity
   );
 
-  const { loading, error } = useSelector(
+  const { error } = useSelector(
     (state: StoreType) => state.daysForecastReducer
   );
 

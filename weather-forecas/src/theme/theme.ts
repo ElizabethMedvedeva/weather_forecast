@@ -1,5 +1,3 @@
-import nightSky from "./dark_sky.png";
-
 enum Colors {
   THUNDORA = "rgba(68, 68, 68, 0.8)",
   WHITE = "rgba(255, 255, 255, 0.7)",
