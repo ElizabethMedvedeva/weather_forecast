@@ -43,15 +43,17 @@ export const OptionCitiesButton = ({
             key={`button-${city.id}`}
             data-id={city.id}
             onClick={setshowFavoriteButtonFunc}
-           className="icon-heart-stroke"
+            className="icon-heart-fill"
+          
             style={{
               border: "none",
-              // background: "transparent",
+              background: "transparent",
               position: "absolute",
               top: "20%",
               right: "15%",
-              height: "10px",
-              width: "10px",
+              fontSize: "24px",
+              // height: "10px",
+              // width: "10px",
             }}
           
          />
@@ -61,16 +63,19 @@ export const OptionCitiesButton = ({
             key={`button-${city.id}`}
             data-id={city.id}
             onClick={setshowFavoriteButtonFunc}
-            className="icon-heart-fill"
+           
+            className="icon-heart-stroke"
             style={{
               border: "none",
-              // background: "transparent",
+              background: "transparent",
               position: "absolute",
-              background: "pink",
-              height: "10px",
-              width: "10px",
+              // background: "pink",
+              // height: "10px",
+              // width: "10px",
               top: "20%",
               right: "15%",
+              fontSize: "24px",
+             
             }}/>
           
         
