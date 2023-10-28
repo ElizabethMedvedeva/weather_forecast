@@ -4,7 +4,7 @@ import { useThemeContext } from "../../theme/themeContext";
 import { GeneralContainer, LoaderDiv } from "./generalStyled";
 import { SideHeader } from "../sideHeader/sideHeader";
 import { Main } from "../main/mainComponent";
-import { ForecastData } from "../dailyTemperature/dailyTemp";
+import { WeeklyForecast } from "../dailyTemperature/dailyTemp";
 import { NotFoundComponent } from "../empty/empty";
 import { useSelector } from "react-redux";
 import { StoreType } from "../../redux/store";
@@ -25,7 +25,7 @@ export const General = () => {
         <SideHeader />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/forecast" element={<ForecastData />} />
+          <Route path="/weeeklyForecast" element={<WeeklyForecast />} />
           <Route path="*" element={<NotFoundComponent />} />
         </Routes>
       </Router>

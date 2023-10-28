@@ -25,7 +25,7 @@ export const SideHeader = () => {
       <SideHeaderIconDiv>
         <NavLink
           className={({ isActive }) => (isActive ? "active-link" : "")}
-          to="/forecast"
+          to="/weeeklyForecast"
         >
           <SideHeaderIcon src={"assets/calendarIcon.png"} />
         </NavLink>

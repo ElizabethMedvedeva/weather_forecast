@@ -36,7 +36,7 @@ import { IThemeContext } from "../../theme/theme";
 
 export type ForecastDayAmount = "Seven" | "Fourteen";
 
-export const ForecastData = () => {
+export const WeeklyForecast = () => {
   const themeContextData: IThemeContext = useThemeContext();
   const [dayAmount, setDayAmount] = useState<ForecastDayAmount>("Seven");
   const changeForecastDateAmount = () => {

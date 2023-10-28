@@ -16,7 +16,7 @@ interface IWeatherDay {
 
 export type daysForecastType = Array<IWeatherDay>;
 
-const ToWeatherModel = (APIobj: any) => {
+const FillWeeklyForecast = (APIobj: any) => {
   const weatherModel: daysForecastType = [];
   const daily = APIobj.daily;
 
@@ -303,7 +303,7 @@ export const APISlice = createSlice({
         state.error = null;
       })
       .addCase(fetchDailyForecast.fulfilled, (state, action) => {
-        state.dailyForecast = ToWeatherModel(action.payload);
+        state.dailyForecast = FillWeeklyForecast(action.payload);
 
         state.loading = false;
       })
