@@ -19,6 +19,9 @@ export const TodaysHightlightsContainer = styled.div<StyledInterface>`
     h1 {
       font-size: 25px;
     }
+    @media (max-width: 965px) {
+      height: 350px;
+    }
   }
 `;
 

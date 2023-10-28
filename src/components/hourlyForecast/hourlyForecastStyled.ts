@@ -19,6 +19,9 @@ export const HourlyForecastDiv = styled.div<StyledInterface>`
    h1{
     font-size: 25px;
    } 
+   @media (max-width: 965px) {
+    height: 340px;
+  }
   }
 `;
 export const HourlyContainer = styled.div`
@@ -36,6 +39,11 @@ export const HourlyContainer = styled.div`
    h3{
     font-size: 15px;
    } 
+   @media (max-width: 733px) {
+    h4{
+      font-size: 12px;
+    }
+  }
   }
 `;
 export const HourContainer = styled.div<StyledInterface>`
