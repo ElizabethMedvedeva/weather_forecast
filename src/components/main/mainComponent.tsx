@@ -2,18 +2,22 @@ import { HourlyForecast } from "../hourlyForecast/hourlyForecast";
 import { SearchLocation } from "../searchLocation/searchLocation";
 import { TodaysHightlights } from "../todaysHiglights/todaysHighlights";
 
-import { MainContainer } from "./mainComponent.Styled";
+import {
+  ForecastContainer,
+  MainContainer,
+  SearchContainer,
+} from "./mainComponent.Styled";
 
 export const Main = () => {
   return (
     <MainContainer>
-      <div style={{flexGrow: "1"}}>
-        <TodaysHightlights /> 
+      <ForecastContainer>
+        <TodaysHightlights />
         <HourlyForecast />
-      </div>
-      <div >
+      </ForecastContainer>
+      <SearchContainer>
         <SearchLocation />
-      </div>
+      </SearchContainer>
     </MainContainer>
   );
 };

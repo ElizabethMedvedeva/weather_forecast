@@ -4,7 +4,7 @@ export const SideHeaderDiv = styled.div`
   padding-top: 60px;
   width: 100px;
   background: #292727;
-  bacground-size: cover;
+  background-size: cover;
 `;
 
 export const SideHeaderIconDiv = styled.div`

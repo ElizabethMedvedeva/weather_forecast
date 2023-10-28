@@ -22,5 +22,8 @@ export const ClockContainer = styled.div<StyledInterface>`
     h4{
       font-size: 20px;
     }
+    @media (max-width: 965px) {
+      margin: 0;
+    }
   }
 `;

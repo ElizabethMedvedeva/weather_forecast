@@ -16,6 +16,10 @@ export const SearchLocationContainer = styled.div<StyledInterface>`
   flex-direction: column;
   align-items: center;
   position: relative;
+  @media (max-width: 965px) {
+    height: 300px;
+    margin: 20px;
+  }
 `;
 export const LoadingSearchDiv = styled.div`
   position: absolute;
@@ -34,7 +38,7 @@ export const SearchLocationInput = styled.input<StyledInterface>`
   margin-top: 40px;
   & ::placeholder {
     color: ${({ themeStyles }) => themeStyles.text};
-  };
+  }
 `;
 export const OptionCitiesDiv = styled.div<StyledInterface>`
   display: flex;
@@ -69,6 +73,9 @@ export const CityNameDiv = styled.div<StyledInterface>`
     h3 {
       font-size: 25px;
     }
+    @media (max-width: 965px) {
+      margin-top: 80px;
+    }
   }
 `;
 export const CurrentWeatherIcon = styled.img`
@@ -77,6 +84,9 @@ export const CurrentWeatherIcon = styled.img`
   height: auto;
   @media (max-width: 1064px) {
     max-width: 140px;
+  }
+  @media (max-width: 965px) {
+    display: none;
   }
 `;
 
