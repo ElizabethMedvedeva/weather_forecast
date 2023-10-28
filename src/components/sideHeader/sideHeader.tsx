@@ -19,7 +19,7 @@ export const SideHeader = () => {
           className={({ isActive }) => (isActive ? "active-link" : "")}
           to="/"
         >
-          <img src={"assets/weatherIcon.png"}></img>
+           <SideHeaderIcon src={"assets/weatherIcon.png"} />
         </NavLink>
       </SideHeaderIconDiv>
       <SideHeaderIconDiv>
