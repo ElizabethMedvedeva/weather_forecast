@@ -16,8 +16,6 @@ export const SearchLocationContainer = styled.div<StyledInterface>`
   flex-direction: column;
   align-items: center;
   position: relative;
-
-  width: 100%;
 `;
 export const LoadingSearchDiv = styled.div`
   position: absolute;
@@ -27,7 +25,6 @@ export const LoadingSearchDiv = styled.div`
 export const SearchLocationInput = styled.input<StyledInterface>`
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   position: absolute;
-  left: 27%;
   top: 0;
 
   border: 1px solid #1d1d1d;
@@ -36,7 +33,7 @@ export const SearchLocationInput = styled.input<StyledInterface>`
   text-align: center;
   width: 180px;
   margin-top: 40px;
-  posi &::placeholder {
+&::placeholder {
     color: ${({ themeStyles }) => themeStyles.text};
   }
 `;

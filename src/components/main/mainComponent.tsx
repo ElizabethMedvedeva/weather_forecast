@@ -7,11 +7,11 @@ import { MainContainer } from "./mainComponent.Styled";
 export const Main = () => {
   return (
     <MainContainer>
-      <div>
-        <TodaysHightlights />
+      <div style={{flexGrow: "1"}}>
+        <TodaysHightlights /> 
         <HourlyForecast />
       </div>
-      <div>
+      <div >
         <SearchLocation />
       </div>
     </MainContainer>

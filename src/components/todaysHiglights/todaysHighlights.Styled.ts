@@ -7,7 +7,6 @@ interface StyledInterface {
 
 export const TodaysHightlightsContainer = styled.div<StyledInterface>`
   height: 400px;
-  max-width: 800px;
   border-radius: 30px;
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   color: ${({ themeStyles }) => themeStyles.text};

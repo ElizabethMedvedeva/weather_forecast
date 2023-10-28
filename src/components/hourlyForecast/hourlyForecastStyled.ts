@@ -7,7 +7,6 @@ interface StyledInterface {
 }
 export const HourlyForecastDiv = styled.div<StyledInterface>`
   height: 370px;
-  max-width: 940px;
   border-radius: 30px;
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   color: ${({ themeStyles }) => themeStyles.text};
@@ -20,8 +19,8 @@ export const HourlyForecastDiv = styled.div<StyledInterface>`
 `;
 export const HourlyContainer = styled.div`
   display: flex;
-  justify-content: center;
-  margin: 0 auto;
+  justify-content: space-evenly;
+  margin: 0 10px;
   h3 {
     font-size: 20px;
   }
@@ -35,7 +34,7 @@ export const HourContainer = styled.div<StyledInterface>`
   flex-direction: column;
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   padding: 10px 20px;
-  margin: 0px 20px;
   border-radius: 40px;
   height: 270px;
+  margin: 0 5px;
 `;
