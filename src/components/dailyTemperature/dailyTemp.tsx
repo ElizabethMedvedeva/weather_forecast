@@ -14,6 +14,7 @@ import {
 } from "../utility/weathercode/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import {
+  AdaptivePhoneDiv,
   DailyTempCardBox,
   DailyTempCardTemperatureBox,
   DailyTempCardTopDiv,
@@ -53,6 +54,8 @@ export const WeeklyForecast = () => {
   const weatherSeven = weather.slice(0, 7);
 
   const weatherFourteen = weather.slice(7, weather.length);
+
+  const weatherPhone = weather.slice(0, weather.length);
 
   const selectedCity: CityInterface = useSelector(
     (state: StoreType) => state.daysForecastReducer.selectedCity
@@ -187,6 +190,49 @@ export const WeeklyForecast = () => {
               </DailyTempContainer>
             ))}
           </FourteenDaysDiv>
+          <AdaptivePhoneDiv>
+            {weatherPhone.map((item: any) => (
+              <DailyTempContainer key={item.date}>
+                <DailyTempCardBox
+                  themeStyles={themeContextData.stylesForTheme}
+                  themeType={themeContextData.currentTheme}
+                >
+                  <DailyTempCardTopDiv>
+                    <DailyTempWeekDayDiv>
+                      <h5>{weekDay[item.date.getDay()]}</h5>
+                    </DailyTempWeekDayDiv>
+                    <DailyTempDayDiv>
+                      <h5> {item.date.getDate()}</h5>
+                    </DailyTempDayDiv>
+                  </DailyTempCardTopDiv>
+
+                  <DailyTempImgDiv>
+                    <WeathercodeImgDaily
+                      weathercode={item.weathercode}
+                      src={getImageByWeathercode(item.weathercode)}
+                      alt="weathercode_img"
+                    ></WeathercodeImgDaily>
+                  </DailyTempImgDiv>
+
+                  <DailyTempCardTemperatureBox>
+                    <DailyTempMaxTempDiv>
+                      <h4>max: {item.temperatureMax} °C</h4>
+                    </DailyTempMaxTempDiv>
+                    <DailyTempMinTempDiv>
+                      <h4>min: {item.temperatureMin} °C</h4>
+                    </DailyTempMinTempDiv>
+                  </DailyTempCardTemperatureBox>
+                  <DailyTempUvDiv>
+                    <DailyTempUvIcon
+                      src="assets/uvTH.png"
+                      alt="pressure"
+                    ></DailyTempUvIcon>
+                    <h5>{item.uvIndexMax}</h5>
+                  </DailyTempUvDiv>
+                </DailyTempCardBox>
+              </DailyTempContainer>
+            ))}
+          </AdaptivePhoneDiv>
           <FourteenDaysButton
             themeStyles={themeContextData.stylesForTheme}
             themeType={themeContextData.currentTheme}
