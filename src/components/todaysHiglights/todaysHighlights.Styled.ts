@@ -22,6 +22,9 @@ export const TodaysHightlightsContainer = styled.div<StyledInterface>`
     @media (max-width: 965px) {
       height: 350px;
     }
+    @media (max-width: 526px) {
+      height: 500px;
+    }
   }
 `;
 
@@ -29,12 +32,28 @@ export const TodaysHightlightSet = styled.div`
   display: flex;
   margin: 0 auto;
   justify-content: space-evenly;
+  @media (max-width: 526px) {
+    flex-direction: column;
+  }
+`;
+
+export const SunTimeContainer = styled.div`
+  @media (max-width: 526px) {
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    width: 100%;
+  }
 `;
 
 export const SunTimeDiv = styled.div`
   display: flex;
   margin: 50px 0;
   padding: 10px;
+  @media (max-width: 526px) {
+    margin: 5px;
+    padding: 0;
+  }
 `;
 export const SunTimeInfo = styled.div`
   display: flex;
@@ -61,20 +80,29 @@ export const TemmperatureDiv = styled.div<StyledInterface>`
     background: ${({ themeStyles }) => themeStyles.backgroundTextLinear};
   }
   @media (max-width: 1064px) {
-    h3{
+    h3 {
       font-size: 60px;
+    }
+    @media (max-width: 526px) {
+      h3 {
+        font-size: 80px;
+      }
     }
   }
 `;
 export const WeatherDetailsSet = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-evenly;
 `;
 
 export const CoupleWeatherDetailsDiv = styled.div`
   display: flex;
   justify-content: space-evenly;
+  flex-direction: column;
+  @media (max-width: 526px) {
+    margin: 10px 0;
+  }
 `;
 
 export const WeatherDetailsDiv = styled.div`
@@ -86,6 +114,13 @@ export const WeatherDetailsDiv = styled.div`
   h5 {
     font-size: 15px;
     padding: 10px 0;
+  }
+  @media (max-width: 526px) {
+    flex-direction: column;
+    margin: 10px 0;
+    h5 {
+      padding: 0;
+    }
   }
 `;
 export const WeatherDetailsIcon = styled.img`

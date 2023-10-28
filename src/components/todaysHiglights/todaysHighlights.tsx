@@ -10,6 +10,7 @@ import { AppDispatch, StoreType } from "../../redux/store";
 
 import {
   CoupleWeatherDetailsDiv,
+  SunTimeContainer,
   SunTimeDiv,
   SunTimeInfo,
   TemmperatureDiv,
@@ -49,7 +50,7 @@ export const TodaysHightlights = () => {
       })
     );
   }, [selectedCity]);
-
+console.log(todaysHighlights?.humidity, "dkcmdk")
   return (
     <TodaysHightlightsContainer
       themeStyles={themeContextData.stylesForTheme}
@@ -60,7 +61,7 @@ export const TodaysHightlights = () => {
         <p>Error: {error}</p>
       ) : (
         <TodaysHightlightSet>
-          <div>
+          <SunTimeContainer>
             <SunTimeDiv>
               <TodaysHightlightsIcon src="assets/sunriseTH.png" alt="sunrise" />
               <SunTimeInfo>
@@ -75,7 +76,7 @@ export const TodaysHightlights = () => {
                 <h5>{todaysHighlights?.sunsetTime}</h5>
               </SunTimeInfo>
             </SunTimeDiv>
-          </div>
+          </SunTimeContainer>
           <TemmperatureDiv
             themeStyles={themeContextData.stylesForTheme}
             themeType={themeContextData.currentTheme}
