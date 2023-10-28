@@ -26,16 +26,15 @@ export const SearchLocationInput = styled.input<StyledInterface>`
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   position: absolute;
   top: 0;
-
   border: 1px solid #1d1d1d;
   border-radius: 30px;
   color: ${({ themeStyles }) => themeStyles.text};
   text-align: center;
   width: 180px;
   margin-top: 40px;
-&::placeholder {
+  & ::placeholder {
     color: ${({ themeStyles }) => themeStyles.text};
-  }
+  };
 `;
 export const OptionCitiesDiv = styled.div<StyledInterface>`
   display: flex;
@@ -44,7 +43,6 @@ export const OptionCitiesDiv = styled.div<StyledInterface>`
   color: ${({ themeStyles }) => themeStyles.text};
   width: 180px;
   position: absolute;
-  left: 27%;
   top: 68px;
 `;
 
@@ -54,18 +52,42 @@ export const StyledOptionCitiesButton = styled.button<StyledInterface>`
   border-radius: 30px;
   width: 180px;
   padding-right: 70px;
-
   color: ${({ themeStyles }) => themeStyles.text};
+  @media (max-width: 1064px) {
+    font-size: 15px;
+  }
 `;
+
 export const CityNameDiv = styled.div<StyledInterface>`
   margin-top: 225px;
   h3 {
     font-size: 30px;
     background: ${({ themeStyles }) => themeStyles.cityText};
   }
+  @media (max-width: 1064px) {
+    margin-top: 225px;
+    h3 {
+      font-size: 25px;
+    }
+  }
 `;
 export const CurrentWeatherIcon = styled.img`
   margin: 0 auto;
   max-width: 180px;
   height: auto;
+  @media (max-width: 1064px) {
+    max-width: 140px;
+  }
+`;
+
+export const FavoritveBtn = styled.button`
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 20%;
+  right: 15%;
+  fontsize: 24px;
+  @media (max-width: 1064px) {
+    font-size: 15px;
+  }
 `;

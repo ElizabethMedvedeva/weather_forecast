@@ -8,6 +8,9 @@ export const Weathercode = styled.div``;
 export const WeathercodeImg = styled.img<IWeathercode>`
   max-width: 80px;
   height: auto;
+  @media (max-width: 1064px) {
+    max-width: 65px;
+  }
 `;
 
 export const WeathercodeImgDaily = styled.img<IWeathercode>`

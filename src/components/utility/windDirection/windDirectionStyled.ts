@@ -16,4 +16,7 @@ export const WindDirectionImg = styled.img<IWindDirectionProps>`
   height: auto;
   margin: 0 auto;
   transform: rotate(${({ rotate }) => rotate}deg);
+  @media (max-width: 1064px) {
+    max-width: 45px;
+  }
 `;

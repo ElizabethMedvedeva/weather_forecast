@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { CityInterface } from "../../redux/reducers/APIreducer";
 import { IThemeContext } from "../../theme/theme";
-import { StyledOptionCitiesButton } from "./searchLocation.Styled";
+import {
+  FavoritveBtn,
+  StyledOptionCitiesButton,
+} from "./searchLocation.Styled";
 
 interface IOptionCityButton {
   city: CityInterface;
@@ -24,7 +27,7 @@ export const OptionCitiesButton = ({
     setshowFavoriteButton(!showFavoriteButton);
     favoriteInputHanlder(event);
   };
-  
+
   return (
     <>
       {" "}
@@ -39,46 +42,19 @@ export const OptionCitiesButton = ({
           {city.name} / {city.country}
         </StyledOptionCitiesButton>
         {showFavoriteButton ? (
-          <button
+          <FavoritveBtn
             key={`button-${city.id}`}
             data-id={city.id}
             onClick={setshowFavoriteButtonFunc}
             className="icon-heart-fill"
-          
-            style={{
-              border: "none",
-              background: "transparent",
-              position: "absolute",
-              top: "20%",
-              right: "15%",
-              fontSize: "24px",
-              // height: "10px",
-              // width: "10px",
-            }}
-          
-         />
-          
+          />
         ) : (
-          <button
+          <FavoritveBtn
             key={`button-${city.id}`}
             data-id={city.id}
             onClick={setshowFavoriteButtonFunc}
-           
             className="icon-heart-stroke"
-            style={{
-              border: "none",
-              background: "transparent",
-              position: "absolute",
-              // background: "pink",
-              // height: "10px",
-              // width: "10px",
-              top: "20%",
-              right: "15%",
-              fontSize: "24px",
-             
-            }}/>
-          
-        
+          />
         )}
       </div>
     </>

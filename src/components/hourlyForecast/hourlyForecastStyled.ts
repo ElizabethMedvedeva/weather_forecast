@@ -10,11 +10,15 @@ export const HourlyForecastDiv = styled.div<StyledInterface>`
   border-radius: 30px;
   background: ${({ themeStyles }) => themeStyles.backgroundLinear};
   color: ${({ themeStyles }) => themeStyles.text};
-
   margin: 15px;
   h1 {
     padding: 15px 0px;
     font-size: 35px;
+  }
+  @media (max-width: 1064px) {
+   h1{
+    font-size: 25px;
+   } 
   }
 `;
 export const HourlyContainer = styled.div`
@@ -28,6 +32,11 @@ export const HourlyContainer = styled.div`
     font-size: 15px;
     padding: 2px 0;
   }
+  @media (max-width: 1064px) {
+   h3{
+    font-size: 15px;
+   } 
+  }
 `;
 export const HourContainer = styled.div<StyledInterface>`
   display: flex;
@@ -37,4 +46,9 @@ export const HourContainer = styled.div<StyledInterface>`
   border-radius: 40px;
   height: 270px;
   margin: 0 5px;
+  @media (max-width: 1064px) {
+    height: 250px;
+    border-radius: 35px;
+    padding: 10px 15px;
+  }
 `;

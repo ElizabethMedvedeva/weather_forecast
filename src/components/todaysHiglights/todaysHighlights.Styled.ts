@@ -15,6 +15,11 @@ export const TodaysHightlightsContainer = styled.div<StyledInterface>`
     padding: 10px 0;
     font-size: 35px;
   }
+  @media (max-width: 1064px) {
+    h1 {
+      font-size: 25px;
+    }
+  }
 `;
 
 export const TodaysHightlightSet = styled.div`
@@ -39,6 +44,9 @@ export const SunTimeInfo = styled.div`
 export const TodaysHightlightsIcon = styled.img`
   height: auto;
   width: 75px;
+  @media (max-width: 1064px) {
+    width: 55px;
+  }
 `;
 
 export const TemmperatureDiv = styled.div<StyledInterface>`
@@ -48,6 +56,11 @@ export const TemmperatureDiv = styled.div<StyledInterface>`
   h3 {
     font-size: 80px;
     background: ${({ themeStyles }) => themeStyles.backgroundTextLinear};
+  }
+  @media (max-width: 1064px) {
+    h3{
+      font-size: 60px;
+    }
   }
 `;
 export const WeatherDetailsSet = styled.div`
@@ -75,4 +88,7 @@ export const WeatherDetailsDiv = styled.div`
 export const WeatherDetailsIcon = styled.img`
   height: auto;
   max-width: 60px;
+  @media (max-width: 1064px) {
+    max--width: 45px;
+  }
 `;

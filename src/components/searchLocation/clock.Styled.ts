@@ -15,4 +15,12 @@ export const ClockContainer = styled.div<StyledInterface>`
     font-size: 30px;
     color: ${({ themeStyles }) => themeStyles.text};
   }
+  @media (max-width: 1064px) {
+    h3{
+      font-size: 50px;
+    }
+    h4{
+      font-size: 20px;
+    }
+  }
 `;
