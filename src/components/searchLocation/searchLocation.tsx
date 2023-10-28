@@ -86,7 +86,6 @@ export const SearchLocation = () => {
 
   const handleInputChangeClick = (event: any) => {
     const dataset = event.target.dataset;
-    console.log("Process click");
     for (const city of [...cityOptions, ...Object.values(favoriteCities)]) {
       if (city.id === Number(dataset.id)) {
         dispatch(setSelectedCity(city));

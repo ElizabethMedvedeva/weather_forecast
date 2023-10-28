@@ -171,7 +171,7 @@ export const optionCitySearch = (serverResponse: any): OptionCities => {
 };
 
 type APIInitialState = {
-  dailyForecast: daysForecastType;
+  weeklyForecast: daysForecastType;
   todaysHightLights: ITodayHighlight | null;
   hourlyForecast: HourlyForecastArray;
   fiveRelevantHours: HourlyForecastArray;
@@ -185,7 +185,7 @@ type APIInitialState = {
 };
 
 const initialState: APIInitialState = {
-  dailyForecast: [],
+  weeklyForecast: [],
   todaysHightLights: null,
   hourlyForecast: [],
   fiveRelevantHours: [],
@@ -209,8 +209,8 @@ interface IForecastParams {
   longitude: number;
   timezone: string;
 }
-export const fetchDailyForecast = createAsyncThunk(
-  "dailyForecastData",
+export const fetchWeeklyForecast = createAsyncThunk(
+  "weeklyForecastData",
 
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
     try {
@@ -271,8 +271,8 @@ export const APISlice = createSlice({
   name: "apis",
   initialState,
   reducers: {
-    setDailyForecast: (state, action: PayloadAction<daysForecastType>) => {
-      state.dailyForecast = action.payload;
+    setWeeklyForecast: (state, action: PayloadAction<daysForecastType>) => {
+      state.weeklyForecast = action.payload;
     },
     setTodaysHightLights: (state, action: PayloadAction<ITodayHighlight>) => {
       state.todaysHightLights = action.payload;
@@ -298,16 +298,16 @@ export const APISlice = createSlice({
   },
   extraReducers: (builder) =>
     builder
-      .addCase(fetchDailyForecast.pending, (state) => {
+      .addCase(fetchWeeklyForecast.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchDailyForecast.fulfilled, (state, action) => {
-        state.dailyForecast = FillWeeklyForecast(action.payload);
+      .addCase(fetchWeeklyForecast.fulfilled, (state, action) => {
+        state.weeklyForecast = FillWeeklyForecast(action.payload);
 
         state.loading = false;
       })
-      .addCase(fetchDailyForecast.rejected, (state, action) => {
+      .addCase(fetchWeeklyForecast.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
@@ -367,7 +367,7 @@ export const APISlice = createSlice({
 });
 
 export const {
-  setDailyForecast,
+  setWeeklyForecast,
   setTodaysHightLights,
   setHourlyForecast,
   setSelectedCity,

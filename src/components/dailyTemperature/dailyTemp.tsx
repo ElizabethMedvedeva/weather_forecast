@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CityInterface,
   daysForecastType,
-  fetchDailyForecast,
+  fetchWeeklyForecast,
 } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
 import {
@@ -48,7 +48,7 @@ export const WeeklyForecast = () => {
     }
   };
   const weather: daysForecastType = useSelector(
-    (state: StoreType) => state.daysForecastReducer.dailyForecast
+    (state: StoreType) => state.daysForecastReducer.weeklyForecast
   );
   const weatherSeven = weather.slice(0, 7);
 
@@ -76,7 +76,7 @@ export const WeeklyForecast = () => {
 
   useEffect(() => {
     dispatch(
-      fetchDailyForecast({
+      fetchWeeklyForecast({
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
         timezone: selectedCity.timezone,
