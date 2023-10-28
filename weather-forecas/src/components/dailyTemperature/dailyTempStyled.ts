@@ -18,11 +18,8 @@ export const SevenDaysDiv = styled.div`
 
 export const DailyTempContainer = styled.div`
   display: flex;
-<<<<<<< HEAD
   justify-content: space-between;
-=======
   flexdirection: column;
->>>>>>> 2b161de40825674a81833e474e0e1823a270c5bc
   margin: 10px;
   @media (max-width: 1200px) {
     margin: 6px;
