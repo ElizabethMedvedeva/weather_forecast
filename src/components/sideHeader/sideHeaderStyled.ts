@@ -10,7 +10,7 @@ export const SideHeaderDiv = styled.div`
     padding-top: 10px;
     display: flex;
     justify-content: space-evenly;
-    align-content: ;
+    align-content:;
     align-items: center;
   }
 `;
@@ -28,5 +28,5 @@ interface SideHeaderIconProps {
 }
 export const SideHeaderIcon = styled.img<SideHeaderIconProps>`
   height: auto;
-  width: ${props => props.width ? props.width: "100%"};
+  width: ${(props) => (props.width ? props.width : "100%")};
 `;
