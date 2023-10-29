@@ -44,7 +44,7 @@ export const SearchLocation = () => {
     (state: StoreType) => state.daysForecastReducer.currentWeather,
   );
 
-  const [showOption, setShowOption] = useState<boolean>(true);
+  const [showOption, setShowOption] = useState<boolean>(false);
   const [showFavorites, setShowFavorites] = useState<boolean>(false);
 
   const [favoriteCities, setFavoriteCities] = useState<IFavoriteCities>({});
