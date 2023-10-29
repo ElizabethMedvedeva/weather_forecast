@@ -23,6 +23,7 @@ import {
   FourteenDaysDiv,
   SevenDaysButton,
   SevenDaysDiv,
+  WeeklyContainer,
 } from "./dailyTempStyled";
 import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
@@ -80,7 +81,7 @@ export const WeeklyForecast = () => {
   }, [selectedCity]);
 
   return (
-    <div>
+    <WeeklyContainer>
       {error ? (
         <p>Error: {error}</p>
       ) : (
@@ -235,6 +236,6 @@ export const WeeklyForecast = () => {
           </FourteenDaysButton>
         </DailyTempMainDiv>
       )}
-    </div>
+    </WeeklyContainer>
   );
 };

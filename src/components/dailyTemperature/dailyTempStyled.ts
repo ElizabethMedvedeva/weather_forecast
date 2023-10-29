@@ -8,6 +8,10 @@ interface StyledInterface {
   themestyles: Theme;
   themetype: themetype;
 }
+export const WeeklyContainer = styled.div`
+  margin: 0 auto;
+`;
+
 export const SevenDaysDiv = styled.div`
   display: flex;
   flex-direction: row;
