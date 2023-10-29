@@ -6,12 +6,8 @@ export const ThemeContextProvider = ({ children }: any) => {
   const [theme, setTheme] = useState<themetype>("light");
 
   const changeTheme = () => {
-    if (theme === "dark") {
-      setTheme("light");
-    }
-    if (theme === "light") {
-      setTheme("dark");
-    }
+    const value = theme === "light" ? "dark" : "light";
+    setTheme(value);
   };
 
   return (
