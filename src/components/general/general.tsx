@@ -5,10 +5,10 @@ import { CircularProgress } from "@mui/material";
 import { StoreType } from "../../redux/store";
 import { IThemeContext } from "../../theme/theme";
 import { useThemeContext } from "../../theme/themeContext";
-import { WeeklyForecast } from "../dailyTemperature/weeklyForecast";
 import { NotFoundComponent } from "../empty/empty";
 import { Main } from "../main/mainComponent";
 import { SideHeader } from "../sideHeader/sideHeader";
+import { WeeklyForecast } from "../weeklyForecast/weeklyForecast";
 
 import { GeneralContainer, LoaderDiv } from "./generalStyled";
 
