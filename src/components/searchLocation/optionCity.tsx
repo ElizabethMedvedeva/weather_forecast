@@ -8,8 +8,8 @@ import { FavoriteBtn, StyledOptionCitiesButton } from "./searchLocation.Styled";
 interface IOptionCityButton {
   city: CityInterface;
   themeContext: IThemeContext;
-  cityInputHandler: (event: any) => void;
-  favoriteInputHandler: (event: any) => void;
+  cityInputHandler: (event: React.MouseEvent<HTMLElement>) => void;
+  favoriteInputHandler: (event: React.MouseEvent<HTMLElement>) => void;
   marked: boolean;
 }
 
@@ -22,7 +22,7 @@ export const OptionCitiesButton = ({
 }: IOptionCityButton) => {
   const [showFavoriteButton, setShowFavoriteButton] = useState<boolean>(marked);
 
-  const setShowFavoriteButtonFunc = (event: any) => {
+  const setShowFavoriteButtonFunc = (event: React.MouseEvent<HTMLElement>) => {
     setShowFavoriteButton(!showFavoriteButton);
     favoriteInputHandler(event);
   };

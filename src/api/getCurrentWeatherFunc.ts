@@ -1,9 +1,10 @@
 import moment from "moment";
+
 import { HourlyForecastArray } from "../redux/reducers/reducerTypes";
 
 export const getCurrentWeather = (
   unsortedHourlyForecast: HourlyForecastArray,
-  timezone: string
+  timezone: string,
 ) => {
   const currentCityTime = moment().tz(timezone);
 

@@ -1,9 +1,11 @@
 import moment from "moment";
+
 import {
   HourInterface,
   HourlyForecastArray,
 } from "../redux/reducers/reducerTypes";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
   const hourlyForecast: HourlyForecastArray = [];
   const hourly = serverResponse.hourly;

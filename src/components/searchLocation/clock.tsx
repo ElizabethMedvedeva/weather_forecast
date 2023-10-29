@@ -13,8 +13,8 @@ export const Clock = () => {
   );
   const themeContextData: IThemeContext = useThemeContext();
   const convertedTime = moment().tz(timeZone).format("HH:mm");
-  const convertedDate: any = moment().tz(timeZone).format("DD");
-  const convertedMonth: any = moment().tz(timeZone).format("MM");
+  const convertedDate: string = moment().tz(timeZone).format("DD");
+  const convertedMonth = Number(moment().tz(timeZone).format("MM"));
 
   const weekDay = [
     "Sunday",

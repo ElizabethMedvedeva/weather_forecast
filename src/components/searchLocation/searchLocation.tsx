@@ -49,7 +49,7 @@ export const SearchLocation = () => {
 
   const [favoriteCities, setFavoriteCities] = useState<IFavoriteCities>({});
 
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
     setTimeout(() => {
       if (event.target.value) {
@@ -98,11 +98,13 @@ export const SearchLocation = () => {
       searchInput.current?.blur();
     }
   };
-  const handleInputBlur = (event: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleInputBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     setTimeout(() => setShowOption(false), 100);
   };
-  const handleInputChangeClick = (event: any) => {
-    const dataset = event.target.dataset;
+  const handleInputChangeClick = (event: React.MouseEvent<HTMLElement>) => {
+    const target = event.target as HTMLElement;
+    const dataset = target.dataset;
     for (const city of [...cityOptions, ...Object.values(favoriteCities)]) {
       if (city.id === Number(dataset.id)) {
         chooseCity(city);
@@ -111,9 +113,10 @@ export const SearchLocation = () => {
     }
   };
 
-  const AddToFavorite = (event: any) => {
+  const AddToFavorite = (event: React.MouseEvent<HTMLElement>) => {
     const independentFavoriteCities = { ...favoriteCities };
-    const dataset = event.target.dataset;
+    const target = event.target as HTMLElement;
+    const dataset = target.dataset;
     for (const city of [
       ...cityOptions,
       ...Object.values(independentFavoriteCities),
@@ -129,6 +132,7 @@ export const SearchLocation = () => {
       }
     }
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleInputFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     if (searchInput.current?.value) {
       setShowFavorites(false);
@@ -162,7 +166,6 @@ export const SearchLocation = () => {
           <LoadingSearchDiv>
             {loadingSearch && <CircularProgress size={"17px"} />}
           </LoadingSearchDiv>
-
           {showOption ? (
             <OptionCitiesDiv
               themestyles={themeContextData.stylesForTheme}

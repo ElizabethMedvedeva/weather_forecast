@@ -1,13 +1,14 @@
 import moment from "moment";
+
 import { HourlyForecastArray } from "../redux/reducers/reducerTypes";
 
 export const getFiveRelevant = (
   unsortedHourlyForecast: HourlyForecastArray,
-  timezone: string
+  timezone: string,
 ) => {
   const hourlyForecast = unsortedHourlyForecast.slice();
   const filteredHourlyForecast = hourlyForecast.filter(
-    (item) => moment(item.date).tz(timezone).hour() % 3 === 0
+    (item) => moment(item.date).tz(timezone).hour() % 3 === 0,
   );
   const currentCityTime = moment().tz(timezone);
   for (let i = 0; i < filteredHourlyForecast.length; i++) {

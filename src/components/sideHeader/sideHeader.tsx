@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import Switch from "@mui/material/Switch";
 
+import { IThemeContext } from "../../theme/theme";
 import { useThemeContext } from "../../theme/themeContext";
 
 import {
@@ -10,7 +11,7 @@ import {
 } from "./sideHeaderStyled";
 
 export const SideHeader = () => {
-  const themeContext: any = useThemeContext();
+  const themeContext: IThemeContext = useThemeContext();
 
   return (
     <SideHeaderDiv>

@@ -1,5 +1,6 @@
 import { OptionCities } from "../redux/reducers/reducerTypes";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const optionCitySearch = (serverResponse: any): OptionCities => {
   if (!serverResponse || !serverResponse.results) {
     return [];

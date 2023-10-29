@@ -1,5 +1,6 @@
 import { daysForecastType, IWeatherDay } from "../redux/reducers/reducerTypes";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const FillWeeklyForecast = (serverResponse: any) => {
   const weatherModel: daysForecastType = [];
   const daily = serverResponse.daily;
