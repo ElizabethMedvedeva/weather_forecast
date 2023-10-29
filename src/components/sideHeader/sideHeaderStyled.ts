@@ -17,15 +17,16 @@ export const SideHeaderDiv = styled.div`
 
 export const SideHeaderIconDiv = styled.div`
   padding: 50px 10px;
+  max-width: 84px;
   @media (max-width: 656px) {
     padding: 10px;
-  }
-`;
-
-export const SideHeaderIcon = styled.img`
-  max-width: 84px;
-  height: auto;
-  @media (max-width: 656px) {
     max-width: 44px;
   }
+`;
+interface SideHeaderIconProps {
+  width?: string;
+}
+export const SideHeaderIcon = styled.img<SideHeaderIconProps>`
+  height: auto;
+  width: ${props => props.width ? props.width: "100%"};
 `;
