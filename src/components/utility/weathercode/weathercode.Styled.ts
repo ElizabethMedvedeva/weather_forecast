@@ -22,4 +22,7 @@ export const WeathercodeImgDaily = styled.img<IWeathercode>`
   @media (max-width: 1350px) {
     max-width: 85px;
   }
+  @media (max-width: 960px) {
+    max-width: 110px;
+  }
 `;

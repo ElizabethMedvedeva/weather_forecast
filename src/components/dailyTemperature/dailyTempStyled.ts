@@ -12,7 +12,8 @@ export const SevenDaysDiv = styled.div`
   display: flex;
   flex-direction: row;
 
-  @media (max-width: 1590px) {
+  @media (max-width: 960px) {
+    display: none;
   }
 `;
 
@@ -56,6 +57,12 @@ export const DailyTempCardBox = styled.div<StyledInterface>`
   @media (max-width: 1150px) {
     width: 110px;
   }
+  @media (max-width: 960px) {
+    width: 170px;
+  }
+  @media (max-width: 670px) {
+    width: 150px;
+  }
 
   h5 {
     font-size: 30px;
@@ -74,6 +81,9 @@ export const DailyTempCardBox = styled.div<StyledInterface>`
     @media (max-width: 1150px) {
       font-size: 14px;
     }
+    @media (max-width: 960px) {
+      font-size: 19px;
+    }
   }
   h4 {
     font-size: 20px;
@@ -90,6 +100,9 @@ export const DailyTempCardBox = styled.div<StyledInterface>`
   }
   @media (max-width: 1150px) {
     font-size: 13px;
+}
+@media (max-width: 960px) {
+  font-size: 16px;
 }
 `;
 export const DailyTempDayDiv = styled.div`
@@ -129,6 +142,9 @@ export const DailyTempMinTempDiv = styled.div`
 export const DailyTempUvDiv = styled.div`
   margin: 0 auto;
   padding: 20px 0;
+  @media (max-width: 670px) {
+    display: none;
+  }
 `;
 export const DailyTempImgDiv = styled.div`
   margin: 0 auto;
@@ -141,8 +157,10 @@ export const DailyTempUvIcon = styled.img`
 
 export const FourteenDaysDiv = styled.div<IDayAmount>`
   display: ${(props) => (props.dayAmount === "Seven" ? "none" : "flex")};
-
   margin: 0 auto;
+  @media (max-width: 960px) {
+    display: none;
+  }
 `;
 
 export const FourteenDaysButton = styled.button<IDayAmount & StyledInterface>`
@@ -161,6 +179,12 @@ export const FourteenDaysButton = styled.button<IDayAmount & StyledInterface>`
   &:not(:hover) {
     opacity: transition: opacity 0.3s;
   }
+
+  @media (max-width: 960px) {
+    display: none;
+  }
+
+
 `;
 
 export const SevenDaysButton = styled.button<IDayAmount & StyledInterface>`
@@ -178,6 +202,25 @@ export const SevenDaysButton = styled.button<IDayAmount & StyledInterface>`
   }
   &:not(:hover) {
     opacity: transition: opacity 0.3s;
+  }
+  @media (max-width: 960px) {
+    display: none;
+  }
+`;
+
+export const AdaptivePhoneDiv = styled.div`
+  display: none;
+  @media (max-width: 960px) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 860px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 510px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
