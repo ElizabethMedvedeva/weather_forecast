@@ -44,7 +44,7 @@ export type OptionCities = Array<CityInterface>;
 
 export type APIInitialState = {
   weeklyForecast: daysForecastType;
-  todaysHightLights: ITodayHighlight | null;
+  todaysHighlights: ITodayHighlight | null;
   hourlyForecast: HourlyForecastArray;
   fiveRelevantHours: HourlyForecastArray;
   loading: boolean;

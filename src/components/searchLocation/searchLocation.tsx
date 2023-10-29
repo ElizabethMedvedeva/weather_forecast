@@ -36,7 +36,7 @@ export const SearchLocation = () => {
   const cityOptions = useSelector(
     (state: StoreType) => state.daysForecastReducer.citiesOptions
   );
-  const searchStateDebaunse = useDebounce<string>(search, delay);
+  const searchStateDebounce = useDebounce<string>(search, delay);
   const selectedCity: CityInterface = useSelector(
     (state: StoreType) => state.daysForecastReducer.selectedCity
   );
@@ -77,11 +77,11 @@ export const SearchLocation = () => {
   }, [favoriteCities]);
 
   useEffect(() => {
-    if (searchStateDebaunse.length > 1) {
+    if (searchStateDebounce.length > 1) {
       setShowFavorites(false);
-      dispatch(fetchSearchLocation(searchStateDebaunse));
+      dispatch(fetchSearchLocation(searchStateDebounce));
     }
-  }, [searchStateDebaunse]);
+  }, [searchStateDebounce]);
 
   const searchInput = useRef<HTMLInputElement | null>(null);
 
@@ -112,19 +112,19 @@ export const SearchLocation = () => {
   };
 
   const AddToFavorite = (event: any) => {
-    const independFavoriteCities = { ...favoriteCities };
+    const independentFavoriteCities = { ...favoriteCities };
     const dataset = event.target.dataset;
     for (const city of [
       ...cityOptions,
-      ...Object.values(independFavoriteCities),
+      ...Object.values(independentFavoriteCities),
     ]) {
       if (city.id === Number(dataset.id)) {
-        if (city.id in independFavoriteCities) {
-          delete independFavoriteCities[city.id];
+        if (city.id in independentFavoriteCities) {
+          delete independentFavoriteCities[city.id];
         } else {
-          independFavoriteCities[city.id] = city;
+          independentFavoriteCities[city.id] = city;
         }
-        setFavoriteCities(independFavoriteCities);
+        setFavoriteCities(independentFavoriteCities);
         break;
       }
     }
@@ -175,8 +175,8 @@ export const SearchLocation = () => {
                     <OptionCitiesButton
                       city={city}
                       themeContext={themeContextData}
-                      cityInputHanlder={handleInputChangeClick}
-                      favoriteInputHanlder={AddToFavorite}
+                      cityInputHandler={handleInputChangeClick}
+                      favoriteInputHandler={AddToFavorite}
                       marked={city.id in favoriteCities}
                     />
                   ))
@@ -188,8 +188,8 @@ export const SearchLocation = () => {
                   <OptionCitiesButton
                     city={city}
                     themeContext={themeContextData}
-                    cityInputHanlder={handleInputChangeClick}
-                    favoriteInputHanlder={AddToFavorite}
+                    cityInputHandler={handleInputChangeClick}
+                    favoriteInputHandler={AddToFavorite}
                     marked={city.id in favoriteCities}
                   />
                 </>

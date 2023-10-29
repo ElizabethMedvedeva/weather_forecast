@@ -5,7 +5,7 @@ interface StyledInterface {
   themetype: themetype;
 }
 
-export const TodaysHightlightsContainer = styled.div<StyledInterface>`
+export const TodaysHighlightsContainer = styled.div<StyledInterface>`
   height: 400px;
   border-radius: 30px;
   background: ${({ themestyles }) => themestyles.backgroundLinear};
@@ -28,7 +28,7 @@ export const TodaysHightlightsContainer = styled.div<StyledInterface>`
   }
 `;
 
-export const TodaysHightlightSet = styled.div`
+export const TodaysHighlightSet = styled.div`
   display: flex;
   margin: 0 auto;
   justify-content: space-evenly;
@@ -63,7 +63,7 @@ export const SunTimeInfo = styled.div`
     font-size: 15px;
   }
 `;
-export const TodaysHightlightsIcon = styled.img`
+export const TodaysHighlightsIcon = styled.img`
   height: auto;
   width: 75px;
   @media (max-width: 1064px) {
@@ -71,7 +71,7 @@ export const TodaysHightlightsIcon = styled.img`
   }
 `;
 
-export const TemmperatureDiv = styled.div<StyledInterface>`
+export const TemperatureDiv = styled.div<StyledInterface>`
   display: flex;
   justify-content: center;
   align-items: center;

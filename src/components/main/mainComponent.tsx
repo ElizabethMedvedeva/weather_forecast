@@ -1,6 +1,6 @@
 import { HourlyForecast } from "../hourlyForecast/hourlyForecast";
 import { SearchLocation } from "../searchLocation/searchLocation";
-import { TodaysHightlights } from "../todaysHiglights/todaysHighlights";
+import { TodaysHighlights } from "../todaysHiglights/todaysHighlights";
 
 import {
   ForecastContainer,
@@ -12,7 +12,7 @@ export const Main = () => {
   return (
     <MainContainer>
       <ForecastContainer>
-        <TodaysHightlights />
+        <TodaysHighlights />
         <HourlyForecast />
       </ForecastContainer>
       <SearchContainer>

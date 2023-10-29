@@ -24,7 +24,7 @@ import {
   SevenDaysButton,
   SevenDaysDiv,
   WeeklyContainer,
-} from "./dailyTempStyled";
+} from "./weeklyForecastStyled";
 import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
 import {

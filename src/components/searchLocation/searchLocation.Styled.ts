@@ -90,7 +90,7 @@ export const CurrentWeatherIcon = styled.img`
   }
 `;
 
-export const FavoritveBtn = styled.button`
+export const FavoriteBtn = styled.button`
   border: none;
   background: transparent;
   position: absolute;

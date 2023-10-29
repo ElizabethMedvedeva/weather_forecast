@@ -15,14 +15,14 @@ import {
 } from "./reducerTypes";
 import { optionCitySearch } from "../../api/optionCitySearchFunc";
 import { FillWeeklyForecast } from "../../api/weeklyForecastFunc";
-import { fillHightlightsData } from "../../api/highlightsDataFunc";
+import { fillHighlightsData } from "../../api/highlightsDataFunc";
 import { FillHourlyForecast } from "../../api/hourlyForecastFunc";
 import { getFiveRelevant } from "../../api/getFiveRelevantFunc";
 import { getCurrentWeather } from "../../api/getCurrentWeatherFunc";
 
 const initialState: APIInitialState = {
   weeklyForecast: [],
-  todaysHightLights: null,
+  todaysHighlights: null,
   hourlyForecast: [],
   fiveRelevantHours: [],
   loading: false,
@@ -70,8 +70,8 @@ export const fetchHourlyForecast = createAsyncThunk(
   }
 );
 
-export const fetchTodaysHightlights = createAsyncThunk(
-  "todaysHightlights",
+export const fetchTodaysHighlights = createAsyncThunk(
+  "todaysHighlights",
   async (forecastParams: IForecastParams, { rejectWithValue }) => {
     try {
       const result = await axiosApiInstanceMeteo.get(
@@ -106,8 +106,8 @@ export const APISlice = createSlice({
     setWeeklyForecast: (state, action: PayloadAction<daysForecastType>) => {
       state.weeklyForecast = action.payload;
     },
-    setTodaysHightLights: (state, action: PayloadAction<ITodayHighlight>) => {
-      state.todaysHightLights = action.payload;
+    setTodaysHighlights: (state, action: PayloadAction<ITodayHighlight>) => {
+      state.todaysHighlights = action.payload;
     },
     setFiveRelevantHours: (
       state,
@@ -168,18 +168,18 @@ export const APISlice = createSlice({
         state.error = action.payload;
       })
 
-      .addCase(fetchTodaysHightlights.pending, (state) => {
+      .addCase(fetchTodaysHighlights.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchTodaysHightlights.fulfilled, (state, action) => {
-        state.todaysHightLights = fillHightlightsData(
+      .addCase(fetchTodaysHighlights.fulfilled, (state, action) => {
+        state.todaysHighlights = fillHighlightsData(
           action.payload,
           state.selectedCity.timezone
         );
         state.loading = false;
       })
-      .addCase(fetchTodaysHightlights.rejected, (state, action) => {
+      .addCase(fetchTodaysHighlights.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
@@ -200,7 +200,7 @@ export const APISlice = createSlice({
 
 export const {
   setWeeklyForecast,
-  setTodaysHightLights,
+  setTodaysHighlights,
   setHourlyForecast,
   setSelectedCity,
 } = APISlice.actions;
