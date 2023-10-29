@@ -50,11 +50,11 @@ export const TodaysHightlights = () => {
       })
     );
   }, [selectedCity]);
-  console.log(todaysHighlights?.humidity, "dkcmdk");
+
   return (
     <TodaysHightlightsContainer
-      themeStyles={themeContextData.stylesForTheme}
-      themeType={themeContextData.currentTheme}
+      themestyles={themeContextData.stylesForTheme}
+      themetype={themeContextData.currentTheme}
     >
       <h1>{"Today's highlights"}</h1>
       {error ? (
@@ -78,8 +78,8 @@ export const TodaysHightlights = () => {
             </SunTimeDiv>
           </SunTimeContainer>
           <TemmperatureDiv
-            themeStyles={themeContextData.stylesForTheme}
-            themeType={themeContextData.currentTheme}
+            themestyles={themeContextData.stylesForTheme}
+            themetype={themeContextData.currentTheme}
           >
             <h3>{todaysHighlights?.temperature}°C</h3>
           </TemmperatureDiv>

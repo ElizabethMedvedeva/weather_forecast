@@ -94,8 +94,8 @@ export const WeeklyForecast = () => {
             {weatherSeven.map((item: any) => (
               <DailyTempContainer key={item.date}>
                 <DailyTempCardBox
-                  themeStyles={themeContextData.stylesForTheme}
-                  themeType={themeContextData.currentTheme}
+                  themestyles={themeContextData.stylesForTheme}
+                  themetype={themeContextData.currentTheme}
                 >
                   <DailyTempCardTopDiv>
                     <DailyTempWeekDayDiv>
@@ -135,8 +135,8 @@ export const WeeklyForecast = () => {
           </SevenDaysDiv>
           <div>
             <SevenDaysButton
-              themeStyles={themeContextData.stylesForTheme}
-              themeType={themeContextData.currentTheme}
+              themestyles={themeContextData.stylesForTheme}
+              themetype={themeContextData.currentTheme}
               dayAmount={dayAmount}
               onClick={changeForecastDateAmount}
             >
@@ -147,8 +147,8 @@ export const WeeklyForecast = () => {
             {weatherFourteen.map((item: any) => (
               <DailyTempContainer key={item.date}>
                 <DailyTempCardBox
-                  themeStyles={themeContextData.stylesForTheme}
-                  themeType={themeContextData.currentTheme}
+                  themestyles={themeContextData.stylesForTheme}
+                  themetype={themeContextData.currentTheme}
                 >
                   <DailyTempCardTopDiv>
                     <DailyTempWeekDayDiv>
@@ -190,8 +190,8 @@ export const WeeklyForecast = () => {
             {weatherPhone.map((item: any) => (
               <DailyTempContainer key={item.date}>
                 <DailyTempCardBox
-                  themeStyles={themeContextData.stylesForTheme}
-                  themeType={themeContextData.currentTheme}
+                  themestyles={themeContextData.stylesForTheme}
+                  themetype={themeContextData.currentTheme}
                 >
                   <DailyTempCardTopDiv>
                     <DailyTempWeekDayDiv>
@@ -230,8 +230,8 @@ export const WeeklyForecast = () => {
             ))}
           </AdaptivePhoneDiv>
           <FourteenDaysButton
-            themeStyles={themeContextData.stylesForTheme}
-            themeType={themeContextData.currentTheme}
+            themestyles={themeContextData.stylesForTheme}
+            themetype={themeContextData.currentTheme}
             dayAmount={dayAmount}
             onClick={changeForecastDateAmount}
           >

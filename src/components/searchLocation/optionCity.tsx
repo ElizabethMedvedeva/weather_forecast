@@ -33,8 +33,8 @@ export const OptionCitiesButton = ({
       {" "}
       <div style={{ position: "relative" }}>
         <StyledOptionCitiesButton
-          themeStyles={themeContext.stylesForTheme}
-          themeType={themeContext.currentTheme}
+          themestyles={themeContext.stylesForTheme}
+          themetype={themeContext.currentTheme}
           key={city.id}
           data-id={city.id}
           onClick={cityInputHanlder}

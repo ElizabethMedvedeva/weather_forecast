@@ -1,12 +1,12 @@
 import { styled } from "styled-components";
 import { ForecastDayAmount } from "./dailyTemp";
-import { Theme, ThemeType } from "../../theme/theme";
+import { Theme, themetype } from "../../theme/theme";
 interface IDayAmount {
   dayAmount: ForecastDayAmount;
 }
 interface StyledInterface {
-  themeStyles: Theme;
-  themeType: ThemeType;
+  themestyles: Theme;
+  themetype: themetype;
 }
 export const SevenDaysDiv = styled.div`
   display: flex;
@@ -35,8 +35,8 @@ export const DailyTempCardBox = styled.div<StyledInterface>`
   justify-content: center;
   flex-direction: column;
   margin: 10px auto;
-  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
-  color: ${({ themeStyles }) => themeStyles.text};
+  background: ${({ themestyles }) => themestyles.backgroundLinear};
+  color: ${({ themestyles }) => themestyles.text};
   height: auto;
   max-width: 100%;
   @media (max-width: 2180px) {
@@ -165,8 +165,8 @@ export const FourteenDaysDiv = styled.div<IDayAmount>`
 
 export const FourteenDaysButton = styled.button<IDayAmount & StyledInterface>`
   display: ${(props) => (props.dayAmount === "Seven" ? "none" : "")};
-  background: ${({ themeStyles }) => themeStyles.backgroundButtonLinear};
-  color: ${({ themeStyles }) => themeStyles.text};
+  background: ${({ themestyles }) => themestyles.backgroundButtonLinear};
+  color: ${({ themestyles }) => themestyles.text};
 
   width: 70%;
   border: none;
@@ -189,8 +189,8 @@ export const FourteenDaysButton = styled.button<IDayAmount & StyledInterface>`
 
 export const SevenDaysButton = styled.button<IDayAmount & StyledInterface>`
   display: ${(props) => (props.dayAmount === "Fourteen" ? "none" : "")};
-  background: ${({ themeStyles }) => themeStyles.backgroundButtonLinear};
-  color: ${({ themeStyles }) => themeStyles.text}; 
+  background: ${({ themestyles }) => themestyles.backgroundButtonLinear};
+  color: ${({ themestyles }) => themestyles.text}; 
   width: 70%;
   border: none;
   font-size: 40px;

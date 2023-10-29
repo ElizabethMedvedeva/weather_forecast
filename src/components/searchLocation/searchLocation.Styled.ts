@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { Theme, ThemeType } from "../../theme/theme";
+import { Theme, themetype } from "../../theme/theme";
 
 interface StyledInterface {
-  themeStyles: Theme;
-  themeType: ThemeType;
+  themestyles: Theme;
+  themetype: themetype;
 }
 export const SearchLocationContainer = styled.div<StyledInterface>`
-  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
-  color: ${({ themeStyles }) => themeStyles.text};
+  background: ${({ themestyles }) => themestyles.backgroundLinear};
+  color: ${({ themestyles }) => themestyles.text};
   margin: 0 auto;
   height: 800px;
   border-radius: 30px;
@@ -27,36 +27,36 @@ export const LoadingSearchDiv = styled.div`
   left: 31%;
 `;
 export const SearchLocationInput = styled.input<StyledInterface>`
-  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
+  background: ${({ themestyles }) => themestyles.backgroundLinear};
   position: absolute;
   top: 0;
   border: 1px solid #1d1d1d;
   border-radius: 30px;
-  color: ${({ themeStyles }) => themeStyles.text};
+  color: ${({ themestyles }) => themestyles.text};
   text-align: center;
   width: 180px;
   margin-top: 40px;
   & ::placeholder {
-    color: ${({ themeStyles }) => themeStyles.text};
+    color: ${({ themestyles }) => themestyles.text};
   }
 `;
 export const OptionCitiesDiv = styled.div<StyledInterface>`
   display: flex;
   flex-direction: column;
   max-width: 300px;
-  color: ${({ themeStyles }) => themeStyles.text};
+  color: ${({ themestyles }) => themestyles.text};
   width: 180px;
   position: absolute;
   top: 68px;
 `;
 
 export const StyledOptionCitiesButton = styled.button<StyledInterface>`
-  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
+  background: ${({ themestyles }) => themestyles.backgroundLinear};
   border: 1px solid #1d1d1d;
   border-radius: 30px;
   width: 180px;
   padding-right: 70px;
-  color: ${({ themeStyles }) => themeStyles.text};
+  color: ${({ themestyles }) => themestyles.text};
   @media (max-width: 1064px) {
     font-size: 15px;
   }
@@ -66,7 +66,7 @@ export const CityNameDiv = styled.div<StyledInterface>`
   margin-top: 225px;
   h3 {
     font-size: 30px;
-    background: ${({ themeStyles }) => themeStyles.cityText};
+    background: ${({ themestyles }) => themestyles.cityText};
   }
   @media (max-width: 1064px) {
     margin-top: 225px;

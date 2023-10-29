@@ -24,9 +24,9 @@ enum Colors {
 const BACKGROUND_IMAGE_LIGHT = `url("https://i.imgur.com/mfasAca.jpeg")`;
 const BACKGROUND_IMAGE_DARK = `url("https://i.imgur.com/lPLmBOv.png")`;
 
-export type ThemeType = "light" | "dark";
+export type themetype = "light" | "dark";
 export interface IThemeContext {
-  currentTheme: ThemeType;
+  currentTheme: themetype;
   stylesForTheme: Theme;
   changeTheme: () => void;
 }
@@ -40,7 +40,7 @@ export interface Theme {
   backgroundButtonLinear: Colors;
 }
 
-type ThemesType = Record<ThemeType, Theme>;
+type ThemesType = Record<themetype, Theme>;
 
 export const Themes: ThemesType = {
   light: {

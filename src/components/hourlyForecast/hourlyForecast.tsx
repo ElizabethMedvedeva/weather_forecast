@@ -52,8 +52,8 @@ export const HourlyForecast = () => {
 
   return (
     <HourlyForecastDiv
-      themeStyles={themeContextData.stylesForTheme}
-      themeType={themeContextData.currentTheme}
+      themestyles={themeContextData.stylesForTheme}
+      themetype={themeContextData.currentTheme}
     >
       <h1>Hourly forecast</h1>
       <HourlyContainer>
@@ -62,8 +62,8 @@ export const HourlyForecast = () => {
         ) : (
           fiveRelevantHours.map((item, index) => (
             <HourContainer
-              themeStyles={themeContextData.stylesForTheme}
-              themeType={themeContextData.currentTheme}
+              themestyles={themeContextData.stylesForTheme}
+              themetype={themeContextData.currentTheme}
               key={index}
             >
               <h3>{item.time}</h3>

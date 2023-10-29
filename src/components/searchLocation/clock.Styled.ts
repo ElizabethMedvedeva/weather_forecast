@@ -1,25 +1,25 @@
 import styled from "styled-components";
-import { Theme, ThemeType } from "../../theme/theme";
+import { Theme, themetype } from "../../theme/theme";
 
 interface StyledInterface {
-  themeStyles: Theme;
-  themeType: ThemeType;
+  themestyles: Theme;
+  themetype: themetype;
 }
 export const ClockContainer = styled.div<StyledInterface>`
   margin: 30px 0 70px 0;
   h3 {
     font-size: 70px;
-    color: ${({ themeStyles }) => themeStyles.text};
+    color: ${({ themestyles }) => themestyles.text};
   }
   h4 {
     font-size: 30px;
-    color: ${({ themeStyles }) => themeStyles.text};
+    color: ${({ themestyles }) => themestyles.text};
   }
   @media (max-width: 1064px) {
-    h3{
+    h3 {
       font-size: 50px;
     }
-    h4{
+    h4 {
       font-size: 20px;
     }
     @media (max-width: 965px) {

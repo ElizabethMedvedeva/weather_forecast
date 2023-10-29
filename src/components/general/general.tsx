@@ -17,8 +17,8 @@ export const General = () => {
   );
   return (
     <GeneralContainer
-      themeStyles={themeContextData.stylesForTheme}
-      themeType={themeContextData.currentTheme}
+      themestyles={themeContextData.stylesForTheme}
+      themetype={themeContextData.currentTheme}
     >
       <LoaderDiv>{loading && <CircularProgress size={"150px"} />}</LoaderDiv>
       <Router>

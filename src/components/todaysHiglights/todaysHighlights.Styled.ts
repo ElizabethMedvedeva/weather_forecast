@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import { Theme, ThemeType } from "../../theme/theme";
+import { Theme, themetype } from "../../theme/theme";
 interface StyledInterface {
-  themeStyles: Theme;
-  themeType: ThemeType;
+  themestyles: Theme;
+  themetype: themetype;
 }
 
 export const TodaysHightlightsContainer = styled.div<StyledInterface>`
   height: 400px;
   border-radius: 30px;
-  background: ${({ themeStyles }) => themeStyles.backgroundLinear};
-  color: ${({ themeStyles }) => themeStyles.text};
+  background: ${({ themestyles }) => themestyles.backgroundLinear};
+  color: ${({ themestyles }) => themestyles.text};
   margin: 15px;
   h1 {
     padding: 10px 0;
@@ -77,7 +77,7 @@ export const TemmperatureDiv = styled.div<StyledInterface>`
   align-items: center;
   h3 {
     font-size: 80px;
-    background: ${({ themeStyles }) => themeStyles.backgroundTextLinear};
+    background: ${({ themestyles }) => themestyles.backgroundTextLinear};
   }
   @media (max-width: 1064px) {
     h3 {

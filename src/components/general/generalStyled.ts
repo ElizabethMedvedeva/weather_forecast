@@ -1,20 +1,20 @@
 import { styled } from "styled-components";
-import { Theme, ThemeType } from "../../theme/theme";
+import { Theme, themetype } from "../../theme/theme";
 
 interface StyledInterface {
-  themeStyles: Theme;
-  themeType: ThemeType;
+  themestyles: Theme;
+  themetype: themetype;
 }
 export const GeneralContainer = styled.div<StyledInterface>`
   display: flex;
-  background-image: ${({ themeStyles }) => themeStyles.backgroundImage};
+  background-image: ${({ themestyles }) => themestyles.backgroundImage};
   background-size: cover;
   width: 100%;
   height: 100%;
   min-height: 100vh;
   position: relative;
   @media (max-width: 656px) {
-   display: block;
+    display: block;
   }
 `;
 

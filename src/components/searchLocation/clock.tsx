@@ -42,8 +42,8 @@ export const Clock = () => {
 
   return (
     <ClockContainer
-      themeStyles={themeContextData.stylesForTheme}
-      themeType={themeContextData.currentTheme}
+      themestyles={themeContextData.stylesForTheme}
+      themetype={themeContextData.currentTheme}
     >
       <h3> {convertedTime}</h3>
       <h4>

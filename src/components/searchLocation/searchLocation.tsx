@@ -140,16 +140,16 @@ export const SearchLocation = () => {
 
   return (
     <SearchLocationContainer
-      themeStyles={themeContextData.stylesForTheme}
-      themeType={themeContextData.currentTheme}
+      themestyles={themeContextData.stylesForTheme}
+      themetype={themeContextData.currentTheme}
     >
       {error ? (
         <p>Error: {error}</p>
       ) : (
         <>
           <SearchLocationInput
-            themeStyles={themeContextData.stylesForTheme}
-            themeType={themeContextData.currentTheme}
+            themestyles={themeContextData.stylesForTheme}
+            themetype={themeContextData.currentTheme}
             value={search}
             ref={searchInput}
             placeholder="Search city"
@@ -165,8 +165,8 @@ export const SearchLocation = () => {
 
           {showOption ? (
             <OptionCitiesDiv
-              themeStyles={themeContextData.stylesForTheme}
-              themeType={themeContextData.currentTheme}
+              themestyles={themeContextData.stylesForTheme}
+              themetype={themeContextData.currentTheme}
             >
               {showFavorites && cityOptions.length === 0 ? (
                 Object.values(favoriteCities)
@@ -200,8 +200,8 @@ export const SearchLocation = () => {
           )}
           <>
             <CityNameDiv
-              themeStyles={themeContextData.stylesForTheme}
-              themeType={themeContextData.currentTheme}
+              themestyles={themeContextData.stylesForTheme}
+              themetype={themeContextData.currentTheme}
             >
               <h3>{selectedCity.name},</h3>
               <h3>{selectedCity.country}</h3>
