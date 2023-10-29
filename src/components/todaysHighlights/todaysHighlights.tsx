@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchTodaysHighlights } from "../../redux/reducers/APIreducer";
+import {
+  CityInterface,
+  ITodayHighlight,
+} from "../../redux/reducers/reducerTypes";
 import { AppDispatch, StoreType } from "../../redux/store";
+import { IThemeContext } from "../../theme/theme";
+import { useThemeContext } from "../../theme/themeContext";
 
 import {
   CoupleWeatherDetailsDiv,
@@ -17,26 +23,20 @@ import {
   WeatherDetailsIcon,
   WeatherDetailsSet,
 } from "./todaysHighlights.Styled";
-import { useThemeContext } from "../../theme/themeContext";
-import { IThemeContext } from "../../theme/theme";
-import {
-  CityInterface,
-  ITodayHighlight,
-} from "../../redux/reducers/reducerTypes";
 
 export const TodaysHighlights = () => {
   const themeContextData: IThemeContext = useThemeContext();
 
   const todaysHighlights: ITodayHighlight | null = useSelector(
-    (state: StoreType) => state.daysForecastReducer.todaysHighlights
+    (state: StoreType) => state.daysForecastReducer.todaysHighlights,
   );
 
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity
+    (state: StoreType) => state.daysForecastReducer.selectedCity,
   );
 
   const { error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer
+    (state: StoreType) => state.daysForecastReducer,
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -47,7 +47,7 @@ export const TodaysHighlights = () => {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
         timezone: selectedCity.timezone,
-      })
+      }),
     );
   }, [selectedCity]);
 

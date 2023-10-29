@@ -1,19 +1,21 @@
+import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
+
+import { StoreType } from "../../redux/store";
 import { IThemeContext } from "../../theme/theme";
 import { useThemeContext } from "../../theme/themeContext";
-import { GeneralContainer, LoaderDiv } from "./generalStyled";
-import { SideHeader } from "../sideHeader/sideHeader";
-import { Main } from "../main/mainComponent";
 import { WeeklyForecast } from "../dailyTemperature/weeklyForecast";
 import { NotFoundComponent } from "../empty/empty";
-import { useSelector } from "react-redux";
-import { StoreType } from "../../redux/store";
-import { CircularProgress } from "@mui/material";
+import { Main } from "../main/mainComponent";
+import { SideHeader } from "../sideHeader/sideHeader";
+
+import { GeneralContainer, LoaderDiv } from "./generalStyled";
 
 export const General = () => {
   const themeContextData: IThemeContext = useThemeContext();
   const { loading } = useSelector(
-    (state: StoreType) => state.daysForecastReducer
+    (state: StoreType) => state.daysForecastReducer,
   );
   return (
     <GeneralContainer

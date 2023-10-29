@@ -1,4 +1,4 @@
-import { IWeatherDay, daysForecastType } from "../redux/reducers/reducerTypes";
+import { daysForecastType, IWeatherDay } from "../redux/reducers/reducerTypes";
 
 export const FillWeeklyForecast = (serverResponse: any) => {
   const weatherModel: daysForecastType = [];

@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
+import Switch from "@mui/material/Switch";
+
+import { useThemeContext } from "../../theme/themeContext";
 
 import {
   SideHeaderDiv,
   SideHeaderIcon,
   SideHeaderIconDiv,
 } from "./sideHeaderStyled";
-
-import { useThemeContext } from "../../theme/themeContext";
-import Switch from "@mui/material/Switch";
 
 export const SideHeader = () => {
   const themeContext: any = useThemeContext();
@@ -19,7 +19,7 @@ export const SideHeader = () => {
           className={({ isActive }) => (isActive ? "active-link" : "")}
           to="/"
         >
-           <SideHeaderIcon src={"assets/weatherIcon.png"} />
+          <SideHeaderIcon src={"assets/weatherIcon.png"} />
         </NavLink>
       </SideHeaderIconDiv>
       <SideHeaderIconDiv>

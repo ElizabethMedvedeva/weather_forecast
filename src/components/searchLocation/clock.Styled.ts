@@ -1,10 +1,12 @@
 import styled from "styled-components";
+
 import { Theme, themetype } from "../../theme/theme";
 
 interface StyledInterface {
   themestyles: Theme;
   themetype: themetype;
 }
+
 export const ClockContainer = styled.div<StyledInterface>`
   margin: 30px 0 70px 0;
   h3 {

@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { IThemeContext } from "../../theme/theme";
-import { FavoriteBtn, StyledOptionCitiesButton } from "./searchLocation.Styled";
+
 import { CityInterface } from "../../redux/reducers/reducerTypes";
+import { IThemeContext } from "../../theme/theme";
+
+import { FavoriteBtn, StyledOptionCitiesButton } from "./searchLocation.Styled";
 
 interface IOptionCityButton {
   city: CityInterface;
@@ -27,7 +29,6 @@ export const OptionCitiesButton = ({
 
   return (
     <>
-      {" "}
       <div style={{ position: "relative" }}>
         <StyledOptionCitiesButton
           themestyles={themeContext.stylesForTheme}

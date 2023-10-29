@@ -1,6 +1,6 @@
 import { HourlyForecast } from "../hourlyForecast/hourlyForecast";
 import { SearchLocation } from "../searchLocation/searchLocation";
-import { TodaysHighlights } from "../todaysHiglights/todaysHighlights";
+import { TodaysHighlights } from "../todaysHighlights/todaysHighlights";
 
 import {
   ForecastContainer,

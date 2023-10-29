@@ -1,10 +1,12 @@
 import styled from "styled-components";
+
 import { Theme, themetype } from "../../theme/theme";
 
 interface StyledInterface {
   themestyles: Theme;
   themetype: themetype;
 }
+
 export const SearchLocationContainer = styled.div<StyledInterface>`
   background: ${({ themestyles }) => themestyles.backgroundLinear};
   color: ${({ themestyles }) => themestyles.text};
@@ -21,11 +23,13 @@ export const SearchLocationContainer = styled.div<StyledInterface>`
     margin: 20px;
   }
 `;
+
 export const LoadingSearchDiv = styled.div`
   position: absolute;
   top: 46px;
   left: 31%;
 `;
+
 export const SearchLocationInput = styled.input<StyledInterface>`
   background: ${({ themestyles }) => themestyles.backgroundLinear};
   position: absolute;
@@ -40,6 +44,7 @@ export const SearchLocationInput = styled.input<StyledInterface>`
     color: ${({ themestyles }) => themestyles.text};
   }
 `;
+
 export const OptionCitiesDiv = styled.div<StyledInterface>`
   display: flex;
   flex-direction: column;
@@ -78,6 +83,7 @@ export const CityNameDiv = styled.div<StyledInterface>`
     }
   }
 `;
+
 export const CurrentWeatherIcon = styled.img`
   margin: 0 auto;
   max-width: 180px;

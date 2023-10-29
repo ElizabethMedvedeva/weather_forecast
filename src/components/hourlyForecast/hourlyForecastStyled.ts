@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { Theme, themetype } from "../../theme/theme";
 
 interface StyledInterface {
@@ -27,6 +28,7 @@ export const HourlyForecastDiv = styled.div<StyledInterface>`
     }
   }
 `;
+
 export const HourlyContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
@@ -52,6 +54,7 @@ export const HourlyContainer = styled.div`
     }
   }
 `;
+
 export const HourContainer = styled.div<StyledInterface>`
   display: flex;
   flex-direction: column;
@@ -78,6 +81,7 @@ export const HourDataDiv = styled.div`
     justify-content: space-evenly;
   }
 `;
+
 export const HourWeatherDiv = styled.div`
   @media (max-width: 584px) {
     display: flex;

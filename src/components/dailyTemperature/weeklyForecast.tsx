@@ -2,9 +2,17 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchWeeklyForecast } from "../../redux/reducers/APIreducer";
+import {
+  CityInterface,
+  daysForecastType,
+  IWeatherDay,
+} from "../../redux/reducers/reducerTypes";
 import { AppDispatch, StoreType } from "../../redux/store";
+import { IThemeContext } from "../../theme/theme";
+import { useThemeContext } from "../../theme/themeContext";
 import { WeathercodeImgDaily } from "../utility/weathercode/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
+
 import {
   AdaptivePhoneDiv,
   DailyTempCardBox,
@@ -25,12 +33,6 @@ import {
   SevenDaysDiv,
   WeeklyContainer,
 } from "./weeklyForecastStyled";
-import { useThemeContext } from "../../theme/themeContext";
-import { IThemeContext } from "../../theme/theme";
-import {
-  CityInterface,
-  daysForecastType,
-} from "../../redux/reducers/reducerTypes";
 
 export type ForecastDayAmount = "Seven" | "Fourteen";
 
@@ -42,7 +44,7 @@ export const WeeklyForecast = () => {
     setDayAmount(value);
   };
   const weather: daysForecastType = useSelector(
-    (state: StoreType) => state.daysForecastReducer.weeklyForecast
+    (state: StoreType) => state.daysForecastReducer.weeklyForecast,
   );
   const weatherSeven = weather.slice(0, 7);
 
@@ -51,11 +53,11 @@ export const WeeklyForecast = () => {
   const weatherPhone = weather.slice(0, weather.length);
 
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity
+    (state: StoreType) => state.daysForecastReducer.selectedCity,
   );
 
   const { error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer
+    (state: StoreType) => state.daysForecastReducer,
   );
 
   const dispatch = useDispatch<AppDispatch>();
@@ -76,7 +78,7 @@ export const WeeklyForecast = () => {
         latitude: selectedCity.latitude,
         longitude: selectedCity.longitude,
         timezone: selectedCity.timezone,
-      })
+      }),
     );
   }, [selectedCity]);
 
@@ -88,8 +90,8 @@ export const WeeklyForecast = () => {
         <DailyTempMainDiv>
           {" "}
           <SevenDaysDiv>
-            {weatherSeven.map((item: any) => (
-              <DailyTempContainer key={item.date}>
+            {weatherSeven.map((item: IWeatherDay) => (
+              <DailyTempContainer key={item.date.getDay()}>
                 <DailyTempCardBox
                   themestyles={themeContextData.stylesForTheme}
                   themetype={themeContextData.currentTheme}
@@ -141,8 +143,8 @@ export const WeeklyForecast = () => {
             </SevenDaysButton>
           </div>
           <FourteenDaysDiv dayAmount={dayAmount}>
-            {weatherFourteen.map((item: any) => (
-              <DailyTempContainer key={item.date}>
+            {weatherFourteen.map((item: IWeatherDay) => (
+              <DailyTempContainer key={item.date.getDay()}>
                 <DailyTempCardBox
                   themestyles={themeContextData.stylesForTheme}
                   themetype={themeContextData.currentTheme}
@@ -155,7 +157,6 @@ export const WeeklyForecast = () => {
                       <h5> {item.date.getDate()}</h5>
                     </DailyTempDayDiv>
                   </DailyTempCardTopDiv>
-
                   <DailyTempImgDiv>
                     <WeathercodeImgDaily
                       weathercode={item.weathercode}
@@ -163,7 +164,6 @@ export const WeeklyForecast = () => {
                       alt="weathercode_img"
                     ></WeathercodeImgDaily>
                   </DailyTempImgDiv>
-
                   <DailyTempCardTemperatureBox>
                     <DailyTempMaxTempDiv>
                       <h4>max: {item.temperatureMax} °C</h4>
@@ -184,8 +184,8 @@ export const WeeklyForecast = () => {
             ))}
           </FourteenDaysDiv>
           <AdaptivePhoneDiv>
-            {weatherPhone.map((item: any) => (
-              <DailyTempContainer key={item.date}>
+            {weatherPhone.map((item: IWeatherDay) => (
+              <DailyTempContainer key={item.date.getDay()}>
                 <DailyTempCardBox
                   themestyles={themeContextData.stylesForTheme}
                   themetype={themeContextData.currentTheme}

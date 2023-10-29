@@ -1,14 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CircularProgress } from "@mui/material";
 import { useDebounce } from "usehooks-ts";
 
 import {
   fetchSearchLocation,
   setSelectedCity,
 } from "../../redux/reducers/APIreducer";
+import { CityInterface } from "../../redux/reducers/reducerTypes";
 import { AppDispatch, StoreType } from "../../redux/store";
+import { IThemeContext } from "../../theme/theme";
+import { useThemeContext } from "../../theme/themeContext";
+import { getItem, setItem } from "../utility/storeLS/storeLS";
+import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 
 import { Clock } from "./clock";
+import { OptionCitiesButton } from "./optionCity";
 import {
   CityNameDiv,
   CurrentWeatherIcon,
@@ -17,13 +24,6 @@ import {
   SearchLocationContainer,
   SearchLocationInput,
 } from "./searchLocation.Styled";
-import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
-import { CircularProgress } from "@mui/material";
-import { useThemeContext } from "../../theme/themeContext";
-import { IThemeContext } from "../../theme/theme";
-import { getItem, setItem } from "../utility/storeLS/storeLS";
-import { OptionCitiesButton } from "./optionCity";
-import { CityInterface } from "../../redux/reducers/reducerTypes";
 
 interface IFavoriteCities {
   [id: number]: CityInterface;
@@ -34,14 +34,14 @@ export const SearchLocation = () => {
 
   const [search, setSearch] = useState<string>("");
   const cityOptions = useSelector(
-    (state: StoreType) => state.daysForecastReducer.citiesOptions
+    (state: StoreType) => state.daysForecastReducer.citiesOptions,
   );
   const searchStateDebounce = useDebounce<string>(search, delay);
   const selectedCity: CityInterface = useSelector(
-    (state: StoreType) => state.daysForecastReducer.selectedCity
+    (state: StoreType) => state.daysForecastReducer.selectedCity,
   );
   const currentWeather = useSelector(
-    (state: StoreType) => state.daysForecastReducer.currentWeather
+    (state: StoreType) => state.daysForecastReducer.currentWeather,
   );
 
   const [showOption, setShowOption] = useState<boolean>(true);
@@ -60,7 +60,7 @@ export const SearchLocation = () => {
     }, delay);
   };
   const { loadingSearch, error } = useSelector(
-    (state: StoreType) => state.daysForecastReducer
+    (state: StoreType) => state.daysForecastReducer,
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -91,7 +91,7 @@ export const SearchLocation = () => {
   };
 
   const handleSearchKeyDown = (
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (event.key === "Enter" && cityOptions.length !== 0) {
       chooseCity(cityOptions[0]);
@@ -172,6 +172,7 @@ export const SearchLocation = () => {
                 Object.values(favoriteCities)
                   .slice(0, 2)
                   .map((city: CityInterface) => (
+                    // eslint-disable-next-line react/jsx-key
                     <OptionCitiesButton
                       city={city}
                       themeContext={themeContextData}

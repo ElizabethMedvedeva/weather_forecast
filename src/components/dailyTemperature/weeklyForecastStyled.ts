@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
-import { ForecastDayAmount } from "./weeklyForecast";
+
 import { Theme, themetype } from "../../theme/theme";
+
+import { ForecastDayAmount } from "./weeklyForecast";
 interface IDayAmount {
   dayAmount: ForecastDayAmount;
 }
@@ -15,7 +17,6 @@ export const WeeklyContainer = styled.div`
 export const SevenDaysDiv = styled.div`
   display: flex;
   flex-direction: row;
-
   @media (max-width: 960px) {
     display: none;
   }
@@ -67,7 +68,6 @@ export const DailyTempCardBox = styled.div<StyledInterface>`
   @media (max-width: 670px) {
     width: 150px;
   }
-
   h5 {
     font-size: 30px;
     @media (max-width: 1890px) {
@@ -196,7 +196,6 @@ export const SevenDaysButton = styled.button<IDayAmount & StyledInterface>`
   font-size: 40px;
   opacity: 0.2;
   transition: opacity 0.3s;
-
   &:hover {
     opacity: 1;
   }

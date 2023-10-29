@@ -21,6 +21,6 @@ export const getWindDirection = (windDirection: number) => {
     return { direction: "NW", rotate: 315 };
   throw new Error(
     `Unexpected wind direction, it must be from 0 to 359 degrees.,
-        ${windDirection}`
+        ${windDirection}`,
   );
 };

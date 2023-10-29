@@ -1,10 +1,12 @@
 import { styled } from "styled-components";
+
 import { Theme, themetype } from "../../theme/theme";
 
 interface StyledInterface {
   themestyles: Theme;
   themetype: themetype;
 }
+
 export const GeneralContainer = styled.div<StyledInterface>`
   display: flex;
   background-image: ${({ themestyles }) => themestyles.backgroundImage};

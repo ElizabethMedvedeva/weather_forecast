@@ -1,5 +1,6 @@
-import { ThemeContextProvider } from "./theme/themeContext";
 import { General } from "./components/general/general";
+import { ThemeContextProvider } from "./theme/themeContext";
+
 import "./App.css";
 
 function App() {

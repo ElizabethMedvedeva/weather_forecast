@@ -1,5 +1,7 @@
 import styled from "styled-components";
+
 import { Theme, themetype } from "../../theme/theme";
+
 interface StyledInterface {
   themestyles: Theme;
   themetype: themetype;
@@ -55,6 +57,7 @@ export const SunTimeDiv = styled.div`
     padding: 0;
   }
 `;
+
 export const SunTimeInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,6 +66,7 @@ export const SunTimeInfo = styled.div`
     font-size: 15px;
   }
 `;
+
 export const TodaysHighlightsIcon = styled.img`
   height: auto;
   width: 75px;
@@ -90,6 +94,7 @@ export const TemperatureDiv = styled.div<StyledInterface>`
     }
   }
 `;
+
 export const WeatherDetailsSet = styled.div`
   display: flex;
   flex-direction: row;
@@ -123,6 +128,7 @@ export const WeatherDetailsDiv = styled.div`
     }
   }
 `;
+
 export const WeatherDetailsIcon = styled.img`
   height: auto;
   max-width: 60px;
