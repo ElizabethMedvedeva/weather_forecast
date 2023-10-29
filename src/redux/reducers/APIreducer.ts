@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import moment from "moment";
 
 import {
   axiosApiInstanceGeo,
@@ -9,133 +8,17 @@ import {
   APIInitialState,
   CityInterface,
   daysForecastType,
-  HourInterface,
   HourlyForecastArray,
   IForecastParams,
   ITodayHighlight,
-  IWeatherDay,
   OptionCities,
 } from "./reducerTypes";
-
-const FillWeeklyForecast = (serverResponse: any) => {
-  const weatherModel: daysForecastType = [];
-  const daily = serverResponse.daily;
-
-  for (let i = 0; i < daily.time.length; i++) {
-    const day: IWeatherDay = {
-      date: new Date(daily.time[i]),
-      temperatureMax: daily.temperature_2m_max[i],
-      temperatureMin: daily.temperature_2m_min[i],
-      uvIndexMax: daily.uv_index_max[i],
-      weathercode: daily.weathercode[i],
-    };
-    weatherModel.push(day);
-  }
-  return weatherModel;
-};
-
-export const fillHightlightsData = (serverResponse: any, timezone: string) => {
-  const currentCityTime = moment().tz(timezone);
-  let timeIndex = serverResponse.hourly.time.length;
-  for (let i = 0; i < serverResponse.hourly.time.length; i++) {
-    const time = moment.tz(serverResponse.hourly.time[i], timezone);
-    if (time >= currentCityTime) {
-      timeIndex = i;
-      break;
-    }
-  }
-  const object: ITodayHighlight = {
-    sunrise: moment(serverResponse.daily.sunrise[0]).toString(),
-    sunset: moment(serverResponse.daily.sunset[0]).toString(),
-    uvIndex: serverResponse.daily.uv_index_max[0],
-    sunriseTime: moment(serverResponse.daily.sunrise[0]).format("HH:mm"),
-    sunsetTime: moment(serverResponse.daily.sunset[0]).format("HH:mm"),
-    humidity: serverResponse.hourly.relativehumidity_2m[timeIndex],
-    pressure: serverResponse.hourly.surface_pressure[timeIndex],
-    temperature: Math.round(serverResponse.current_weather.temperature),
-    windSpeed: serverResponse.current_weather.windspeed,
-  };
-
-  return object;
-};
-
-export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
-  const hourlyForecast: HourlyForecastArray = [];
-  const hourly = serverResponse.hourly;
-  for (let i = 0; i < hourly.time.length; i++) {
-    const date = moment.tz(serverResponse.hourly.time[i], timezone);
-    const hourForecast: HourInterface = {
-      date: date.toString(),
-      time: date.format("HH:mm"),
-      windDirection: serverResponse.hourly.winddirection_10m[i],
-      windGusts: serverResponse.hourly.windgusts_10m[i],
-      temperature: serverResponse.hourly.temperature_2m[i],
-      weathercode: serverResponse.hourly.weathercode[i],
-    };
-
-    hourlyForecast.push(hourForecast);
-  }
-  return hourlyForecast;
-};
-const getFiveRelevant = (
-  unsortedHourlyForecast: HourlyForecastArray,
-  timezone: string
-) => {
-  const hourlyForecast = unsortedHourlyForecast.slice();
-  const filteredHourlyForecast = hourlyForecast.filter(
-    (item) => moment(item.date).tz(timezone).hour() % 3 === 0
-  );
-  const currentCityTime = moment().tz(timezone);
-  for (let i = 0; i < filteredHourlyForecast.length; i++) {
-    const forecastTime = moment(filteredHourlyForecast[i].date);
-    if (forecastTime >= currentCityTime) {
-      i -= 1;
-      if (filteredHourlyForecast.length - i < 5) {
-        i = filteredHourlyForecast.length - 5;
-      }
-      return filteredHourlyForecast.slice(i, i + 5);
-    }
-  }
-  return filteredHourlyForecast.slice(filteredHourlyForecast.length - 5);
-};
-
-const getCurrentWeather = (
-  unsortedHourlyForecast: HourlyForecastArray,
-  timezone: string
-) => {
-  const currentCityTime = moment().tz(timezone);
-
-  const hourlyForecast = unsortedHourlyForecast.slice();
-
-  for (let i = 0; i < hourlyForecast.length; i++) {
-    const forecastTime = moment(hourlyForecast[i].date);
-    if (forecastTime.hour() === currentCityTime.hour()) {
-      return hourlyForecast[i].weathercode;
-    }
-  }
-  throw new Error("Unexpected time");
-};
-
-export const optionCitySearch = (serverResponse: any): OptionCities => {
-  if (!serverResponse || !serverResponse.results) {
-    return [];
-  }
-  const optionCitySearch = [];
-  const optionCity = serverResponse.results;
-  const iterationCount = Math.min(3, optionCity.length);
-  for (let i = 0; i < iterationCount; i++) {
-    const allCityOptions = {
-      name: optionCity[i].name,
-      country: optionCity[i].country,
-      latitude: optionCity[i].latitude,
-      longitude: optionCity[i].longitude,
-      timezone: optionCity[i].timezone,
-      id: optionCity[i].id,
-    };
-    optionCitySearch.push(allCityOptions);
-  }
-  return optionCitySearch;
-};
+import { optionCitySearch } from "../../api/optionCitySearchFunc";
+import { FillWeeklyForecast } from "../../api/weeklyForecastFunc";
+import { fillHightlightsData } from "../../api/highlightsDataFunc";
+import { FillHourlyForecast } from "../../api/hourlyForecastFunc";
+import { getFiveRelevant } from "../../api/getFiveRelevantFunc";
+import { getCurrentWeather } from "../../api/getCurrentWeatherFunc";
 
 const initialState: APIInitialState = {
   weeklyForecast: [],
