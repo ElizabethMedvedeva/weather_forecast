@@ -18,6 +18,7 @@ export const SideHeaderDiv = styled.div`
 export const SideHeaderIconDiv = styled.div`
   padding: 50px 10px;
   max-width: 84px;
+  margin: 0 auto;
   @media (max-width: 656px) {
     padding: 10px;
     max-width: 44px;
