@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  CityInterface,
-  fetchTodaysHightlights,
-  ITodayHighlight,
-} from "../../redux/reducers/APIreducer";
+import { fetchTodaysHightlights } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
 
 import {
@@ -23,6 +19,10 @@ import {
 } from "./todaysHighlights.Styled";
 import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
+import {
+  CityInterface,
+  ITodayHighlight,
+} from "../../redux/reducers/reducerTypes";
 
 export const TodaysHightlights = () => {
   const themeContextData: IThemeContext = useThemeContext();
@@ -50,13 +50,13 @@ export const TodaysHightlights = () => {
       })
     );
   }, [selectedCity]);
-console.log(todaysHighlights?.humidity, "dkcmdk")
+  console.log(todaysHighlights?.humidity, "dkcmdk");
   return (
     <TodaysHightlightsContainer
       themeStyles={themeContextData.stylesForTheme}
       themeType={themeContextData.currentTheme}
     >
-      <h1>{"Today's hilights"}</h1>
+      <h1>{"Today's highlights"}</h1>
       {error ? (
         <p>Error: {error}</p>
       ) : (

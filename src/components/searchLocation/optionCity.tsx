@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { CityInterface } from "../../redux/reducers/APIreducer";
 import { IThemeContext } from "../../theme/theme";
 import {
   FavoritveBtn,
   StyledOptionCitiesButton,
 } from "./searchLocation.Styled";
+import { CityInterface } from "../../redux/reducers/reducerTypes";
 
 interface IOptionCityButton {
   city: CityInterface;

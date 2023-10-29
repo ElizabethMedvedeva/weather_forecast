@@ -1,10 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  CityInterface,
-  fetchHourlyForecast,
-} from "../../redux/reducers/APIreducer";
+import { fetchHourlyForecast } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
 import {
   Weathercode,
@@ -26,6 +23,7 @@ import {
 } from "./hourlyForecastStyled";
 import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
+import { CityInterface } from "../../redux/reducers/reducerTypes";
 
 export const HourlyForecast = () => {
   const themeContextData: IThemeContext = useThemeContext();

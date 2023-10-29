@@ -5,20 +5,21 @@ import {
   axiosApiInstanceGeo,
   axiosApiInstanceMeteo,
 } from "../../api/axiosConfig";
+import {
+  APIInitialState,
+  CityInterface,
+  daysForecastType,
+  HourInterface,
+  HourlyForecastArray,
+  IForecastParams,
+  ITodayHighlight,
+  IWeatherDay,
+  OptionCities,
+} from "./reducerTypes";
 
-interface IWeatherDay {
-  date: Date;
-  temperatureMax: number;
-  temperatureMin: number;
-  uvIndexMax: number;
-  weathercode: number;
-}
-
-export type daysForecastType = Array<IWeatherDay>;
-
-const FillWeeklyForecast = (APIobj: any) => {
+const FillWeeklyForecast = (serverResponse: any) => {
   const weatherModel: daysForecastType = [];
-  const daily = APIobj.daily;
+  const daily = serverResponse.daily;
 
   for (let i = 0; i < daily.time.length; i++) {
     const day: IWeatherDay = {
@@ -32,18 +33,6 @@ const FillWeeklyForecast = (APIobj: any) => {
   }
   return weatherModel;
 };
-
-export interface ITodayHighlight {
-  sunrise: string;
-  sunset: string;
-  sunsetTime: string;
-  sunriseTime: string;
-  uvIndex: number;
-  humidity: number;
-  pressure: number;
-  windSpeed: number;
-  temperature: number;
-}
 
 export const fillHightlightsData = (serverResponse: any, timezone: string) => {
   const currentCityTime = moment().tz(timezone);
@@ -69,17 +58,6 @@ export const fillHightlightsData = (serverResponse: any, timezone: string) => {
 
   return object;
 };
-
-export interface HourInterface {
-  temperature: number;
-  windDirection: number;
-  windGusts: number;
-  weathercode: number;
-  time: string;
-  date: any;
-}
-
-export type HourlyForecastArray = Array<HourInterface>;
 
 export const FillHourlyForecast = (serverResponse: any, timezone: string) => {
   const hourlyForecast: HourlyForecastArray = [];
@@ -138,17 +116,6 @@ const getCurrentWeather = (
   throw new Error("Unexpected time");
 };
 
-export interface CityInterface {
-  name: string;
-  latitude: number;
-  longitude: number;
-  timezone: string;
-  country: string;
-  id: number;
-}
-
-export type OptionCities = Array<CityInterface>;
-
 export const optionCitySearch = (serverResponse: any): OptionCities => {
   if (!serverResponse || !serverResponse.results) {
     return [];
@@ -168,20 +135,6 @@ export const optionCitySearch = (serverResponse: any): OptionCities => {
     optionCitySearch.push(allCityOptions);
   }
   return optionCitySearch;
-};
-
-type APIInitialState = {
-  weeklyForecast: daysForecastType;
-  todaysHightLights: ITodayHighlight | null;
-  hourlyForecast: HourlyForecastArray;
-  fiveRelevantHours: HourlyForecastArray;
-  loading: boolean;
-  loadingSearch: boolean;
-  error: any; // TODO vernemsya
-  search: string;
-  selectedCity: CityInterface;
-  citiesOptions: OptionCities;
-  currentWeather: number;
 };
 
 const initialState: APIInitialState = {
@@ -204,11 +157,7 @@ const initialState: APIInitialState = {
   citiesOptions: [],
   currentWeather: 0,
 };
-interface IForecastParams {
-  latitude: number;
-  longitude: number;
-  timezone: string;
-}
+
 export const fetchWeeklyForecast = createAsyncThunk(
   "weeklyForecastData",
 
@@ -292,7 +241,7 @@ export const APISlice = createSlice({
     setOptionCitySearch: (state, action: PayloadAction<OptionCities>) => {
       state.citiesOptions = action.payload;
     },
-    setCurrentWeather: (state, action: PayloadAction<any>) => {
+    setCurrentWeather: (state, action: PayloadAction<number>) => {
       state.currentWeather = action.payload;
     },
   },

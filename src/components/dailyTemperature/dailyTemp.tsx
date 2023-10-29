@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  CityInterface,
-  daysForecastType,
-  fetchWeeklyForecast,
-} from "../../redux/reducers/APIreducer";
+import { fetchWeeklyForecast } from "../../redux/reducers/APIreducer";
 import { AppDispatch, StoreType } from "../../redux/store";
-import {
-  Weathercode,
-  WeathercodeImg,
-  WeathercodeImgDaily,
-} from "../utility/weathercode/weathercode.Styled";
+import { WeathercodeImgDaily } from "../utility/weathercode/weathercode.Styled";
 import { getImageByWeathercode } from "../utility/weathercode/weatherImages";
 import {
   AdaptivePhoneDiv,
@@ -34,6 +26,10 @@ import {
 } from "./dailyTempStyled";
 import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
+import {
+  CityInterface,
+  daysForecastType,
+} from "../../redux/reducers/reducerTypes";
 
 export type ForecastDayAmount = "Seven" | "Fourteen";
 

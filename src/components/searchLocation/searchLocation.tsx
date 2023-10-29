@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "usehooks-ts";
 
 import {
-  CityInterface,
   fetchSearchLocation,
   setSelectedCity,
 } from "../../redux/reducers/APIreducer";
@@ -24,6 +23,7 @@ import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
 import { getItem, setItem } from "../utility/storeLS/storeLS";
 import { OptionCitiesButton } from "./optionCity";
+import { CityInterface } from "../../redux/reducers/reducerTypes";
 
 interface IFavoriteCities {
   [id: number]: CityInterface;
@@ -90,14 +90,16 @@ export const SearchLocation = () => {
     setSearch("");
   };
 
-  const handleSearchKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSearchKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (event.key === "Enter" && cityOptions.length !== 0) {
       chooseCity(cityOptions[0]);
       searchInput.current?.blur();
     }
   };
   const handleInputBlur = (event: any) => {
-    setTimeout(() => setShowOption(false), 100)
+    setTimeout(() => setShowOption(false), 100);
   };
   const handleInputChangeClick = (event: any) => {
     const dataset = event.target.dataset;
