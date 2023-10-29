@@ -21,11 +21,11 @@ export const General = () => {
       themetype={themeContextData.currentTheme}
     >
       <LoaderDiv>{loading && <CircularProgress size={"150px"} />}</LoaderDiv>
-      <Router>
+      <Router basename="/weather_forecast/">
         <SideHeader />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/weeeklyForecast" element={<WeeklyForecast />} />
+          <Route path="/weeeklyForecast/" element={<WeeklyForecast />} />
           <Route path="*" element={<NotFoundComponent />} />
         </Routes>
       </Router>
