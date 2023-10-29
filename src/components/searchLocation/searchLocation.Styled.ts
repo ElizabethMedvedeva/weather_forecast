@@ -36,7 +36,7 @@ export const SearchLocationInput = styled.input<StyledInterface>`
   text-align: center;
   width: 180px;
   margin-top: 40px;
-  & ::placeholder {
+  &::placeholder {
     color: ${({ themestyles }) => themestyles.text};
   }
 `;

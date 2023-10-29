@@ -37,12 +37,8 @@ export const WeeklyForecast = () => {
   const themeContextData: IThemeContext = useThemeContext();
   const [dayAmount, setDayAmount] = useState<ForecastDayAmount>("Seven");
   const changeForecastDateAmount = () => {
-    if (dayAmount === "Seven") {
-      setDayAmount("Fourteen");
-    }
-    if (dayAmount === "Fourteen") {
-      setDayAmount("Seven");
-    }
+    const value = dayAmount === "Seven" ? "Fourteen" : "Seven";
+    setDayAmount(value);
   };
   const weather: daysForecastType = useSelector(
     (state: StoreType) => state.daysForecastReducer.weeklyForecast
