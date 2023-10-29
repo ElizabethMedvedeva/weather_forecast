@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDebounce } from "usehooks-ts";
 
@@ -49,20 +49,6 @@ export const SearchLocation = () => {
 
   const [favoriteCities, setFavoriteCities] = useState<IFavoriteCities>({});
 
-  useEffect(() => {
-    let favoriteCitiesLS = getItem("favoriteCities");
-    if (favoriteCitiesLS === null) {
-      favoriteCitiesLS = {};
-    }
-    setFavoriteCities(favoriteCitiesLS);
-  }, []);
-
-  useEffect(() => {
-    setItem("favoriteCities", favoriteCities);
-  }, [favoriteCities]);
-
-  const dispatch = useDispatch<AppDispatch>();
-
   const handleInputChange = (event: any) => {
     setSearch(event.target.value);
     setTimeout(() => {
@@ -76,6 +62,19 @@ export const SearchLocation = () => {
   const { loadingSearch, error } = useSelector(
     (state: StoreType) => state.daysForecastReducer
   );
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    let favoriteCitiesLS = getItem("favoriteCities");
+    if (favoriteCitiesLS === null) {
+      favoriteCitiesLS = {};
+    }
+    setFavoriteCities(favoriteCitiesLS);
+  }, []);
+
+  useEffect(() => {
+    setItem("favoriteCities", favoriteCities);
+  }, [favoriteCities]);
 
   useEffect(() => {
     if (searchStateDebaunse.length > 1) {
@@ -84,18 +83,32 @@ export const SearchLocation = () => {
     }
   }, [searchStateDebaunse]);
 
+  const searchInput = useRef<HTMLInputElement | null>(null);
+
+  const chooseCity = (city: CityInterface) => {
+    dispatch(setSelectedCity(city));
+    setSearch("");
+  };
+
+  const handleSearchKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && cityOptions.length !== 0) {
+      chooseCity(cityOptions[0]);
+      searchInput.current?.blur();
+    }
+  };
+  const handleInputBlur = (event: any) => {
+    setTimeout(() => setShowOption(false), 100)
+  };
   const handleInputChangeClick = (event: any) => {
     const dataset = event.target.dataset;
     for (const city of [...cityOptions, ...Object.values(favoriteCities)]) {
       if (city.id === Number(dataset.id)) {
-        dispatch(setSelectedCity(city));
-        setSearch("");
+        chooseCity(city);
         break;
       }
     }
-
-    setShowOption(false);
   };
+
   const AddToFavorite = (event: any) => {
     const independFavoriteCities = { ...favoriteCities };
     const dataset = event.target.dataset;
@@ -114,14 +127,13 @@ export const SearchLocation = () => {
       }
     }
   };
-
-  const showFavoritesFunc = (event: any) => {
-    console.log("in focus");
-    if (event.target.value) {
+  const handleInputFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (searchInput.current?.value) {
       setShowFavorites(false);
     } else {
       setShowFavorites(true);
     }
+    setShowOption(true);
   };
 
   return (
@@ -137,10 +149,13 @@ export const SearchLocation = () => {
             themeStyles={themeContextData.stylesForTheme}
             themeType={themeContextData.currentTheme}
             value={search}
+            ref={searchInput}
             placeholder="Search city"
             type="text"
             onChange={handleInputChange}
-            onFocus={showFavoritesFunc}
+            onFocus={handleInputFocus}
+            onKeyDown={handleSearchKeyDown}
+            onBlur={handleInputBlur}
           />
           <LoadingSearchDiv>
             {loadingSearch && <CircularProgress size={"17px"} />}
