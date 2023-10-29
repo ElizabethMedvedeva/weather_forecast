@@ -16,12 +16,15 @@ export const HourlyForecastDiv = styled.div<StyledInterface>`
     font-size: 35px;
   }
   @media (max-width: 1064px) {
-   h1{
-    font-size: 25px;
-   } 
-   @media (max-width: 965px) {
-    height: 340px;
-  }
+    h1 {
+      font-size: 25px;
+    }
+    @media (max-width: 965px) {
+      height: 340px;
+    }
+    @media (max-width: 584px) {
+      height: 870px;
+    }
   }
 `;
 export const HourlyContainer = styled.div`
@@ -36,14 +39,17 @@ export const HourlyContainer = styled.div`
     padding: 2px 0;
   }
   @media (max-width: 1064px) {
-   h3{
-    font-size: 15px;
-   } 
-   @media (max-width: 733px) {
-    h4{
-      font-size: 12px;
+    h3 {
+      font-size: 15px;
     }
-  }
+    @media (max-width: 733px) {
+      h4 {
+        font-size: 12px;
+      }
+    }
+    @media (max-width: 584px) {
+      flex-direction: column;
+    }
   }
 `;
 export const HourContainer = styled.div<StyledInterface>`
@@ -58,5 +64,27 @@ export const HourContainer = styled.div<StyledInterface>`
     height: 250px;
     border-radius: 35px;
     padding: 10px 15px;
+  }
+  @media (max-width: 584px) {
+    height: 140px;
+    margin: 10px;
+  }
+`;
+
+export const HourDataDiv = styled.div`
+  @media (max-width: 584px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+`;
+export const HourWeatherDiv = styled.div`
+  @media (max-width: 584px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h4 {
+      margin-top: 10px;
+    }
   }
 `;

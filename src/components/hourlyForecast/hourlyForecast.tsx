@@ -19,8 +19,10 @@ import {
 
 import {
   HourContainer,
+  HourDataDiv,
   HourlyContainer,
   HourlyForecastDiv,
+  HourWeatherDiv,
 } from "./hourlyForecastStyled";
 import { useThemeContext } from "../../theme/themeContext";
 import { IThemeContext } from "../../theme/theme";
@@ -67,24 +69,30 @@ export const HourlyForecast = () => {
               key={index}
             >
               <h3>{item.time}</h3>
-              <Weathercode>
-                <WeathercodeImg
-                  weathercode={item.weathercode}
-                  src={getImageByWeathercode(item.weathercode)}
-                  alt="weathercode_img"
-                ></WeathercodeImg>
-              </Weathercode>
+              <HourDataDiv>
+                <HourWeatherDiv>
+                  <Weathercode>
+                    <WeathercodeImg
+                      weathercode={item.weathercode}
+                      src={getImageByWeathercode(item.weathercode)}
+                      alt="weathercode_img"
+                    ></WeathercodeImg>
+                  </Weathercode>
 
-              <h4>{item.temperature}°C</h4>
-              <WindDirectionDiv>
-                <WindDirectionImg
-                  rotate={getWindDirection(item.windDirection).rotate}
-                  src={"assets/wind_direction.png"}
-                  alt="arrow"
-                ></WindDirectionImg>
-                <h4>{getWindDirection(item.windDirection).direction}</h4>
-              </WindDirectionDiv>
-              <h4> {item.windGusts} km/h</h4>
+                  <h4>{item.temperature}°C</h4>
+                </HourWeatherDiv>
+                <div>
+                  <WindDirectionDiv>
+                    <WindDirectionImg
+                      rotate={getWindDirection(item.windDirection).rotate}
+                      src={"assets/wind_direction.png"}
+                      alt="arrow"
+                    ></WindDirectionImg>
+                    <h4>{getWindDirection(item.windDirection).direction}</h4>
+                  </WindDirectionDiv>
+                  <h4> {item.windGusts} km/h</h4>
+                </div>
+              </HourDataDiv>
             </HourContainer>
           ))
         )}
