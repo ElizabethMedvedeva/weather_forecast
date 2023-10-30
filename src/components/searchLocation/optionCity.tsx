@@ -20,13 +20,6 @@ export const OptionCitiesButton = ({
   favoriteInputHandler,
   marked,
 }: IOptionCityButton) => {
-  const [showFavoriteButton, setShowFavoriteButton] = useState<boolean>(marked);
-
-  const setShowFavoriteButtonFunc = (event: React.MouseEvent<HTMLElement>) => {
-    setShowFavoriteButton(!showFavoriteButton);
-    favoriteInputHandler(event);
-  };
-
   return (
     <>
       <div style={{ position: "relative" }}>
@@ -39,18 +32,18 @@ export const OptionCitiesButton = ({
         >
           {city.name} / {city.country}
         </StyledOptionCitiesButton>
-        {showFavoriteButton ? (
+        {marked ? (
           <FavoriteBtn
             key={`button-${city.id}`}
             data-id={city.id}
-            onClick={setShowFavoriteButtonFunc}
+            onClick={favoriteInputHandler}
             className="icon-heart-fill"
           />
         ) : (
           <FavoriteBtn
             key={`button-${city.id}`}
             data-id={city.id}
-            onClick={setShowFavoriteButtonFunc}
+            onClick={favoriteInputHandler}
             className="icon-heart-stroke"
           />
         )}
